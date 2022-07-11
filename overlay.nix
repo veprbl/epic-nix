@@ -2,6 +2,8 @@ final: prev: with final; {
 
   edm4hep = callPackage pkgs/edm4hep/default.nix {};
 
+  eicd = callPackage pkgs/eicd/default.nix {};
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
