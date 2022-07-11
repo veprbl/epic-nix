@@ -6,6 +6,14 @@ final: prev: with final; {
     ];
   });
 
+  dd4hep = callPackage pkgs/dd4hep/default.nix {
+    geant4 = geant4.overrideAttrs (prev: {
+      cmakeFlags = prev.cmakeFlags ++ [
+        "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
+      ];
+    });
+  };
+
   podio = callPackage pkgs/podio/default.nix {};
 
 }
