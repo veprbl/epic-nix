@@ -6,6 +6,14 @@
 , root
 }:
 
+let
+
+  # instead of adding python3 and packages to propagatedNativeBuildInputs,
+  # let's hardcode a wrapped python into the specific scripts
+  python = python3.withPackages (pkgs: with pkgs; [ jinja2 pyyaml ]);
+
+in
+
 stdenv.mkDerivation rec {
   pname = "podio";
   version = "00-14-03";
@@ -21,13 +29,27 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
-    python3
+    python
     root
   ];
+
+  # See comment above
+  postPatch = ''
+    substituteInPlace cmake/podioMacros.cmake \
+      --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
+  '';
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
   ];
+
+  # Calls via shebang are not advertised/used by upstream, but let's cover that
+  # case as well
+  postInstall = ''
+    # need to chmod for patchShebangs
+    chmod +x "$out"/python/podio_class_generator.py
+    patchShebangs --host "$out"/python/podio_class_generator.py
+  '';
 
   meta = with lib; {
     description = "A C++ library to support the creation and handling of data models in particle physics";
