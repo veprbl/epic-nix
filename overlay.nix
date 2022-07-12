@@ -4,9 +4,17 @@ final: prev: with final; {
 
   eicd = callPackage pkgs/eicd/default.nix {};
 
+  gaudi = callPackage pkgs/gaudi/default.nix {
+    inherit (darwin.apple_sdk.frameworks) Foundation;
+  };
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
+      "-Dssl=ON" # for Gaudi
+    ];
+    buildInputs  = prev.buildInputs ++ [
+      openssl
     ];
   });
 
