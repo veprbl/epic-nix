@@ -18,6 +18,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-ssrVoPXWF24O0D0m2LTz//UOE5o3X/KDcqSelYRJaKg=";
   };
 
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    substituteInPlace cmake/EDM4HEPBuild.cmake \
+      --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
+      --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
+  '';
+
   nativeBuildInputs = [
     cmake
   ];

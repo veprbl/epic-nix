@@ -37,6 +37,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace cmake/podioMacros.cmake \
       --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace cmake/podioBuild.cmake \
+      --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
+      --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
   '';
 
   cmakeFlags = [

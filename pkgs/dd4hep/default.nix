@@ -19,6 +19,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Bl3QO87n+R8gJ3B6+n2IZ7NTzlwbafXDAviyX3Q4IT0=";
   };
 
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    substituteInPlace cmake/DD4hepBuild.cmake \
+      --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
+      --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
