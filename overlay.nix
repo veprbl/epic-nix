@@ -12,6 +12,8 @@ final: prev: with final; {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
+  genfit = callPackage pkgs/genfit {};
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
