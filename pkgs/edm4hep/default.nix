@@ -4,6 +4,7 @@
 , hepmc
 , cmake
 , podio
+, python3
 , root
 }:
 
@@ -26,6 +27,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    python3
   ];
   buildInputs = [
     podio

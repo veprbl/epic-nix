@@ -4,6 +4,7 @@
 , cmake
 , edm4hep
 , podio
+, python3
 , root
 }:
 
@@ -20,6 +21,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    python3
   ];
   buildInputs = [
     edm4hep
