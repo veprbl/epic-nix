@@ -14,6 +14,8 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
+  juggler = callPackage pkgs/juggler/default.nix {};
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
