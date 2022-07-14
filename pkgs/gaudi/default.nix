@@ -16,8 +16,6 @@
 , tbb
 , xercesc
 , zlib
-, llvmPackages_13
-, gccStdenv
 , Foundation
 }:
 
@@ -40,7 +38,7 @@ stdenv.mkDerivation rec {
   };
 
   patches = [
-    # fix for libc++ 11
+    # fix for libc++
     (fetchpatch {
       url = "https://gitlab.cern.ch/gaudi/Gaudi/-/commit/d7aaac403909b52eb81ec06ff692dc758c47d8ae.diff";
       revert = true;
@@ -77,7 +75,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DCMAKE_SKIP_BUILD_RPATH=OFF" # until the lands https://github.com/NixOS/nixpkgs/pull/108496
+    "-DCMAKE_SKIP_BUILD_RPATH=OFF" # until this lands https://github.com/NixOS/nixpkgs/pull/108496
     "-DGAUDI_CXX_STANDARD=17"
     "-DGAUDI_USE_AIDA=FALSE"
     "-DGAUDI_USE_CLHEP=FALSE"
