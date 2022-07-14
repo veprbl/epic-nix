@@ -1,5 +1,7 @@
 final: prev: with final; {
 
+  acts-dd4hep = callPackage pkgs/acts-dd4hep {};
+
   edm4hep = callPackage pkgs/edm4hep/default.nix {};
 
   eicd = callPackage pkgs/eicd/default.nix {};
