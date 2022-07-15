@@ -14,6 +14,8 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
+  jana2 = callPackage pkgs/jana2 {};
+
   juggler = callPackage pkgs/juggler/default.nix {};
 
   root = prev.root.overrideAttrs (prev: {
