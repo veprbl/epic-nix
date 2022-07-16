@@ -38,6 +38,11 @@ stdenv.mkDerivation rec {
     "-DXercesC_DIR=${xercesc}"
   ];
 
+  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isDarwin [
+    # error: aligned allocation function of type '...' is only available on macOS 10.14 or newer
+    "-faligned-allocation"
+  ];
+
   meta = with lib; {
     description = "Multi-threaded HENP Event Reconstruction";
     longDescription = ''
