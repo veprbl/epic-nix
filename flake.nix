@@ -20,7 +20,12 @@
       packages = lib.genAttrs supportedSystems
         (system:
           let
-            pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.default ]; };
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ self.overlays.default ];
+              # Will assume that the flake user agrees to use non-free EIC software
+              config.allowUnfreePredicate = pkg: builtins.elem pkg.pname [ "athena" "ecce" "ip6" ];
+            };
             providedPackageList = builtins.attrNames (self.overlays.default {} {});
           in
             lib.getAttrs providedPackageList pkgs);
