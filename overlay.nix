@@ -12,6 +12,8 @@ final: prev: with final; {
 
   eicd = callPackage pkgs/eicd {};
 
+  eicrecon = callPackage pkgs/eicrecon {};
+
   gaudi = callPackage pkgs/gaudi {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
