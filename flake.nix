@@ -27,8 +27,11 @@
               config.allowUnfreePredicate = pkg: builtins.elem pkg.pname [ "athena" "ecce" "EICrecon" "ip6" ];
             };
             providedPackageList = builtins.attrNames (self.overlays.default {} {});
+
+            is_broken = pkg: (pkg.meta or {}).broken or false;
+            select_unbroken = lib.filterAttrs (name: pkg: !(is_broken pkg));
           in
-            lib.getAttrs providedPackageList pkgs);
+            select_unbroken (lib.getAttrs providedPackageList pkgs));
 
       checks = self.packages;
 
