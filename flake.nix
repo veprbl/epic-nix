@@ -17,12 +17,12 @@
     in
     {
 
-      inherit overlay;
+      overlays.default = overlay;
 
       packages = lib.genAttrs supportedSystems
         (system:
           let
-            pkgs = import nixpkgs { inherit system; overlays = [ self.overlay ]; };
+            pkgs = import nixpkgs { inherit system; overlays = [ self.overlays.default ]; };
           in
             lib.getAttrs providedPackages pkgs);
 
