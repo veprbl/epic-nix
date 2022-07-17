@@ -14,6 +14,8 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
+  ip6 = callPackage pkgs/ip6 {};
+
   jana2 = callPackage pkgs/jana2 {};
 
   juggler = callPackage pkgs/juggler {};
