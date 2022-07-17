@@ -46,6 +46,7 @@ stdenv.mkDerivation rec {
   NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
   meta = with lib; {
+    broken = stdenv.isDarwin; # crashes in listcomponents during build time
     description = "Concurrent Event Processor for EIC Experiments Based on the Gaudi Framework";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/eic/juggler";
