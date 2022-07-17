@@ -25,5 +25,7 @@
           in
             lib.getAttrs providedPackageList pkgs);
 
+      checks = self.packages;
+
     };
 }
