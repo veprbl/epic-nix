@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , boost
 , cmake
 , geant4
@@ -18,6 +19,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-Bl3QO87n+R8gJ3B6+n2IZ7NTzlwbafXDAviyX3Q4IT0=";
   };
+
+  patches = [
+    # fix a crash
+    (fetchpatch {
+      url = "https://github.com/AIDASoft/DD4hep/commit/b4aca82992d71d8e4e992be43ac86e13e3028362.diff";
+      hash = "sha256-dmmLVtlXfNcIg6HkXcUW1uWPUx6wLKIUJvuNkd7Ux3M=";
+    })
+  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
