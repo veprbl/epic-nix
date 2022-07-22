@@ -4,7 +4,9 @@
 , fetchpatch
 , boost
 , cmake
+, edm4hep
 , geant4
+, hepmc3
 , python3
 , root
 }:
@@ -38,7 +40,9 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
+    edm4hep
     geant4
+    hepmc3
   ];
   propagatedBuildInputs = [
     boost
@@ -56,6 +60,8 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17" # match geant4
+    "-DDD4HEP_USE_EDM4HEP=ON"
+    "-DDD4HEP_USE_HEPMC3=ON"
     "-DDD4HEP_USE_GEANT4=ON"
   ];
 
