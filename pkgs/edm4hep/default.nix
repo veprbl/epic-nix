@@ -29,8 +29,10 @@ stdenv.mkDerivation rec {
     cmake
     python3
   ];
-  buildInputs = [
+  propagatedBuildInputs = [
     podio
+  ];
+  buildInputs = [
     root
   ];
   checkInputs = [
