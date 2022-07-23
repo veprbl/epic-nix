@@ -26,10 +26,14 @@ final: prev: with final; {
 
   juggler = callPackage pkgs/juggler {};
 
-  root = prev.root.overrideAttrs (prev: {
+  root = (prev.root.override {
+    # use builtin libAfterImage until https://github.com/NixOS/nixpkgs/pull/182105
+    libAfterImage = null;
+  }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
       "-Dssl=ON" # for Gaudi
+      "-Dbuiltin_afterimage=ON"
     ];
     buildInputs  = prev.buildInputs ++ [
       openssl
