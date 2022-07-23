@@ -3,8 +3,10 @@
 , fetchFromGitLab
 , fetchFromGitHub
 , fetchpatch
+, aida
 , boost
 , cmake
+, clhep
 , cppunit
 , doxygen
 , fmt
@@ -72,6 +74,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.six
   ];
   propagatedBuildInputs = [
+    aida
     _boost
     _range-v3
     fmt
@@ -84,6 +87,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
   buildInputs = [
     _boost
+    clhep
     cppunit
     doxygen
     python3
@@ -105,13 +109,15 @@ stdenv.mkDerivation rec {
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \
       --replace "typename ALLOCATOR::size_type" std::size_t \
       --replace "typename ALLOCATOR::difference_type" std::ptrdiff_t
+    substituteInPlace GaudiKernel/src/Util/genconf.cpp \
+      --replace "libNativeName( lib ) != info.library" "false"
   '';
 
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=OFF" # until this lands https://github.com/NixOS/nixpkgs/pull/108496
     "-DGAUDI_CXX_STANDARD=17"
-    "-DGAUDI_USE_AIDA=FALSE"
-    "-DGAUDI_USE_CLHEP=FALSE"
+    "-DGAUDI_USE_AIDA=TRUE"
+    "-DGAUDI_USE_CLHEP=TRUE"
     "-DGAUDI_USE_HEPPDT=FALSE"
     "-DGAUDI_USE_UNWIND=FALSE"
   ];

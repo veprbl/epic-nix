@@ -4,6 +4,8 @@ final: prev: with final; {
 
   acts-dd4hep = callPackage pkgs/acts-dd4hep {};
 
+  aida = callPackage pkgs/aida {};
+
   athena = callPackage pkgs/athena {};
 
   ecce = callPackage pkgs/ecce {};
