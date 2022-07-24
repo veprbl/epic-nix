@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ip6";
-  version = "unstable-2022-08-16";
+  version = "unstable-2022-08-24";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
-    rev = "79dd243399b06ad82f67bcbc04737772d13ba8a4";
-    hash = "sha256-GiD/UBrB40L3m/cHAkmXq8XacFvU+8MXYim/kkiFXX8=";
+    rev = "7d8d142cd701f6fc88f62b92fb9684c8b999ef5a";
+    hash = "sha256-xfB/MKntQXoDWXi9NkqQ7GTrU42AY98vQHLcu6fo/Lc=";
   };
 
   nativeBuildInputs = [
