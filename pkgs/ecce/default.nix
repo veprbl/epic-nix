@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "ecce";
-  version = "unstable-2022-08-16";
+  version = "unstable-2022-08-24";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
-    rev = "21f4aeb6eea21b6bdd59c0447bb1fe6fcd7f6728";
-    hash = "sha256-4w2YoZcScf+NBzZ0s2jTlE5Yb5uOiXj8HXXtay0pH+o=";
+    rev = "1bf6192ea03f8a7e9b72de229527d908c63fb4be";
+    hash = "sha256-X/4Z9ywJNipCexQV4s4RktcBHe++1U3/rCsBKmAPI6E=";
   };
 
   postPatch = ''
