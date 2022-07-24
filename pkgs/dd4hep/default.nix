@@ -6,6 +6,7 @@
 , edm4hep
 , geant4
 , hepmc3
+, gnugrep
 , python3
 , root
 }:
@@ -21,7 +22,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-dcO5q+Kx2q4Qr3ucg3hmQlrsXvgBBzjg9/ZcGGeIUYU=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = ''
+    substituteInPlace cmake/thisdd4hep.sh \
+      --replace "grep" "${gnugrep}/bin/grep"
+  '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
