@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace templates/setup.sh.in \
+      --replace LD_LIBRARY_PATH DYLD_LIBRARY_PATH
   '';
 
   nativeBuildInputs = [
@@ -38,6 +41,8 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17" # match dd4hep
   ];
+
+  setupHook = ./setup-hook.sh;
 
   meta = with lib; {
     description = "DD4hep Geometry Description of the ECCE Experiment";
