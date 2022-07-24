@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , boost
 , cmake
 , edm4hep
@@ -13,22 +12,14 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-20-02";
+  version = "01-21";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = "DD4hep";
     rev = "v${version}";
-    hash = "sha256-Bl3QO87n+R8gJ3B6+n2IZ7NTzlwbafXDAviyX3Q4IT0=";
+    hash = "sha256-dcO5q+Kx2q4Qr3ucg3hmQlrsXvgBBzjg9/ZcGGeIUYU=";
   };
-
-  patches = [
-    # fix a crash
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/DD4hep/commit/b4aca82992d71d8e4e992be43ac86e13e3028362.diff";
-      hash = "sha256-dmmLVtlXfNcIg6HkXcUW1uWPUx6wLKIUJvuNkd7Ux3M=";
-    })
-  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
