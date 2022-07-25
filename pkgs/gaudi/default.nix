@@ -120,7 +120,7 @@ stdenv.mkDerivation rec {
     "-DGAUDI_USE_CLHEP=TRUE"
     "-DGAUDI_USE_HEPPDT=FALSE"
     "-DGAUDI_USE_UNWIND=FALSE"
-    "-DGAUDI_INSTALL_PYTHONDIR=${placeholder "out"}/lib/${python3.libPrefix}/site-packages"
+    "-DGAUDI_INSTALL_PYTHONDIR=${python3.sitePackages}"
   ];
 
   meta = with lib; {
