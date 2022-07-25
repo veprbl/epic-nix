@@ -21,6 +21,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
+
+    substituteInPlace templates/ecce.xml.jinja2 \
+      --replace '"ip6/' '"''${BEAMLINE_PATH}/ip6/'
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace templates/setup.sh.in \
       --replace LD_LIBRARY_PATH DYLD_LIBRARY_PATH
