@@ -9,6 +9,7 @@
 , gaudi
 , genfit
 , podio
+, python3
 , root
 }:
 
@@ -49,6 +50,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
+    "-DGAUDI_INSTALL_PYTHONDIR=${placeholder "out"}/lib/${python3.libPrefix}/site-packages"
   ];
 
   NIX_CFLAGS_COMPILE = "-Wno-narrowing";
