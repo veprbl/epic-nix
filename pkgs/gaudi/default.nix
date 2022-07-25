@@ -13,6 +13,7 @@
 , gperftools
 , jemalloc
 , libuuid
+, makeWrapper
 , microsoft_gsl
 , python3
 , range-v3
@@ -71,6 +72,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    makeWrapper
     python3.pkgs.six
   ];
   propagatedBuildInputs = [
@@ -94,7 +96,6 @@ stdenv.mkDerivation rec {
     root
     zlib
   ];
-
 
   postPatch = ''
     patchShebangs --build GaudiKernel/scripts/
@@ -122,6 +123,14 @@ stdenv.mkDerivation rec {
     "-DGAUDI_USE_UNWIND=FALSE"
     "-DGAUDI_INSTALL_PYTHONDIR=${python3.sitePackages}"
   ];
+
+  postInstall = ''
+    patchShebangs --host "$out"/bin
+    wrapProgram "$out"/bin/gaudirun.py \
+      --prefix LD_LIBRARY_PATH : "$out"/lib \
+      ${lib.optionalString stdenv.isDarwin ''--prefix DYLD_LIBRARY_PATH : "$out"/lib''} \
+      --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
+  '';
 
   meta = with lib; {
     description = "A reconstruction framework";
