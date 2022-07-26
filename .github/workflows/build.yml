@@ -22,6 +22,6 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - uses: cachix/cachix-action@v10
       with:
-        name: eic
+        name: epic-eic
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: nix flake check --keep-going --print-build-logs --no-write-lock-file
