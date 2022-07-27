@@ -20,6 +20,12 @@ final: prev: with final; {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
+  geant4 = prev.geant4.overrideAttrs (prev: {
+    cmakeFlags = prev.cmakeFlags ++ [
+      "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
+    ];
+  });
+
   genfit = callPackage pkgs/genfit {};
 
   ip6 = callPackage pkgs/ip6 {};
@@ -42,13 +48,7 @@ final: prev: with final; {
     ];
   });
 
-  dd4hep = callPackage pkgs/dd4hep {
-    geant4 = geant4.overrideAttrs (prev: {
-      cmakeFlags = prev.cmakeFlags ++ [
-        "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
-      ];
-    });
-  };
+  dd4hep = callPackage pkgs/dd4hep {};
 
   podio = callPackage pkgs/podio {};
 
