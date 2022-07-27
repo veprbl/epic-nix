@@ -43,6 +43,10 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17" # match dd4hep
+
+    # needed to avoid linking Geant libraries that may depend on Qt/OpenGL,
+    # should be OFF by default anyway
+    "-DUSE_DDG4=OFF"
   ];
 
   setupHook = ./setup-hook.sh;

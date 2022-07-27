@@ -20,7 +20,9 @@ final: prev: with final; {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
 
-  geant4 = prev.geant4.overrideAttrs (prev: {
+  geant4 = (prev.geant4.override {
+    enableQt = true;
+  }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
@@ -48,7 +50,9 @@ final: prev: with final; {
     ];
   });
 
-  dd4hep = callPackage pkgs/dd4hep {};
+  dd4hep = callPackage pkgs/dd4hep {
+    inherit (darwin.apple_sdk.frameworks) AGL OpenGL;
+  };
 
   podio = callPackage pkgs/podio {};
 

@@ -9,6 +9,8 @@
 , gnugrep
 , python3
 , root
+, AGL
+, OpenGL
 }:
 
 stdenv.mkDerivation rec {
@@ -43,6 +45,10 @@ stdenv.mkDerivation rec {
     boost
     python3
     root
+  ] ++ lib.optionals (stdenv.isDarwin && geant4.enableQt) [
+    # FIXME These should not be needed
+    AGL
+    OpenGL
   ];
 
   # not every executable is a binary - process them manually
