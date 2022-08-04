@@ -7,6 +7,7 @@
 , geant4
 , hepmc3
 , gnugrep
+, podio
 , python3
 , root
 , AGL
@@ -64,7 +65,19 @@ stdenv.mkDerivation rec {
     "-DDD4HEP_USE_EDM4HEP=ON"
     "-DDD4HEP_USE_HEPMC3=ON"
     "-DDD4HEP_USE_GEANT4=ON"
+    "-DBUILD_TESTING=ON"
   ];
+
+  doInstallCheck = stdenv.isDarwin; # crashes on linux
+  installCheckTarget = "test";
+  installCheckInputs = [
+    geant4.data.G4EMLOW
+    geant4.data.G4ENSDFSTATE
+    geant4.data.G4PARTICLEXS
+    geant4.data.G4PhotonEvaporation
+    python3.pkgs.pytest
+  ];
+  ROOT_INCLUDE_PATH="${edm4hep}/include:${podio}/include";
 
   setupHook = ./setup-hook.sh;
 
