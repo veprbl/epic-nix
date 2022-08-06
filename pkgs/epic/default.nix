@@ -9,20 +9,20 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "ecce";
-  version = "unstable-2022-08-24";
+  pname = "epic";
+  version = "unstable-2022-08-06";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
-    rev = "1bf6192ea03f8a7e9b72de229527d908c63fb4be";
-    hash = "sha256-X/4Z9ywJNipCexQV4s4RktcBHe++1U3/rCsBKmAPI6E=";
+    rev = "d1336e5ff1b1f7adfe3defbd03fe7ac0cc1f1035";
+    hash = "sha256-kkLZZF07lon/opAmUzgvhdYKe/L8BByNGBZNsVn9Wxc=";
   };
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
 
-    substituteInPlace templates/ecce.xml.jinja2 \
+    substituteInPlace templates/epic.xml.jinja2 \
       --replace '"ip6/' '"''${BEAMLINE_PATH}/ip6/'
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace templates/setup.sh.in \
@@ -47,14 +47,16 @@ stdenv.mkDerivation rec {
     # needed to avoid linking Geant libraries that may depend on Qt/OpenGL,
     # should be OFF by default anyway
     "-DUSE_DDG4=OFF"
+
+    "-DEPIC_ECCE_LEGACY_COMPAT=OFF"
   ];
 
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
-    description = "DD4hep Geometry Description of the ECCE Experiment";
+    description = "DD4hep Geometry Description of the EPIC Experiment";
     license = licenses.unfree; # no license
-    homepage = "https://github.com/eic/ecce";
+    homepage = "https://github.com/eic/epic";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
   };

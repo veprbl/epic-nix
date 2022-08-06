@@ -63,6 +63,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    broken = true;
     description = "EIC Reconstruction - JANA based";
     longDescription = ''
     '';

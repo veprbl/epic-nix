@@ -8,7 +8,13 @@ final: prev: with final; {
 
   athena = callPackage pkgs/athena {};
 
-  ecce = callPackage pkgs/ecce {};
+  ecce = lib.warn "using outdated `ecce` attr" epic.overrideAttrs (prev: {
+    cmakeFlags = prev.cmakeFlags ++ [
+      "-DEPIC_ECCE_LEGACY_COMPAT=ON"
+    ];
+  });
+
+  epic = callPackage pkgs/epic {};
 
   edm4hep = callPackage pkgs/edm4hep {};
 

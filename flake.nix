@@ -16,7 +16,7 @@
         inherit system;
         overlays = [ self.overlays.default ];
         # Will assume that the flake user agrees to use non-free EIC software
-        config.allowUnfreePredicate = pkg: builtins.elem pkg.pname [ "athena" "ecce" "EICrecon" "eic-smear" "ip6" ];
+        config.allowUnfreePredicate = pkg: builtins.elem pkg.pname [ "athena" "EICrecon" "eic-smear" "epic" "ip6" ];
       };
 
     in
