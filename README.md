@@ -13,7 +13,7 @@ You will need a working installation of Nix which can be obtained [here](https:/
 An optional step is to enable the binary cache for this overlay:
 
 ```shell
-nix-shell -p cachix --run "cachix use eic"
+nix-shell -p cachix --run "cachix use epic-eic"
 ```
 
 nix-shell
