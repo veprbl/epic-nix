@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.0.5";
+  version = "2.0.6";
 
   src = fetchFromGitHub {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-5CkxCsOCgx+La6j+sssf3HNejadEuTUvsyAnf/PbJXc=";
+    hash = "sha256-XlQuXSywrzRZWbQH2qfX04hxfbMmiOcsI/nX+7mbk3g=";
   };
 
   nativeBuildInputs = [
