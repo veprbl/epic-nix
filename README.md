@@ -1,4 +1,4 @@
-[![Build](https://github.com/veprbl/eic-nix/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/veprbl/eic-nix/actions/workflows/build.yml)
+[![Build](https://github.com/veprbl/epic-nix/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/veprbl/eic-nix/actions/workflows/build.yml)
 
 Supported architectures:
 
@@ -24,8 +24,8 @@ nix-shell, which will start a shell with environment that includes all the EIC
 packages:
 
 ```shell
-git clone https://github.com/veprbl/eic-nix.git
-cd eic-nix
+git clone https://github.com/veprbl/epic-nix.git
+cd epic-nix
 nix-shell
 ```
 
@@ -41,13 +41,13 @@ echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 Similar to the **nix-shell** approach above, one can invoke the environment without cloning the repository:
 
 ```shell
-nix develop github:veprbl/eic-nix
+nix develop github:veprbl/epic-nix
 ```
 
 or with cloning:
 
 ```shell
-git clone https://github.com/veprbl/eic-nix.git
-cd eic-nix
+git clone https://github.com/veprbl/epic-nix.git
+cd epic-nix
 nix develop
 ```
