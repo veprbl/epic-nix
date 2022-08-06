@@ -1,12 +1,25 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, hepmc
+, hepmc3
+, catch2_3
 , cmake
 , podio
 , python3
 , root
 }:
+
+let
+
+  catch2_WithMain = catch2_3.overrideAttrs (prev: rec {
+    cmakeFlags = prev.cmakeFlags ++ [
+      "-DCATCH_BUILD_STATIC_LIBRARY=ON"
+    ];
+
+    doCheck = false;
+  });
+
+in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
@@ -36,12 +49,16 @@ stdenv.mkDerivation rec {
     root
   ];
   checkInputs = [
-    hepmc
+    catch2_WithMain
+    hepmc3
   ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
   ];
+
+  doCheck = true;
+  ROOT_INCLUDE_PATH="${placeholder "out"}/include:${podio}/include";
 
   meta = with lib; {
     description = "Generic event data model for HEP collider experiments";
