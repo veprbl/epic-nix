@@ -56,4 +56,6 @@ final: prev: with final; {
 
   podio = callPackage pkgs/podio {};
 
+  rave = callPackage pkgs/rave {};
+
 }

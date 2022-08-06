@@ -1,0 +1,679 @@
+diff -aru a/src/RaveBase/RaveEngine/interface/TaggedTransientTrackKinematicParticle.h b/src/RaveBase/RaveEngine/interface/TaggedTransientTrackKinematicParticle.h
+--- a/src/RaveBase/RaveEngine/interface/TaggedTransientTrackKinematicParticle.h	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveEngine/interface/TaggedTransientTrackKinematicParticle.h	2022-08-05 22:12:51.000000000 -0400
+@@ -16,7 +16,7 @@
+ 
+ #include "RecoVertex/KinematicFitPrimitives/interface/TransientTrackKinematicParticle.h"
+ 
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ /**
+  * This class extends the TransientTrackKinematicParticle with a
+@@ -36,8 +36,8 @@
+       float& degreesOfFr, KinematicConstraint * lastConstraint,
+       ReferenceCountingPointer<KinematicParticle> previousParticle,
+       KinematicStatePropagator * pr,
+-      const boost::shared_ptr< reco::TransientTrack > initialTrack =
+-        boost::shared_ptr< reco::TransientTrack >() );
++      const std::shared_ptr< reco::TransientTrack > initialTrack =
++        std::shared_ptr< reco::TransientTrack >() );
+ 
+     virtual ~TaggedTransientTrackKinematicParticle();
+ 
+@@ -46,7 +46,7 @@
+   private:
+     void setTag ( const rave::TransientTrackKinematicParticle & tag );
+ 
+-    const boost::shared_ptr< reco::TransientTrack > theInitialTrack;
++    const std::shared_ptr< reco::TransientTrack > theInitialTrack;
+     rave::TransientTrackKinematicParticle theTag;
+ 
+ };
+diff -aru a/src/RaveBase/RaveEngine/src/RaveParameterSetBuilder.cc b/src/RaveBase/RaveEngine/src/RaveParameterSetBuilder.cc
+--- a/src/RaveBase/RaveEngine/src/RaveParameterSetBuilder.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveEngine/src/RaveParameterSetBuilder.cc	2022-08-05 22:12:51.000000000 -0400
+@@ -2,7 +2,7 @@
+ #include "FWCore/MessageLogger/interface/MessageLogger.h"
+ #include <boost/spirit/core.hpp>
+ #include <boost/spirit/actor/push_back_actor.hpp>
+-#include <boost/shared_ptr.hpp>
++#include <memory>
+ #include <vector>
+ 
+ using namespace std;
+@@ -14,19 +14,19 @@
+   {
+     ParameterSetNode() {};
+     ~ParameterSetNode() {};
+-    boost::shared_ptr<edm::ParameterSet> current;
+-    boost::shared_ptr<ParameterSetNode> parent;
++    std::shared_ptr<edm::ParameterSet> current;
++    std::shared_ptr<ParameterSetNode> parent;
+     std::string key_name;
+   };
+-  boost::shared_ptr<ParameterSetNode> tree;
++  std::shared_ptr<ParameterSetNode> tree;
+   std::string last_key;
+ 
+   void nest_in_action(char ch)
+   {
+     //depth++;
+-    boost::shared_ptr<ParameterSetNode> node( new ParameterSetNode() );
++    std::shared_ptr<ParameterSetNode> node( new ParameterSetNode() );
+     node->parent = tree;
+-    node->current = boost::shared_ptr<edm::ParameterSet>( new edm::ParameterSet() );
++    node->current = std::shared_ptr<edm::ParameterSet>( new edm::ParameterSet() );
+     node->key_name = last_key;
+     tree = node;
+     last_key = "finder";
+@@ -71,8 +71,8 @@
+   expression = !( ( (+alpha_p) >> ch_p(':') ) & ( key >> ch_p(':') ) ) >> nestedvalue
+                >> *( ch_p('-') >> key >> ch_p(':') >> nestedvalue );
+ 
+-  tree = boost::shared_ptr<ParameterSetNode>( new ParameterSetNode() );
+-  tree->current = boost::shared_ptr<edm::ParameterSet>( new edm::ParameterSet() );
++  tree = std::shared_ptr<ParameterSetNode>( new ParameterSetNode() );
++  tree->current = std::shared_ptr<edm::ParameterSet>( new edm::ParameterSet() );
+   last_key = "finder";
+   parse_info<> pI = parse(s.c_str(), expression);
+ 
+diff -aru a/src/RaveBase/RaveEngine/src/TaggedTransientTrackKinematicParticle.cc b/src/RaveBase/RaveEngine/src/TaggedTransientTrackKinematicParticle.cc
+--- a/src/RaveBase/RaveEngine/src/TaggedTransientTrackKinematicParticle.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveEngine/src/TaggedTransientTrackKinematicParticle.cc	2022-08-05 22:12:51.000000000 -0400
+@@ -5,7 +5,7 @@
+   KinematicConstraint * lastConstraint,
+   ReferenceCountingPointer< KinematicParticle > previousParticle,
+   KinematicStatePropagator * pr,
+-  const boost::shared_ptr< reco::TransientTrack > initialTrack ) :
++  const std::shared_ptr< reco::TransientTrack > initialTrack ) :
+     TransientTrackKinematicParticle ( kineState, chiSquared, degreesOfFr,
+                                       lastConstraint, previousParticle, pr,
+                                       initialTrack.get() ),
+diff -aru a/src/RaveBase/RaveInterface/rave/BasicKinematicParticle.h b/src/RaveBase/RaveInterface/rave/BasicKinematicParticle.h
+--- a/src/RaveBase/RaveInterface/rave/BasicKinematicParticle.h	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/rave/BasicKinematicParticle.h	2022-08-05 22:12:51.000000000 -0400
+@@ -35,7 +35,7 @@
+ 
+ #include "boost/any.hpp"
+ #include "boost/operators.hpp"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ namespace rave
+ {
+@@ -120,7 +120,7 @@
+     /**
+      * @return The magnetic field assigned upon creation of this particle
+      */
+-    boost::shared_ptr< rave::MagneticField > magneticField() const;
++    std::shared_ptr< rave::MagneticField > magneticField() const;
+ 
+     /**
+      * @return The pointer to the kinematic tree (if any) current particle
+@@ -131,7 +131,7 @@
+     /**
+      * @return The last constraint aplied to this particle.
+      */
+-    boost::shared_ptr< rave::KinematicConstraint > lastConstraint() const;
++    std::shared_ptr< rave::KinematicConstraint > lastConstraint() const;
+ 
+     int id() const;
+     boost::any link() const;
+@@ -181,9 +181,9 @@
+     float theChi2;
+ 
+     /// Members for memory management issues
+-    boost::shared_ptr< rave::MagneticField > theField;
++    std::shared_ptr< rave::MagneticField > theField;
+ //    KinematicTree theTree;
+-    boost::shared_ptr< rave::KinematicConstraint > theConstraint;
++    std::shared_ptr< rave::KinematicConstraint > theConstraint;
+ 
+     int theId;
+     boost::any theLink;
+diff -aru a/src/RaveBase/RaveInterface/rave/BasicKinematicVertex.h b/src/RaveBase/RaveInterface/rave/BasicKinematicVertex.h
+--- a/src/RaveBase/RaveInterface/rave/BasicKinematicVertex.h	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/rave/BasicKinematicVertex.h	2022-08-05 22:12:51.000000000 -0400
+@@ -24,7 +24,7 @@
+ #include <vector>
+ 
+ #include "boost/any.hpp"
+-#include "boost/weak_ptr.hpp"
++#include <memory>
+ 
+ namespace rave
+ {
+@@ -61,12 +61,12 @@
+     const rave::Covariance3D & error() const;
+ 
+     /**
+-     * The correspondingTree() method returns a boost::weak_ptr to the tree
++     * The correspondingTree() method returns a std::weak_ptr to the tree
+      * containing this vertex in its decay chain. This can and will be zero in
+      * case a tree was never assigned or is already destroyed.
+      * @return Containing tree, if available
+      */
+-    boost::weak_ptr< rave::BasicKinematicTree > correspondingTree() const;
++    std::weak_ptr< rave::BasicKinematicTree > correspondingTree() const;
+ 
+     /**
+      * @return Number of degrees of freedom
+@@ -103,7 +103,7 @@
+     float theNdof;
+     float theChi2;
+ 
+-    boost::weak_ptr< rave::BasicKinematicTree > theTree;
++    std::weak_ptr< rave::BasicKinematicTree > theTree;
+ 
+     int theId;
+     boost::any theLink;
+diff -aru a/src/RaveBase/RaveInterface/rave/KinematicParticle.h b/src/RaveBase/RaveInterface/rave/KinematicParticle.h
+--- a/src/RaveBase/RaveInterface/rave/KinematicParticle.h	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/rave/KinematicParticle.h	2022-08-05 22:12:51.000000000 -0400
+@@ -98,7 +98,7 @@
+     /**
+      * @return The magnetic field assigned upon creation of this particle
+      */
+-    boost::shared_ptr< rave::MagneticField > magneticField() const;
++    std::shared_ptr< rave::MagneticField > magneticField() const;
+ 
+     /**
+      * @return The pointer to the kinematic tree (if any) current particle
+@@ -109,7 +109,7 @@
+     /**
+      * @return The last constraint applied to this particle.
+      */
+-    boost::shared_ptr< rave::KinematicConstraint > lastConstraint() const;
++    std::shared_ptr< rave::KinematicConstraint > lastConstraint() const;
+ 
+     int id() const;
+     boost::any link() const;
+diff -aru a/src/RaveBase/RaveInterface/rave/KinematicVertex.h b/src/RaveBase/RaveInterface/rave/KinematicVertex.h
+--- a/src/RaveBase/RaveInterface/rave/KinematicVertex.h	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/rave/KinematicVertex.h	2022-08-05 22:12:51.000000000 -0400
+@@ -40,12 +40,12 @@
+     const rave::Covariance3D & error() const;
+ 
+     /**
+-     * The correspondingTree() method returns a boost::weak_ptr to the tree
++     * The correspondingTree() method returns a std::weak_ptr to the tree
+      * containing this vertex in its decay chain. This can and will be zero in
+      * case a tree was never assigned or is already destroyed.
+      * @return Containing tree, if available
+      */
+-    boost::weak_ptr< rave::BasicKinematicTree > correspondingTree() const;
++    std::weak_ptr< rave::BasicKinematicTree > correspondingTree() const;
+ 
+     /**
+      * @return Number of degrees of freedom
+diff -aru a/src/RaveBase/RaveInterface/src/BasicKinematicConstraint.cc b/src/RaveBase/RaveInterface/src/BasicKinematicConstraint.cc
+--- a/src/RaveBase/RaveInterface/src/BasicKinematicConstraint.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/BasicKinematicConstraint.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -3,14 +3,14 @@
+ #include "RecoVertex/KinematicFitPrimitives/interface/KinematicConstraint.h"
+ 
+ #include "boost/assert.hpp"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ namespace rave
+ {
+ 
+ namespace
+ {
+-  typedef boost::shared_ptr< ::KinematicConstraint > InternalKinematicContraint;
++  typedef std::shared_ptr< ::KinematicConstraint > InternalKinematicContraint;
+ }
+ 
+ //! This implicitly leaves the theConstraint variable
+@@ -23,7 +23,7 @@
+   boost::any constraint ) :
+     theConstraint ( constraint )
+ {
+-//  BOOST_ASSERT ( typeid ( boost::shared_ptr< ::KinematicConstraint > ) == constraint.type() );
++//  BOOST_ASSERT ( typeid ( std::shared_ptr< ::KinematicConstraint > ) == constraint.type() );
+ }
+ 
+ BasicKinematicConstraint::~BasicKinematicConstraint()
+diff -aru a/src/RaveBase/RaveInterface/src/BasicKinematicParticle.cc b/src/RaveBase/RaveInterface/src/BasicKinematicParticle.cc
+--- a/src/RaveBase/RaveInterface/src/BasicKinematicParticle.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/BasicKinematicParticle.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -150,7 +150,7 @@
+   return theNdof;
+ }
+ 
+-boost::shared_ptr< MagneticField > BasicKinematicParticle::magneticField() const
++std::shared_ptr< MagneticField > BasicKinematicParticle::magneticField() const
+ {
+   return theField;
+ }
+@@ -162,7 +162,7 @@
+ }
+ */
+ 
+-boost::shared_ptr< rave::KinematicConstraint > BasicKinematicParticle::lastConstraint() const
++std::shared_ptr< rave::KinematicConstraint > BasicKinematicParticle::lastConstraint() const
+ {
+   return theConstraint;
+ }
+diff -aru a/src/RaveBase/RaveInterface/src/BasicKinematicVertex.cc b/src/RaveBase/RaveInterface/src/BasicKinematicVertex.cc
+--- a/src/RaveBase/RaveInterface/src/BasicKinematicVertex.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/BasicKinematicVertex.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -35,7 +35,7 @@
+   return theError;
+ }
+ 
+-boost::weak_ptr< rave::BasicKinematicTree > BasicKinematicVertex::correspondingTree() const
++std::weak_ptr< rave::BasicKinematicTree > BasicKinematicVertex::correspondingTree() const
+ {
+   return theTree;
+ }
+diff -aru a/src/RaveBase/RaveInterface/src/BasicMultipleKinematicConstraint.cc b/src/RaveBase/RaveInterface/src/BasicMultipleKinematicConstraint.cc
+--- a/src/RaveBase/RaveInterface/src/BasicMultipleKinematicConstraint.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/BasicMultipleKinematicConstraint.cc	2022-08-06 08:00:54.000000000 -0400
+@@ -9,15 +9,15 @@
+ 
+ namespace
+ {
+-typedef boost::shared_ptr< ::MultipleKinematicConstraint > InternalMultipleKinematicContraint;
++typedef std::shared_ptr< ::MultipleKinematicConstraint > InternalMultipleKinematicContraint;
+ }
+ 
+ void BasicMultipleKinematicConstraint::addConstraint ( KinematicConstraint constraint ) const
+ {
+   ::KinematicConstraint* internalConstraint =
+-    boost::any_cast< boost::shared_ptr< ::KinematicConstraint > > ( constraint.data().getInternal() ).get();
+-  boost::shared_polymorphic_cast< ::MultipleKinematicConstraint > (
+-    boost::any_cast< boost::shared_ptr< ::KinematicConstraint > > ( getInternal() ) )->addConstraint (
++    boost::any_cast< std::shared_ptr< ::KinematicConstraint > > ( constraint.data().getInternal() ).get();
++  std::dynamic_pointer_cast< ::MultipleKinematicConstraint > (
++    boost::any_cast< std::shared_ptr< ::KinematicConstraint > > ( getInternal() ) )->addConstraint (
+       internalConstraint );
+ 
+   constraints.push_back ( constraint );
+@@ -27,7 +27,7 @@
+   boost::any constraint ) :
+     BasicKinematicConstraint ( constraint )
+ {
+-  BOOST_ASSERT ( typeid ( boost::shared_ptr< ::MultipleKinematicConstraint > ) == constraint.type() );
++  BOOST_ASSERT ( typeid ( std::shared_ptr< ::MultipleKinematicConstraint > ) == constraint.type() );
+ }
+ 
+ BasicMultipleKinematicConstraint::~BasicMultipleKinematicConstraint()
+diff -aru a/src/RaveBase/RaveInterface/src/BasicTransientTrackKinematicParticle.cc b/src/RaveBase/RaveInterface/src/BasicTransientTrackKinematicParticle.cc
+--- a/src/RaveBase/RaveInterface/src/BasicTransientTrackKinematicParticle.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/BasicTransientTrackKinematicParticle.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -37,7 +37,7 @@
+ 
+ namespace
+ {
+-boost::shared_ptr< ::KinematicStatePropagator > propagator ( new ::TrackKinematicStatePropagator() );
++std::shared_ptr< ::KinematicStatePropagator > propagator ( new ::TrackKinematicStatePropagator() );
+ ::TransientTrackKinematicStateBuilder builder;
+ 
+ ::RefCountedKinematicParticle createInternalParticle (
+@@ -46,7 +46,7 @@
+   const float & degreesOfFr )
+ {
+   // Convert rave::Track to reco::TransientTrack
+-  boost::shared_ptr< reco::TransientTrack > recoTrack (
++  std::shared_ptr< reco::TransientTrack > recoTrack (
+     new reco::TransientTrack ( RaveToCmsObjects().tTrack ( initialTrack ) ) );
+ 
+   ::KinematicState initState = builder (
+diff -aru a/src/RaveBase/RaveInterface/src/KinematicConstraintBuilder.cc b/src/RaveBase/RaveInterface/src/KinematicConstraintBuilder.cc
+--- a/src/RaveBase/RaveInterface/src/KinematicConstraintBuilder.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/KinematicConstraintBuilder.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -27,7 +27,7 @@
+ 
+ rave::KinematicConstraint KinematicConstraintBuilder::createMassKinematicConstraint ( const float & mass, const float sigma ) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::MassKinematicConstraint (
+       boost::numeric_cast< ::ParticleMass > ( mass ),
+       boost::numeric_cast< float > ( sigma ) ) );
+@@ -36,7 +36,7 @@
+ 
+ rave::MultipleKinematicConstraint KinematicConstraintBuilder::createMultipleKinematicConstraint() const
+ {
+-  boost::shared_ptr< ::MultipleKinematicConstraint > internalConstraint (
++  std::shared_ptr< ::MultipleKinematicConstraint > internalConstraint (
+     new ::MultipleKinematicConstraint () );
+   return rave::MultipleKinematicConstraint ( BasicMultipleKinematicConstraint ( internalConstraint ) );
+ }
+@@ -44,7 +44,7 @@
+ 
+ rave::KinematicConstraint KinematicConstraintBuilder::createBackToBackKinematicConstraint() const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::BackToBackKinematicConstraint () );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+ }
+@@ -52,7 +52,7 @@
+ 
+ rave::KinematicConstraint KinematicConstraintBuilder::createEqualMassKinematicConstraint() const
+ {
+-  boost::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
++  std::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
+       new ::EqualMassKinematicConstraint () );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+ }
+@@ -62,7 +62,7 @@
+   const rave::Vector4D & momentum, const rave::Vector4D & deviation,
+   const bool mass_is_energy) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::FourMomentumKinematicConstraint (
+       RaveToCmsObjects().toAlgebraicVector ( momentum ),
+       RaveToCmsObjects().toAlgebraicVector ( deviation ), mass_is_energy ) );
+@@ -72,7 +72,7 @@
+ rave::KinematicConstraint KinematicConstraintBuilder::createMomentumKinematicConstraint (
+   const rave::Vector3D & momentum, const rave::Vector3D & deviation ) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::MomentumKinematicConstraint (
+       RaveToCmsObjects().toAlgebraicVector ( momentum ),
+       RaveToCmsObjects().toAlgebraicVector ( deviation ) ) );
+@@ -82,7 +82,7 @@
+ rave::KinematicConstraint KinematicConstraintBuilder::createPointingKinematicConstraint (
+   const rave::Point3D & reference ) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::PointingKinematicConstraint (
+       RaveToCmsObjects().convert ( reference ) ) );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+@@ -91,7 +91,7 @@
+ rave::KinematicConstraint KinematicConstraintBuilder::createSimplePointingConstraint (
+   const rave::Point3D & reference ) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::SimplePointingConstraint (
+       RaveToCmsObjects().convert ( reference ) ) );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+@@ -100,7 +100,7 @@
+ rave::KinematicConstraint KinematicConstraintBuilder::createSmartPointingConstraint (
+   const rave::Point3D & reference ) const
+ {
+-  boost::shared_ptr< ::KinematicConstraint > internalConstraint (
++  std::shared_ptr< ::KinematicConstraint > internalConstraint (
+     new ::SmartPointingConstraint (
+       RaveToCmsObjects().convert ( reference ) ) );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+@@ -108,7 +108,7 @@
+ 
+ rave::KinematicConstraint KinematicConstraintBuilder::createVertexKinematicConstraint() const
+ {
+-  boost::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
++  std::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
+     new ::VertexKinematicConstraint() );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+ }
+@@ -117,7 +117,7 @@
+   const float & mass ) const
+ {
+   ::ParticleMass lmass = boost::numeric_cast< ::ParticleMass > ( mass );
+-  boost::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
++  std::shared_ptr< ::MultiTrackKinematicConstraint > internalConstraint (
+     new ::TwoTrackMassKinematicConstraint ( lmass ) );
+   return rave::KinematicConstraint ( BasicKinematicConstraint ( internalConstraint ) );
+ }
+diff -aru a/src/RaveBase/RaveInterface/src/KinematicParticle.cc b/src/RaveBase/RaveInterface/src/KinematicParticle.cc
+--- a/src/RaveBase/RaveInterface/src/KinematicParticle.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/KinematicParticle.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -66,12 +66,12 @@
+   return data().ndof();
+ }
+ 
+-boost::shared_ptr< rave::MagneticField > KinematicParticle::magneticField() const
++std::shared_ptr< rave::MagneticField > KinematicParticle::magneticField() const
+ {
+   return data().magneticField();
+ }
+ 
+-boost::shared_ptr< rave::KinematicConstraint > KinematicParticle::lastConstraint() const
++std::shared_ptr< rave::KinematicConstraint > KinematicParticle::lastConstraint() const
+ {
+   return data().lastConstraint();
+ }
+diff -aru a/src/RaveBase/RaveInterface/src/KinematicTreeFactory.cc b/src/RaveBase/RaveInterface/src/KinematicTreeFactory.cc
+--- a/src/RaveBase/RaveInterface/src/KinematicTreeFactory.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/KinematicTreeFactory.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -145,7 +145,7 @@
+ 
+     // Unwrap the constraint
+     MultiTrackKinematicConstraint * internalConstraint =
+-      boost::any_cast< boost::shared_ptr< ::MultiTrackKinematicConstraint > > (
++      boost::any_cast< std::shared_ptr< ::MultiTrackKinematicConstraint > > (
+         cs.data().getInternal() ).get();
+ 
+     // Do the fitting, this is where the real work is done
+@@ -189,7 +189,7 @@
+ 
+     // Unwrap the constraint
+     ::KinematicConstraint * internalConstraint =
+-      boost::any_cast< boost::shared_ptr< ::KinematicConstraint > > (
++      boost::any_cast< std::shared_ptr< ::KinematicConstraint > > (
+         cs.data().getInternal() ).get();
+ 
+     edm::LogInfo ( "KinematicTreeFactory" ) << "Using KinematicParticleFitter with "
+diff -aru a/src/RaveBase/RaveInterface/src/KinematicVertex.cc b/src/RaveBase/RaveInterface/src/KinematicVertex.cc
+--- a/src/RaveBase/RaveInterface/src/KinematicVertex.cc	2012-02-23 04:23:03.000000000 -0500
++++ b/src/RaveBase/RaveInterface/src/KinematicVertex.cc	2022-08-05 22:12:52.000000000 -0400
+@@ -21,7 +21,7 @@
+   return data().error();
+ }
+ 
+-boost::weak_ptr< rave::BasicKinematicTree > KinematicVertex::correspondingTree() const
++std::weak_ptr< rave::BasicKinematicTree > KinematicVertex::correspondingTree() const
+ {
+   return data().correspondingTree();
+ }
+diff -aru a/src/RecoVertex/GaussianSumVertexFit/src/VertexGaussianStateConversions.cc b/src/RecoVertex/GaussianSumVertexFit/src/VertexGaussianStateConversions.cc
+--- a/src/RecoVertex/GaussianSumVertexFit/src/VertexGaussianStateConversions.cc	2012-02-23 04:23:02.000000000 -0500
++++ b/src/RecoVertex/GaussianSumVertexFit/src/VertexGaussianStateConversions.cc	2022-08-05 22:12:53.000000000 -0400
+@@ -3,13 +3,13 @@
+ #include "RecoVertex/GaussianSumVertexFit/interface/BasicMultiVertexState.h"
+ #include "TrackingTools/GsfTools/interface/SingleGaussianState.h"
+ #include "DataFormats/CLHEP/interface/Migration.h"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ namespace GaussianStateConversions {
+ 
+   MultiGaussianState<3> multiGaussianStateFromVertex (const VertexState aState)
+   {
+-    typedef boost::shared_ptr< SingleGaussianState<3> > SingleStatePtr;
++    typedef std::shared_ptr< SingleGaussianState<3> > SingleStatePtr;
+     const std::vector<VertexState> components = aState.components();
+     MultiGaussianState<3>::SingleStateContainer singleStates;
+     singleStates.reserve(components.size());
+diff -aru a/src/TrackingTools/GeomPropagators/interface/AnalyticalPropagatorESProducer.h b/src/TrackingTools/GeomPropagators/interface/AnalyticalPropagatorESProducer.h
+--- a/src/TrackingTools/GeomPropagators/interface/AnalyticalPropagatorESProducer.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GeomPropagators/interface/AnalyticalPropagatorESProducer.h	2022-08-05 22:12:54.000000000 -0400
+@@ -5,15 +5,15 @@
+ #include "FWCore/ParameterSet/interface/ParameterSet.h"
+ #include "TrackingTools/Records/interface/TrackingComponentsRecord.h"
+ #include "TrackingTools/GeomPropagators/interface/AnalyticalPropagator.h"
+-#include <boost/shared_ptr.hpp>
++#include <memory>
+ 
+ class  AnalyticalPropagatorESProducer: public edm::ESProducer{
+  public:
+   AnalyticalPropagatorESProducer(const edm::ParameterSet & p);
+   virtual ~AnalyticalPropagatorESProducer(); 
+-  boost::shared_ptr<Propagator> produce(const TrackingComponentsRecord &);
++  std::shared_ptr<Propagator> produce(const TrackingComponentsRecord &);
+  private:
+-  boost::shared_ptr<Propagator> _propagator;
++  std::shared_ptr<Propagator> _propagator;
+   edm::ParameterSet pset_;
+ };
+ 
+diff -aru a/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.h b/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.h
+--- a/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.h	2022-08-05 22:12:54.000000000 -0400
+@@ -5,7 +5,7 @@
+ #include "TrackingTools/GsfTools/interface/DistanceBetweenComponents.h"
+ #include "DataFormats/GeometryCommonDetAlgo/interface/DeepCopyPointerByClone.h"
+ 
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ #include <map>
+ 
+ 
+@@ -21,7 +21,7 @@
+  private:
+   typedef SingleGaussianState<N> SingleState;
+   typedef MultiGaussianState<N> MultiState;
+-  typedef boost::shared_ptr<SingleState> SingleStatePtr;
++  typedef std::shared_ptr<SingleState> SingleStatePtr;
+ 
+  public:
+ 
+diff -aru a/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.icc b/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.icc
+--- a/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.icc	2022-08-06 09:52:40.000000000 -0400
++++ b/src/TrackingTools/GsfTools/interface/CloseComponentsMerger.icc	2022-08-05 22:12:54.000000000 -0400
+@@ -98,7 +98,7 @@
+ CloseComponentsMerger<N>::compWithMinDistToLargestWeight(SingleStateMap& unmergedComp) const {
+ // template <unsigned int N>
+ // std::pair<SingleGaussianState<N>, 
+-// 	  typename std::multimap<double, boost::shared_ptr< MultiGaussianState<N> > >::iterator>
++// 	  typename std::multimap<double, std::shared_ptr< MultiGaussianState<N> > >::iterator>
+ // CloseComponentsMerger<N>::compWithMinDistToLargestWeight(SingleStateMap& unmergedComp) const {
+   double large = DBL_MAX;
+   double minDist = large;
+diff -aru a/src/TrackingTools/GsfTools/interface/GaussianStateLessWeight.h b/src/TrackingTools/GsfTools/interface/GaussianStateLessWeight.h
+--- a/src/TrackingTools/GsfTools/interface/GaussianStateLessWeight.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/interface/GaussianStateLessWeight.h	2022-08-05 22:12:54.000000000 -0400
+@@ -2,7 +2,7 @@
+ #define GaussianStateLessWeight_h_
+ 
+ #include "TrackingTools/GsfTools/interface/SingleGaussianState.h"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ /** \class GaussianStateLessWeight
+  * Compare two SingleGaussianState acc. to their weight.
+@@ -12,7 +12,7 @@
+ class GaussianStateLessWeight {
+   
+ private:
+-  typedef boost::shared_ptr< SingleGaussianState<N> > SingleStatePtr;
++  typedef std::shared_ptr< SingleGaussianState<N> > SingleStatePtr;
+ 
+ public:
+   GaussianStateLessWeight() {}
+diff -aru a/src/TrackingTools/GsfTools/interface/MultiGaussianState.h b/src/TrackingTools/GsfTools/interface/MultiGaussianState.h
+--- a/src/TrackingTools/GsfTools/interface/MultiGaussianState.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/interface/MultiGaussianState.h	2022-08-05 22:12:54.000000000 -0400
+@@ -2,7 +2,7 @@
+ #define MultiGaussianState_H
+ 
+ #include "TrackingTools/GsfTools/interface/SingleGaussianState.h"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ #include <vector>
+ 
+@@ -20,8 +20,8 @@
+   typedef typename SingleGaussianState<N>::Vector Vector;
+   typedef typename SingleGaussianState<N>::Matrix Matrix;
+   typedef SingleGaussianState<N> SingleState;
+-  typedef boost::shared_ptr<SingleState> SingleStatePtr;
+-//   typedef std::vector< boost::shared_ptr<const SingleState> > SingleStateContainer;
++  typedef std::shared_ptr<SingleState> SingleStatePtr;
++//   typedef std::vector< std::shared_ptr<const SingleState> > SingleStateContainer;
+   typedef std::vector< SingleStatePtr > SingleStateContainer;
+ 
+ public:
+diff -aru a/src/TrackingTools/GsfTools/interface/MultiGaussianState.icc b/src/TrackingTools/GsfTools/interface/MultiGaussianState.icc
+--- a/src/TrackingTools/GsfTools/interface/MultiGaussianState.icc	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/interface/MultiGaussianState.icc	2022-08-05 22:12:54.000000000 -0400
+@@ -3,11 +3,11 @@
+ 
+ // template <unsigned int N>
+ // MultiGaussianState<N>::MultiGaussianState
+-// (const std::vector< boost::shared_ptr<SingleState> >& stateV) :
++// (const std::vector< std::shared_ptr<SingleState> >& stateV) :
+ //   theCombinedStateUp2Date(false) {
+ //   theComponents.reserve(stateV.size());
+-//   for ( typename std::vector< boost::shared_ptr<SingleState> >::const_iterator ic=stateV.begin();
+-// 	ic!=stateV.end(); ++ic )  theComponents.push_back( boost::shared_ptr<const SingleState>(*ic) );
++//   for ( typename std::vector< std::shared_ptr<SingleState> >::const_iterator ic=stateV.begin();
++// 	ic!=stateV.end(); ++ic )  theComponents.push_back( std::shared_ptr<const SingleState>(*ic) );
+ // }
+ 
+ template <unsigned int N>
+diff -aru a/src/TrackingTools/GsfTools/interface/SingleGaussianState1D.h b/src/TrackingTools/GsfTools/interface/SingleGaussianState1D.h
+--- a/src/TrackingTools/GsfTools/interface/SingleGaussianState1D.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/interface/SingleGaussianState1D.h	2022-08-05 22:12:54.000000000 -0400
+@@ -2,7 +2,7 @@
+ #define SingleGaussianState1D_H
+ 
+ #include "TrackingTools/GsfTools/interface/SingleGaussianState.h"
+-#include "boost/shared_ptr.hpp"
++#include <memory>
+ 
+ /** One-dimensional (single) Gaussian state. Used for the description 
+  *  of Gaussian mixtures in one dimension.
+@@ -31,7 +31,7 @@
+   /// variance
+   inline double variance() const {return theVariance;}
+ //   /// state
+-//   boost::shared_ptr<SingleState> state() {return theState;}
++//   std::shared_ptr<SingleState> state() {return theState;}
+ 
+ private:
+   double theWeight;
+diff -aru a/src/TrackingTools/GsfTools/src/MultiGaussianState1D.cc b/src/TrackingTools/GsfTools/src/MultiGaussianState1D.cc
+--- a/src/TrackingTools/GsfTools/src/MultiGaussianState1D.cc	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/GsfTools/src/MultiGaussianState1D.cc	2022-08-05 22:12:54.000000000 -0400
+@@ -33,7 +33,7 @@
+   theCombinedState = combiner.combine(theComponents);
+ 
+ //   typedef SingleGaussianState<1> SingleState;
+-//   typedef boost::shared_ptr< SingleGaussianState<1> > SingleStatePtr;
++//   typedef std::shared_ptr< SingleGaussianState<1> > SingleStatePtr;
+ //   typedef std::vector< SingleStatePtr > SingleStateContainer;
+ 
+ //   SingleStateContainer components;
+diff -aru a/src/TrackingTools/TrajectoryParametrization/interface/LocalTrajectoryError.h b/src/TrackingTools/TrajectoryParametrization/interface/LocalTrajectoryError.h
+--- a/src/TrackingTools/TrajectoryParametrization/interface/LocalTrajectoryError.h	2012-02-23 04:22:59.000000000 -0500
++++ b/src/TrackingTools/TrajectoryParametrization/interface/LocalTrajectoryError.h	2022-08-05 22:12:54.000000000 -0400
+@@ -4,7 +4,7 @@
+ #include "DataFormats/GeometrySurface/interface/LocalError.h"
+ #include "DataFormats/CLHEP/interface/AlgebraicObjects.h"
+ 
+-#include <boost/shared_ptr.hpp>
++#include <memory>
+ 
+ /** Class providing access to the covariance matrix of a set of relevant parameters of a trajectory
+  *  in a local, Cartesian frame. The errors provided are: <BR> <BR>
+@@ -61,10 +61,9 @@
+   const AlgebraicSymMatrix55 &weightMatrix() const {
+         if (theWeightMatrixPtr.get() == 0) {
+                 int ifail;
+-                boost::shared_ptr<AlgebraicSymMatrix55> inv(
++                theWeightMatrixPtr.reset(
+                           new AlgebraicSymMatrix55(theCovarianceMatrix.Inverse(ifail))
+                 );
+-                theWeightMatrixPtr = inv;
+         }
+         return *theWeightMatrixPtr;
+   }
+@@ -89,7 +88,7 @@
+ 
+ private:
+   AlgebraicSymMatrix55 theCovarianceMatrix;
+-  mutable boost::shared_ptr<AlgebraicSymMatrix55> theWeightMatrixPtr;
++  mutable std::shared_ptr<AlgebraicSymMatrix55> theWeightMatrixPtr;
+ };
+ 
+ #endif
