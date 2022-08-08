@@ -64,6 +64,10 @@ final: prev: with final; {
 
   podio = callPackage pkgs/podio {};
 
+  # workaround for https://github.com/NixOS/nixpkgs/issues/185615
+  qt5 = if stdenv.isDarwin then prev.qt512 else prev.qt5;
+  libsForQt5 = if stdenv.isDarwin then prev.libsForQt512 else prev.libsForQt5;
+
   rave = callPackage pkgs/rave {};
 
 }

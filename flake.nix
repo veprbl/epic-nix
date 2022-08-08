@@ -33,7 +33,8 @@
             is_broken = pkg: (pkg.meta or {}).broken or false;
             select_unbroken = lib.filterAttrs (name: pkg: !(is_broken pkg));
           in
-            select_unbroken (lib.getAttrs providedPackageList pkgs));
+            lib.filterAttrs (name: lib.isDerivation)
+            (select_unbroken (lib.getAttrs providedPackageList pkgs)));
 
       checks = self.packages;
 
