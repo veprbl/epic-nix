@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, assimp
 , boost
 , cmake
 , edm4hep
@@ -38,6 +39,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
+    assimp
     edm4hep
     geant4
     hepmc3
