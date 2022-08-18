@@ -17,13 +17,13 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-21";
+  version = "01-22";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = "DD4hep";
     rev = "v${version}";
-    hash = "sha256-dcO5q+Kx2q4Qr3ucg3hmQlrsXvgBBzjg9/ZcGGeIUYU=";
+    hash = "sha256-f/hdS7ga7MWusZKtcOtjO16z6e6zC+BdOE24zHcZkNM=";
   };
 
   postPatch = ''
