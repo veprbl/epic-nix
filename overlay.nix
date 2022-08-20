@@ -52,6 +52,8 @@ final: prev: with final; {
       "-DCMAKE_CXX_STANDARD=17"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_afterimage=ON"
+      "-Dbuiltin_unuran=ON"
+      "-Dunuran=ON" # for sartre
     ];
     buildInputs  = prev.buildInputs ++ [
       openssl
@@ -69,5 +71,7 @@ final: prev: with final; {
   libsForQt5 = if stdenv.isDarwin then prev.libsForQt512 else prev.libsForQt5;
 
   rave = callPackage pkgs/rave {};
+
+  sartre = callPackage pkgs/sartre {};
 
 }
