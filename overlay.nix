@@ -70,6 +70,8 @@ final: prev: with final; {
   qt5 = if stdenv.isDarwin then prev.qt512 else prev.qt5;
   libsForQt5 = if stdenv.isDarwin then prev.libsForQt512 else prev.libsForQt5;
 
+  pythia6 = callPackage pkgs/pythia6 {};
+
   rave = callPackage pkgs/rave {};
 
   sartre = callPackage pkgs/sartre {};
