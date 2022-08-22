@@ -53,10 +53,12 @@ final: prev: with final; {
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_afterimage=ON"
       "-Dbuiltin_unuran=ON"
+      "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" # for sartre
     ];
     buildInputs  = prev.buildInputs ++ [
       openssl
+      pythia6
     ];
   });
 
