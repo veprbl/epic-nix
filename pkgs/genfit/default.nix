@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, rave
 , root
 }:
 
@@ -20,11 +21,11 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
+    rave
     root
   ];
 
-  cmakeFlags = [
-  ];
+  RAVEPATH=rave;
 
   meta = with lib; {
     description = "An experiment-independent framework for track reconstruction in particle and nuclear physics";
