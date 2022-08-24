@@ -24,6 +24,8 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
+  fun4all = callPackage pkgs/fun4all {};
+
   gaudi = callPackage pkgs/gaudi {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
@@ -73,6 +75,12 @@ final: prev: with final; {
   libsForQt5 = if stdenv.isDarwin then prev.libsForQt512 else prev.libsForQt5;
 
   pythia6 = callPackage pkgs/pythia6 {};
+
+  # workaround for https://github.com/NixOS/nixpkgs/pull/187356
+  pythia = prev.pythia.overrideAttrs (prev: {
+    nativeBuildInputs = (prev.nativeBuildInputs or [])
+      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  });
 
   rave = callPackage pkgs/rave {};
 
