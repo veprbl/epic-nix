@@ -24,6 +24,8 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
+  fun4all = callPackage pkgs/fun4all {};
+
   gaudi = callPackage pkgs/gaudi {
     inherit (darwin.apple_sdk.frameworks) Foundation;
   };
@@ -53,10 +55,12 @@ final: prev: with final; {
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_afterimage=ON"
       "-Dbuiltin_unuran=ON"
+      "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" # for sartre
     ];
     buildInputs  = prev.buildInputs ++ [
       openssl
+      pythia6
     ];
   });
 
@@ -69,6 +73,14 @@ final: prev: with final; {
   # workaround for https://github.com/NixOS/nixpkgs/issues/185615
   qt5 = if stdenv.isDarwin then prev.qt512 else prev.qt5;
   libsForQt5 = if stdenv.isDarwin then prev.libsForQt512 else prev.libsForQt5;
+
+  pythia6 = callPackage pkgs/pythia6 {};
+
+  # workaround for https://github.com/NixOS/nixpkgs/pull/187356
+  pythia = prev.pythia.overrideAttrs (prev: {
+    nativeBuildInputs = (prev.nativeBuildInputs or [])
+      ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  });
 
   rave = callPackage pkgs/rave {};
 
