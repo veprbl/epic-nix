@@ -46,14 +46,25 @@ final: prev: with final; {
 
   juggler = callPackage pkgs/juggler {};
 
-  root = (prev.root.override {
-    # use builtin libAfterImage until https://github.com/NixOS/nixpkgs/pull/182105
-    libAfterImage = null;
-  }).overrideAttrs (prev: {
+  libAfterImage = prev.libAfterImage.overrideAttrs (prev: {
+    patches = prev.patches ++ [
+      # fix https://github.com/root-project/root/issues/10990
+      (fetchpatch {
+        url = "https://github.com/root-project/root/pull/11243/commits/e177a477b0be05ef139094be1e96a99ece06350a.diff";
+        hash = "sha256-2DQmJGHmATHawl3dk9dExncVe1sXzJQyy4PPwShoLTY=";
+        stripLen = 5;
+      })
+    ];
+
+    # fix build on systems without XQuartz
+    configureFlags = prev.configureFlags
+      ++ lib.optional stdenv.isDarwin [ "--without-x" ];
+  });
+
+  root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
       "-Dssl=ON" # for Gaudi
-      "-Dbuiltin_afterimage=ON"
       "-Dbuiltin_unuran=ON"
       "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" # for sartre
