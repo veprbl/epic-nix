@@ -16,13 +16,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-14-03";
+  version = "00-15";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-beJXYggUQLfBtxWcmzj9oWVQasU8EzDoo+mxcTuXWkw=";
+    hash = "sha256-rI/2l9lpillGYgrGIE9c1gqW3kTldSgT4tJU7fg7HSY=";
   };
 
   nativeBuildInputs = [
