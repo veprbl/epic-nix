@@ -16,9 +16,9 @@ final: prev: with final; {
 
   epic = callPackage pkgs/epic {};
 
-  edm4hep = callPackage pkgs/edm4hep {};
+  edm4eic = callPackage pkgs/edm4eic {};
 
-  eicd = callPackage pkgs/eicd {};
+  edm4hep = callPackage pkgs/edm4hep {};
 
   eicrecon = callPackage pkgs/eicrecon {};
 
