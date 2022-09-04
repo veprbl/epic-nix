@@ -23,13 +23,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-05";
+  version = "00-06";
 
   src = fetchFromGitHub {
     owner = "key4hep";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-ssrVoPXWF24O0D0m2LTz//UOE5o3X/KDcqSelYRJaKg=";
+    hash = "sha256-ALf9RKAuQYrm9WQhchXQpeQ+CPc4WW6UZIaLyh3FLm8=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''

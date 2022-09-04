@@ -9,15 +9,19 @@
 }:
 
 stdenv.mkDerivation rec {
-  pname = "eicd";
-  version = "2.0.0";
+  pname = "EDM4eic";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "eic";
-    repo = "eicd";
+    repo = "EDM4eic";
     rev = "v${version}";
-    hash = "sha256-WvuFpleSBj5UgEOARF30Qpf++oggtxxFNTtIAqegwEE=";
+    hash = "sha256-glCjveCAXUN5/YWNWMipLJ+9mVnRHMrUcjaHUQfTR1A=";
   };
+
+  patches = [
+    ./link_edm4hep.diff
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -33,10 +37,12 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=17"
   ];
 
+  ROOT_INCLUDE_PATH="${edm4hep}/include";
+
   meta = with lib; {
     description = "Generic EIC Data Model for Simulations, Reconstruction, and Analysis";
-    license = licenses.free; # FIXME https://eicweb.phy.anl.gov/EIC/eicd/-/issues/28
-    homepage = "http://dd4hep.cern.ch/";
+    license = licenses.free; # FIXME https://github.com/eic/EDM4eic/issues/4
+    homepage = "https://github.com/eic/EDM4eic";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
   };
