@@ -1,5 +1,5 @@
 {
-  description = "Nix overlay for EIC";
+  description = "Collection of Nix packages for EPIC experiment at EIC";
 
   inputs.flake-compat = {
     url = "github:edolstra/flake-compat";
