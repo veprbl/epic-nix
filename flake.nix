@@ -37,9 +37,14 @@
 
             is_broken = pkg: (pkg.meta or {}).broken or false;
             select_unbroken = lib.filterAttrs (name: pkg: !(is_broken pkg));
+
+            epic_pkgs =
+              lib.filterAttrs (name: lib.isDerivation)
+              (select_unbroken (lib.getAttrs providedPackageList pkgs));
+
+            dockerImage = pkgs.callPackage ./docker.nix { inherit epic_pkgs self; };
           in
-            lib.filterAttrs (name: lib.isDerivation)
-            (select_unbroken (lib.getAttrs providedPackageList pkgs)));
+            epic_pkgs // (lib.optionalAttrs pkgs.stdenv.isLinux { inherit dockerImage; }));
 
       checks = self.packages;
 
@@ -51,7 +56,7 @@
           {
             default = pkgs.mkShell rec {
               buildInputs =
-                builtins.attrValues self.packages.${system} ++
+                builtins.filter lib.isDerivation (builtins.attrValues self.packages.${system}) ++
                 (with self.packages.${system}; [
                   geant4.data.G4EMLOW
                   geant4.data.G4ENSDFSTATE
