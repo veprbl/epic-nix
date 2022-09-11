@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , assimp
 , boost
 , cmake
@@ -25,6 +26,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-f/hdS7ga7MWusZKtcOtjO16z6e6zC+BdOE24zHcZkNM=";
   };
+
+  patches = [
+    # avoid unsetting $p which breaks setupHook
+    (fetchpatch {
+      url = "https://github.com/AIDASoft/DD4hep/commit/2b80eb65daf1be6c607e026e248ffff17252b015.diff";
+      hash = "sha256-dkhuN4I3SZnEcb4UUCsZ26qesHtQ6e4z/2P5Iqa5cqk=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace cmake/thisdd4hep.sh \
