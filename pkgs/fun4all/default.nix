@@ -198,6 +198,12 @@ let
       postPatch = (prev.postPatch or "") + ''
         substituteInPlace cmake/Modules/FindXQuartzGL.cmake \
           --replace "NO_DEFAULT_PATH" ""
+
+        # A workaround for
+        #   error: ambiguating new declaration of
+        # with modern gcc/glibc
+        substituteInPlace source/persistency/ascii/src/G4tgrEvaluator.cc \
+          --replace fsqrt _fsqrt
       '';
     });
 
