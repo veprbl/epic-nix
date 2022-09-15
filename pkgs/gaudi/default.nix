@@ -27,22 +27,6 @@
 let
 
   _boost = boost.override { python = python3; enablePython = true; };
-  _range-v3 =
-    if stdenv.isDarwin && (lib.versionOlder range-v3.version "0.12.0") then
-      # https://github.com/ericniebler/range-v3/pull/1635
-      # https://github.com/NixOS/nixpkgs/pull/181298
-      range-v3.overrideAttrs (prev: rec {
-        version = "0.12.0";
-        src = fetchFromGitHub {
-          owner = "ericniebler";
-          repo = "range-v3";
-          rev = version;
-          hash = "sha256-bRSX91+ROqG1C3nB9HSQaKgLzOHEFy9mrD2WW3PRBWU=";
-        };
-        patches = [];
-      })
-    else
-      range-v3;
 
 in
 
@@ -78,12 +62,12 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [
     aida
     _boost
-    _range-v3
     fmt
     gperftools
     jemalloc
     libuuid
     microsoft_gsl
+    range-v3
     tbb
     xercesc
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
