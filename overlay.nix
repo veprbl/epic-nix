@@ -24,6 +24,15 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
+  ftgl = prev.ftgl.overrideAttrs (_: lib.optionalAttrs stdenv.isDarwin {
+    # Fix build on GitHub Actions
+    # https://github.com/NixOS/nixpkgs/pull/191577
+    postPatch = ''
+      substituteInPlace m4/gl.m4 \
+        --replace ' -dylib_file $GL_DYLIB: $GL_DYLIB' ""
+    '';
+  });
+
   fun4all = callPackage pkgs/fun4all {};
 
   gaudi = callPackage pkgs/gaudi {
