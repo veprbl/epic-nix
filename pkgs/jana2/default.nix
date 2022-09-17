@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-XlQuXSywrzRZWbQH2qfX04hxfbMmiOcsI/nX+7mbk3g=";
+    hash = "sha256-yu3kuzjvtwg7kRam5okMkgf/b+AuOFVbyvUhy6yd8ho=";
   };
 
   patches = [
