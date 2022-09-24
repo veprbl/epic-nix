@@ -238,7 +238,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   generators.phhepmc = mk_path "generators/phhepmc" {
     propagatedBuildInputs = [ clhep gsl hepmc2 ];
     buildInputs = [ boost generators.flowAfterburner offline.framework.frog offline.framework.fun4all offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${clhep}/include";
     OFFLINE_MAIN = hepmc2;
   };
   generators.PHPythia6 = mk_path "generators/PHPythia6" {
@@ -256,7 +255,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   offline.packages.intt = mk_path "offline/packages/intt" {
     buildInputs = [ extra_deps.acts boost clhep offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${simulation.g4simulation.g4detectors}/include";
   };
   offline.framework.phool = mk_path "offline/framework/phool" {
     buildInputs = [ boost ];
@@ -264,7 +262,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   offline.framework.ffaobjects = mk_path "offline/framework/ffaobjects" {
     buildInputs = [ offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ];
   };
   offline.framework.frog = mk_path "offline/framework/frog" {
@@ -275,7 +272,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   offline.database.pdbcal.base = mk_path "offline/database/pdbcal/base" {
     buildInputs = [ boost offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     postPatch = ''
       substituteInPlace offline/database/pdbcal/base/PdbParameterMap.h \
         --replace "std::map<const " "std::map<"
@@ -298,14 +294,12 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   offline.packages.CaloBase = mk_path "offline/packages/CaloBase" {
     propagatedBuildInputs = [ clhep offline.framework.phool ];
     buildInputs = [ offline.framework.fun4all ];
-    ROOT_INCLUDE_PATH = "${clhep}/include:${offline.framework.phool}/include";
   };
   offline.packages.CaloReco = mk_path "offline/packages/CaloReco" {
     buildInputs = [ boost gsl offline.database.PHParameter offline.framework.fun4all offline.packages.CaloBase /*offline.packages.NodeDump*/ simulation.g4simulation.g4vertex ];
   };
   offline.packages.centrality = mk_path "offline/packages/centrality" {
     buildInputs = [ offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.Half = mk_path "offline/packages/Half" {
     CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ];
@@ -316,7 +310,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   offline.packages.jetbackground = mk_path "offline/packages/jetbackground" {
     buildInputs = [ cgal fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.KFParticle_sPHENIX = mk_path "offline/packages/KFParticle_sPHENIX" {
     propagatedBuildInputs = [ KFParticle ];
@@ -327,29 +320,23 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
     '';
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.micromegas = mk_path "offline/packages/micromegas" {
     buildInputs = [ clhep offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${offline.packages.trackbase}/include:${simulation.g4simulation.g4detectors}/include";
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
   };
   offline.packages.mvtx = mk_path "offline/packages/mvtx" {
     buildInputs = [ clhep boost offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${simulation.g4simulation.g4detectors}/include";
   };
   offline.packages.particleflow = mk_path "offline/packages/particleflow" {
     buildInputs = [ gsl offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.PHGeometry = mk_path "offline/packages/PHGeometry" {
     buildInputs = [ uuid offline.framework.fun4all offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.PHField = mk_path "offline/packages/PHField" {
     buildInputs = [ boost BeastMagneticField clhep geant4 offline.framework.fun4all offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.PHGenFitPkg.GenFitExp = mk_path "offline/packages/PHGenFitPkg/GenFitExp" {
     buildInputs = [ clhep genfit genfit_includes offline.packages.PHField ];
@@ -381,7 +368,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
 #    ];
     propagatedBuildInputs = [ extra_deps.acts ];
     buildInputs = [ offline.framework.phool ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
     postPatch = ''
@@ -413,7 +399,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/simulation/g4simulation"
     '';
     buildInputs = [ extra_deps.acts boost offline.framework.phool offline.packages.trackbase ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${offline.packages.trackbase}/include";
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
   };
@@ -427,7 +412,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
 #    ];
     postPatch = ''
       # resolve include for g4main (possibly others)
-      export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/simulation/g4simulation
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/simulation/g4simulation"
 
       #      # resolve include for intt (possibly others)
@@ -452,15 +436,12 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
     ];
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${offline.packages.trackbase}/include";
   };
   offline.packages.trigger = mk_path "offline/packages/trigger" {
     buildInputs = [ offline.framework.fun4all offline.framework.phool offline.packages.CaloBase ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.packages.vararray = mk_path "offline/packages/vararray" {
     buildInputs = [ offline.framework.phool offline.packages.Half ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   offline.QA.modules = mk_path "offline/QA/modules" {
     buildInputs = [ boost generators.phhepmc offline.framework.fun4all offline.packages.intt offline.framework.phool offline.packages.CaloBase offline.packages.KFParticle_sPHENIX offline.packages.micromegas offline.packages.mvtx offline.packages.tpc offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4eval simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
@@ -469,7 +450,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   simulation.g4simulation.g4bbc = mk_path "simulation/g4simulation/g4bbc" {
     buildInputs = [ gsl offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     postPatch = ''
       # resolve include for g4main (possibly others)
       export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/simulation/g4simulation
@@ -481,7 +461,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   simulation.g4simulation.g4detectors = mk_path "simulation/g4simulation/g4detectors" {
     buildInputs = [ boost cgal gmp mpfr geant4 gsl offline.database.pdbcal.base offline.database.PHParameter offline.framework.phool offline.framework.fun4all simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     postPatch = ''
       substituteInPlace simulation/g4simulation/g4detectors/Makefile.am \
         --replace "-lphg4gdml" ""
@@ -506,7 +485,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   simulation.g4simulation.g4eval = mk_path "simulation/g4simulation/g4eval" {
     buildInputs = [ boost hepmc2 generators.phhepmc offline.framework.fun4all offline.packages.intt offline.framework.phool offline.packages.CaloBase offline.packages.micromegas offline.packages.mvtx offline.packages.tpc offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4jets simulation.g4simulation.g4main simulation.g4simulation.g4vertex ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
   };
@@ -522,16 +500,13 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   simulation.g4simulation.g4intt = mk_path "simulation/g4simulation/g4intt" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.intt offline.packages.trackbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${simulation.g4simulation.g4detectors}/include";
   };
   simulation.g4simulation.g4jets = mk_path "simulation/g4simulation/g4jets" {
     buildInputs = [ cgal fastjet fastjet-contrib generators.phhepmc offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4vertex simulation.g4simulation.g4main ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   simulation.g4simulation.g4main = mk_path "simulation/g4simulation/g4main" {
     propagatedBuildInputs = [ clhep geant4 gsl ]; # offline.framework.fun4all
     buildInputs = [ boost eigen eic-smear offline.database.PHParameter simulation.g4simulation.EICPhysicsList simulation.g4simulation.g4decayer simulation.g4simulation.g4gdml offline.framework.frog offline.framework.phool offline.framework.ffaobjects offline.framework.fun4all /*offline.packages.CaloReco*/ offline.packages.PHGeometry offline.packages.PHField offline.packages.vararray generators.phhepmc ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     postPatch = ''
       sed -i simulation/g4simulation/g4main/PHG4Hit.h -e '1i#if !defined(ULONG_LONG_MAX)' -e '1i#define ULONG_LONG_MAX 18446744073709551615ULL' -e '1i#endif'
       substituteInPlace simulation/g4simulation/g4main/PHG4HitDefs.cc \
@@ -554,7 +529,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   simulation.g4simulation.g4vertex = mk_path "simulation/g4simulation/g4vertex" {
     buildInputs = [ extra_deps.acts gsl offline.framework.fun4all offline.framework.phool offline.packages.trackbase_historic simulation.g4simulation.g4bbc simulation.g4simulation.g4detectors ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     postPatch = ''
       # resolve include for g4main (possibly others)
       export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/simulation/g4simulation
@@ -580,7 +554,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   };
   reconstruction.eicpidbase = mk_path_eicdetectors "reconstruction/eicpidbase" {
     buildInputs = [ boost offline.framework.phool offline.packages.trackbase_historic ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
     # FIXME postInstall
     postFixup = ''
       ln -s "$out/include/eicpidbase/"* "$out/include/"
@@ -589,7 +562,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   reconstruction.eiczdcbase = mk_path_eicdetectors "reconstruction/eiczdcbase" {
     buildInputs = [ offline.framework.phool ];
     NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include";
   };
   simulation.g4simulation.g4b0 = mk_path_eicdetectors "simulation/g4simulation/g4b0" {
     buildInputs = [ analysis.eicevaluator offline.database.pdbcal.base offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase offline.packages.trackbase_historic offline.packages.PHField offline.packages.PHGenFitPkg.PHGenFit offline.packages.PHGeometry simulation.g4simulation.g4detectors simulation.g4simulation.g4eval simulation.g4simulation.g4main ];
@@ -622,7 +594,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   simulation.g4simulation.g4eicdirc = mk_path_eicdetectors "simulation/g4simulation/g4eicdirc" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
     NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=overloaded-virtual" ];
-    ROOT_INCLUDE_PATH = "${offline.framework.phool}/include:${simulation.g4simulation.g4main}/include";
   };
   simulation.g4simulation.g4etof = mk_path_eicdetectors "simulation/g4simulation/g4etof" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];

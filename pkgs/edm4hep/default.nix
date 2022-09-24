@@ -58,7 +58,6 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  ROOT_INCLUDE_PATH="${placeholder "out"}/include:${podio}/include";
 
   meta = with lib; {
     description = "Generic event data model for HEP collider experiments";
