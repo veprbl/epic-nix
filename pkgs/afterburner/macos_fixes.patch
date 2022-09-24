@@ -1,0 +1,39 @@
+diff --git a/cpp/abconv/ArgumentProcessor.cc b/cpp/abconv/ArgumentProcessor.cc
+index ed46ed3..18b7721 100644
+--- a/cpp/abconv/ArgumentProcessor.cc
++++ b/cpp/abconv/ArgumentProcessor.cc
+@@ -18,7 +18,7 @@ UserArguments ArgumentProcessor::Process(int argc, char **argv)
+     bool ab_off = false;
+     bool plot_off = false;
+     bool check_ca = false;
+-    ulong process_limit = 0;
++    unsigned long process_limit = 0;
+     std::string input_format = "auto";
+     std::string output_format = "hepmc3";
+     long ev_start = 0;
+diff --git a/cpp/abconv/ArgumentProcessor.hh b/cpp/abconv/ArgumentProcessor.hh
+index 4549704..c3a83b9 100644
+--- a/cpp/abconv/ArgumentProcessor.hh
++++ b/cpp/abconv/ArgumentProcessor.hh
+@@ -35,7 +35,7 @@ struct UserArguments
+     std::string OutputHistFileName;       /// Exact file name for histograms file
+     bool PlottingEnabled;                 /// Don't produce validation plots
+     bool AfterburnerEnabled;              /// Switch off afterburner
+-    ulong EventProcessLimit;              /// Limit on processed events. Will shut down after this number of events processed
++    unsigned long EventProcessLimit;              /// Limit on processed events. Will shut down after this number of events processed
+ 
+     long StartEventIndex;                 /// Start event index (all skipped before that)
+     long EndEventIndex;                   /// End event index (stop after that)
+diff --git a/cpp/abconv/Converter.cc b/cpp/abconv/Converter.cc
+index 1af7a54..2e38ed9 100644
+--- a/cpp/abconv/Converter.cc
++++ b/cpp/abconv/Converter.cc
+@@ -132,7 +132,7 @@ void ab::abconv::Converter::convert() {
+         print_processed_events(events_processed);
+ 
+         if(_events_limit && events_processed >= _events_limit ) {
+-            printf("Event limit reached:-> Events processed: %li >= Events_limit: %li\n", events_processed , _events_limit);
++            printf("Event limit reached:-> Events processed: %li >= Events_limit: %llu\n", events_processed , _events_limit);
+             break;
+         }
+     }
