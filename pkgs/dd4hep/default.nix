@@ -9,7 +9,6 @@
 , geant4
 , hepmc3
 , gnugrep
-, podio
 , python3
 , root
 , AGL
@@ -88,7 +87,6 @@ stdenv.mkDerivation rec {
     geant4.data.G4PhotonEvaporation
     python3.pkgs.pytest
   ];
-  ROOT_INCLUDE_PATH="${edm4hep}/include:${podio}/include";
 
   setupHook = ./setup-hook.sh;
 

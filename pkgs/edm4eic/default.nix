@@ -27,8 +27,10 @@ stdenv.mkDerivation rec {
     cmake
     python3
   ];
-  buildInputs = [
+  propagatedBuildInputs = [
     edm4hep
+  ];
+  buildInputs = [
     podio
     root
   ];
@@ -36,8 +38,6 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
   ];
-
-  ROOT_INCLUDE_PATH="${edm4hep}/include";
 
   meta = with lib; {
     description = "Generic EIC Data Model for Simulations, Reconstruction, and Analysis";
