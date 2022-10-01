@@ -11,22 +11,14 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.0.6";
+  version = "2.0.7";
 
   src = fetchFromGitHub {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-yu3kuzjvtwg7kRam5okMkgf/b+AuOFVbyvUhy6yd8ho=";
+    hash = "sha256-7+9ZOVnEnogZa/p0+PpC39+y/Gwt/cF+a0O4RNunBSw=";
   };
-
-  patches = [
-    # propagate jana2 dependencies in cmake
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/pull/133/commits/534ea53ebfde6d81cf1da194930354038098d7d5.diff";
-      hash = "sha256-gnZ77m7Mv+P1DBz5uXGhG4EHfvHLheL0+zVdp+/yaHE=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
