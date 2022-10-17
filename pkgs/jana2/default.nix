@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , python3
 , root
@@ -19,6 +18,20 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-7+9ZOVnEnogZa/p0+PpC39+y/Gwt/cF+a0O4RNunBSw=";
   };
+
+  postPatch = lib.optionalString stdenv.isDarwin ''
+    cat >> src/libraries/JANA/Services/JParameterManager.h <<EOF
+    #pragma once
+    template <>
+    inline std::vector<unsigned long> JParameterManager::parse(const std::string& value) {
+        return parse_vector<unsigned long>(value);
+    }
+    template<>
+    inline std::string JParameterManager::stringify(const std::vector<unsigned long>& values) {
+        return stringify_vector(values);
+    }
+    EOF
+  '';
 
   nativeBuildInputs = [
     cmake
