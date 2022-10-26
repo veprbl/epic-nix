@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "unstable-2022-09-03";
+  version = "unstable-2022-10-25";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
-    rev = "3651c6dc504bb03798c424cd4e064599d421e5ae";
-    hash = "sha256-vtM427u9kBRrsjcNn7aU8uVAKXDZpg+mypjN0MWtCdc=";
+    rev = "596828c797e044ea3e1434fe11a4edc0ae2af505";
+    hash = "sha256-NqAgmJXc+23cITl+IV7coBCDI7ozlBvc1hBDygJ7vWI=";
   };
 
   postPatch = ''
