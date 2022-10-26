@@ -53,6 +53,8 @@ final: prev: with final; {
 
   ip6 = callPackage pkgs/ip6 {};
 
+  irt = callPackage pkgs/irt {};
+
   jana2 = callPackage pkgs/jana2 {};
 
   juggler = callPackage pkgs/juggler {};
