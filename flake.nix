@@ -53,6 +53,20 @@
               buildInputs = builtins.attrValues self.packages.${system};
             };
 
+            eicrecon = pkgs.mkShell rec {
+              buildInputs = with self.packages.${system}; [
+                dd4hep
+                edm4eic
+                edm4hep
+                eicrecon
+                epic
+                ip6
+                jana2
+                podio
+                root
+              ];
+            };
+
             fun4all = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 fun4all
