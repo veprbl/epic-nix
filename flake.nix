@@ -17,7 +17,7 @@
         overlays = [ self.overlays.default ];
         # Will assume that the flake user agrees to use non-free EIC software
         config.allowUnfreePredicate = pkg:
-          (builtins.elem pkg.pname [ "afterburner" "athena" "BeastMagneticField" "EICrecon" "eic-smear" "epic" "ip6" "pythia6" ])
+          (builtins.elem pkg.pname [ "afterburner" "athena" "BeastMagneticField" "EICrecon" "eic-smear" "epic" "ip6" "irt" "pythia6" ])
           || lib.hasPrefix "ecce-detectors" pkg.pname
           || lib.hasPrefix "fun4all_coresoftware" pkg.pname
           || lib.hasPrefix "fun4all_eicdetectors" pkg.pname
@@ -51,6 +51,20 @@
           {
             default = pkgs.mkShell rec {
               buildInputs = builtins.attrValues self.packages.${system};
+            };
+
+            eicrecon = pkgs.mkShell rec {
+              buildInputs = with self.packages.${system}; [
+                dd4hep
+                edm4eic
+                edm4hep
+                eicrecon
+                epic
+                ip6
+                jana2
+                podio
+                root
+              ];
             };
 
             fun4all = pkgs.mkShell rec {
