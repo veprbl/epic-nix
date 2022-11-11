@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , acts
 , boost
 , cmake
@@ -21,25 +20,19 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.3.0";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-/L+7eb9YYZjtK9aypy+/AYCcWrl93n41NplfP2XaYGI=";
+    hash = "sha256-CK5G1skfH+i+aUfZnbnWJosCtqYsQbiv+/KwwgojHhA=";
   };
-
-  patches = [
-    # https://github.com/eic/EICrecon/pull/284
-    (fetchpatch {
-      url = "https://github.com/eic/EICrecon/commit/b18b91924922c5015b151fd308086629f3da3641.diff";
-      hash = "sha256-Mtmhr2n6PnW/HvsEma14d4teWRHiV8V7IZvGjKgIexk=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace src/services/io/podio/JEventSourcePODIOsimple.cc \
+      --replace '_exit(-1);' 'std::terminate();';
+    substituteInPlace src/services/geometry/dd4hep/JDD4hep_service.cc \
       --replace '_exit(-1);' 'std::terminate();';
     substituteInPlace cmake/jana_plugin.cmake \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
