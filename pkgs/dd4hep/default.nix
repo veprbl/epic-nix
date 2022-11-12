@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , assimp
 , boost
 , cmake
@@ -24,6 +25,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-fiVzpB7kNSm0/3eO6L6OMCXcSSXyD+e/iyy53rEzi74=";
   };
+
+  patches = [
+    # https://github.com/AIDASoft/DD4hep/pull/983
+    (fetchpatch {
+      url = "https://github.com/AIDASoft/DD4hep/commit/f7775644930f27f80c63b5185feed964d60d90a7.diff";
+      hash = "sha256-i2eEQ8giTrJYnqHVtMBOGhV9v1I8Yy3qaMN3DElUwyo=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace cmake/thisdd4hep.sh \
