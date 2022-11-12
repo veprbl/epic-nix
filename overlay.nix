@@ -59,6 +59,8 @@ final: prev: with final; {
 
   juggler = callPackage pkgs/juggler {};
 
+  npdet = callPackage pkgs/npdet {};
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
