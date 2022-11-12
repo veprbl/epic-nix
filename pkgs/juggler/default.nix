@@ -16,29 +16,22 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "unstable-2022-08-23";
+  version = "9.0.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
-    rev = "f85f375aefd4b1ca5d02d791f6aeb8a9cf9f095d";
-    hash = "sha256-3vgSl6tygbIafare4sf7/D0fvLMJ0xr5cxkKJ52jJbw=";
+    rev = "v${version}";
+    hash = "sha256-PLqMPlwRkTiEnsRivA985r7O519RZd9LSZr/9/X5Dj8=";
   };
 
-  patches = [
-    # support EDM4eic
-    (fetchpatch {
-      url = "https://eicweb.phy.anl.gov/EIC/juggler/-/commit/c71bd5203c1af79d064db50733623f41e14b3559.diff";
-      hash = "sha256-9sRNvyUY8rEMLbYZuuYFdp7H3XPU8FibelYMmJ1uYhc=";
-    })
-  ];
-
-  # https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/430
+  # fix https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/495
   postPatch = ''
-    substituteInPlace JugFast/src/components/InclusiveKinematicsTruth.cpp \
-      --replace "#include <ranges>" ""
-    substituteInPlace JugReco/src/components/InclusiveKinematicsElectron.cpp \
-      --replace "#include <ranges>" ""
+    substituteInPlace external/algorithms/core/include/algorithms/detail/random.h \
+      --replace 'constexpr value_type min() const' \
+                'static constexpr value_type min()' \
+      --replace 'constexpr value_type max() const' \
+                'static constexpr value_type max()'
   '';
 
   nativeBuildInputs = [
