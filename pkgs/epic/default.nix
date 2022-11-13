@@ -21,9 +21,6 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
-
-    substituteInPlace templates/epic.xml.jinja2 \
-      --replace '"ip6/' '"''${BEAMLINE_PATH}/ip6/'
   '';
 
   nativeBuildInputs = [
