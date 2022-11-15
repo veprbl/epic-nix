@@ -228,7 +228,7 @@ let
     uuid = if stdenv.isDarwin then e2fsprogs else libuuid;
   };
 
-sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in rec {
+sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in lib.makeExtensibleWithCustomName "override" (final: with final; {
   generators.FermiMotionAfterburner = mk_path "generators/FermiMotionAfterburner" {
     buildInputs = [ gsl generators.phhepmc offline.framework.fun4all offline.framework.phool ];
   };
@@ -634,12 +634,12 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
 
   combined = symlinkJoin {
     name = "fun4all-combined";
-    paths = (lib.collect lib.isDerivation (lib.filterAttrs (name: _: name != "combined") sphenix_packages)) ++ [
+    paths = (lib.collect lib.isDerivation (lib.filterAttrs (name: _: name != "combined") final)) ++ [
       boost boost.dev eic-smear genfit genfit_includes gsl hepmc2 pythia6
     ] ++ (with extra_deps; [
       clhep geant4_10_6_2
     ]);
-    passthru = sphenix_packages // extra_deps;
+    passthru = final // extra_deps;
     setupHook = ./setup-hook.sh;
     calibrations = fetchFromGitHub {
       owner = "ECCE-EIC";
@@ -653,7 +653,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
       substituteAll "$setupHook" "$out/nix-support/setup-hook"
     '';
   };
-};
+});
 
 in
   sphenix_packages.combined
