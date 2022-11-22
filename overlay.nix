@@ -61,6 +61,8 @@ final: prev: with final; {
 
   npdet = callPackage pkgs/npdet {};
 
+  npsim = callPackage pkgs/npsim {};
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=17"
