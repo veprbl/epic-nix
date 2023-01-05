@@ -10,12 +10,6 @@ final: prev: with final; {
 
   athena = callPackage pkgs/athena {};
 
-  ecce = epic.overrideAttrs (prev: {
-    cmakeFlags = lib.warn "using outdated `ecce` attr" prev.cmakeFlags ++ [
-      "-DEPIC_ECCE_LEGACY_COMPAT=ON"
-    ];
-  });
-
   epic = callPackage pkgs/epic {};
 
   edm4eic = callPackage pkgs/edm4eic {};
@@ -51,7 +45,9 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
-  ip6 = callPackage pkgs/ip6 {};
+  ip6 = epic.overrideAttrs (prev: {
+    pname = lib.warn "using outdated `ip6` attr" prev.pname;
+  });
 
   irt = callPackage pkgs/irt {};
 

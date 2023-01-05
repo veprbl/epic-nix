@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "22.11.3";
+  version = "22.12.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = version;
-    hash = "sha256-09DXDSJZPN2Btyf1po4DHkkamKr1kw7GGRDa3m19NUg=";
+    hash = "sha256-ViQm9VfITS0R4K8/NtZ8v+9t5okxDrMjbfobwDLYASw=";
   };
 
   postPatch = ''
@@ -41,15 +41,13 @@ stdenv.mkDerivation rec {
     # needed to avoid linking Geant libraries that may depend on Qt/OpenGL,
     # should be OFF by default anyway
     "-DUSE_DDG4=OFF"
-
-    "-DEPIC_ECCE_LEGACY_COMPAT=OFF"
   ];
 
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
     description = "DD4hep Geometry Description of the EPIC Experiment";
-    license = licenses.unfree; # no license
+    license = licenses.lgpl3Only;
     homepage = "https://github.com/eic/epic";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
