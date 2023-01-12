@@ -91,4 +91,6 @@ final: prev: with final; {
 
   veccore = callPackage pkgs/veccore {};
 
+  vecgeom = callPackage pkgs/vecgeom {};
+
 }
