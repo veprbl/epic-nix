@@ -89,4 +89,6 @@ final: prev: with final; {
 
   sartre = callPackage pkgs/sartre {};
 
+  veccore = callPackage pkgs/veccore {};
+
 }
