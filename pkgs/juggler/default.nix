@@ -16,23 +16,14 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "9.0.0";
+  version = "9.1.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-PLqMPlwRkTiEnsRivA985r7O519RZd9LSZr/9/X5Dj8=";
+    hash = "sha256-3DOZEWVmJSidXYDujdqQn5MKmKVuN4IPc1TWyrf4VYU=";
   };
-
-  # fix https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/495
-  postPatch = ''
-    substituteInPlace external/algorithms/core/include/algorithms/detail/random.h \
-      --replace 'constexpr value_type min() const' \
-                'static constexpr value_type min()' \
-      --replace 'constexpr value_type max() const' \
-                'static constexpr value_type max()'
-  '';
 
   nativeBuildInputs = [
     cmake
