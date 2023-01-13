@@ -20,13 +20,13 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.3.5";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-CK5G1skfH+i+aUfZnbnWJosCtqYsQbiv+/KwwgojHhA=";
+    hash = "sha256-n31ScBaVsJRADfYxoBWEII36eB98+wsyCciD41tO69U=";
   };
 
   postPatch = ''
