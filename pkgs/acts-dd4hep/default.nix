@@ -6,6 +6,7 @@
 }:
 
 stdenv.mkDerivation rec {
+test=1;
   pname = "acts-dd4hep";
   version = "1.0.0";
 
