@@ -639,7 +639,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in li
     ] ++ (with extra_deps; [
       clhep geant4_10_6_2
     ]);
-    passthru = final // extra_deps;
+    passthru.pkgs = final // extra_deps;
     setupHook = ./setup-hook.sh;
     calibrations = fetchFromGitHub {
       owner = "ECCE-EIC";
