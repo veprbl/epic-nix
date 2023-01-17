@@ -228,7 +228,15 @@ let
     uuid = if stdenv.isDarwin then e2fsprogs else libuuid;
   };
 
-sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in lib.makeExtensibleWithCustomName "override" (final: with final; {
+  # This is like lib.makeExtensibleWithCustomName, but allows to
+  # override from within the fixed point as well.
+  enableOverride = recursive_attrs:
+    let
+      override = overlay: enableOverride (lib.extends overlay (self: recursive_attrs self // { inherit override; }));
+    in
+      lib.fix' (self: recursive_attrs (self // { inherit override; }) // { inherit override; });
+
+sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in enableOverride (final: with final; {
   generators.FermiMotionAfterburner = mk_path "generators/FermiMotionAfterburner" {
     buildInputs = [ gsl generators.phhepmc offline.framework.fun4all offline.framework.phool ];
   };
