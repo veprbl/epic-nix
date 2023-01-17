@@ -228,7 +228,15 @@ let
     uuid = if stdenv.isDarwin then e2fsprogs else libuuid;
   };
 
-sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in rec {
+  # This is like lib.makeExtensibleWithCustomName, but allows to
+  # override from within the fixed point as well.
+  enableOverride = recursive_attrs:
+    let
+      override = overlay: enableOverride (lib.extends overlay (self: recursive_attrs self // { inherit override; }));
+    in
+      lib.fix' (self: recursive_attrs (self // { inherit override; }) // { inherit override; });
+
+sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in enableOverride (final: with final; {
   generators.FermiMotionAfterburner = mk_path "generators/FermiMotionAfterburner" {
     buildInputs = [ gsl generators.phhepmc offline.framework.fun4all offline.framework.phool ];
   };
@@ -631,28 +639,29 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in re
   FastPID = mk_path_ecce-detectors "FastPID" {
     buildInputs = [ offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic offline.packages.trackreco reconstruction.eicpidbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
   };
-};
+
+  combined = symlinkJoin {
+    name = "fun4all-combined";
+    paths = (lib.collect lib.isDerivation (lib.filterAttrs (name: _: name != "combined") final)) ++ [
+      boost boost.dev eic-smear genfit genfit_includes gsl hepmc2 pythia6
+    ] ++ (with extra_deps; [
+      clhep geant4_10_6_2
+    ]);
+    passthru.pkgs = final // extra_deps;
+    setupHook = ./setup-hook.sh;
+    calibrations = fetchFromGitHub {
+      owner = "ECCE-EIC";
+      repo = "calibrations";
+      rev = "47ca5b0803a0b9c602174af9a4f003c31252cad6";
+      hash = "sha256-MlNEtZjFyED5d6wGoOMVtM7E4DFPFAhat5WLwqdJb+A=";
+    };
+    postBuild = ''
+      # remove any setup-hook if any came from paths
+      rm "$out/nix-support/setup-hook" || true
+      substituteAll "$setupHook" "$out/nix-support/setup-hook"
+    '';
+  };
+});
 
 in
-
-symlinkJoin {
-  name = "fun4all-combined";
-  paths = (lib.collect lib.isDerivation sphenix_packages) ++ [
-    boost boost.dev eic-smear genfit genfit_includes gsl hepmc2 pythia6
-  ] ++ (with extra_deps; [
-    clhep geant4_10_6_2
-  ]);
-  passthru = sphenix_packages // extra_deps;
-  setupHook = ./setup-hook.sh;
-  calibrations = fetchFromGitHub {
-    owner = "ECCE-EIC";
-    repo = "calibrations";
-    rev = "47ca5b0803a0b9c602174af9a4f003c31252cad6";
-    hash = "sha256-MlNEtZjFyED5d6wGoOMVtM7E4DFPFAhat5WLwqdJb+A=";
-  };
-  postBuild = ''
-    # remove any setup-hook if any came from paths
-    rm "$out/nix-support/setup-hook" || true
-    substituteAll "$setupHook" "$out/nix-support/setup-hook"
-  '';
-}
+  sphenix_packages.combined
