@@ -1,0 +1,37 @@
+diff --git a/src/services/io/podio/EventStore.h b/src/services/io/podio/EventStore.h
+index 8f642ca7..b271bc8c 100644
+--- a/src/services/io/podio/EventStore.h
++++ b/src/services/io/podio/EventStore.h
+@@ -113,8 +113,8 @@ class EventStore : public podio::ICollectionProvider, public podio::IMetaDataPro
+   bool doGet(const std::string& name, podio::CollectionBase*& collection, bool setReferences = true) const;
+   /// check if a collection of given name already exists
+   bool collectionRegistered(const std::string& name) const;
+-  void setCollectionIDTable(podio::CollectionIDTable* table) {
+-    m_table.reset(table);
++  void setCollectionIDTable(std::shared_ptr<podio::CollectionIDTable> table) {
++    m_table = std::move(table);
+   }
+ 
+   // members
+@@ -122,7 +122,7 @@ class EventStore : public podio::ICollectionProvider, public podio::IMetaDataPro
+   mutable CollContainer m_collections{};
+   mutable std::vector<podio::CollectionBase*> m_cachedCollections{};
+   podio::IReader* m_reader{nullptr};
+-  std::unique_ptr<podio::CollectionIDTable> m_table;
++  std::shared_ptr<podio::CollectionIDTable> m_table;
+ 
+   podio::GenericParameters m_evtMD{};
+   RunMDMap m_runMDMap{};
+diff --git a/src/services/io/podio/EventStore.cc b/src/services/io/podio/EventStore.cc
+index 778de88..cc9da30 100644
+--- a/src/services/io/podio/EventStore.cc
++++ b/src/services/io/podio/EventStore.cc
+@@ -148,7 +148,7 @@ bool EventStore::collectionRegistered(const std::string& name) const {
+ 
+ void EventStore::setReader(podio::IReader* reader) {
+   m_reader = reader;
+-  setCollectionIDTable(reader->getCollectionIDTable());
++  setCollectionIDTable(std::shared_ptr<podio::CollectionIDTable>(reader->getCollectionIDTable()));
+ }
+ 
+ } // namespace podio
