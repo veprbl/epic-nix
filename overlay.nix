@@ -60,7 +60,7 @@ final: prev: with final; {
   npsim = callPackage pkgs/npsim {};
 
   root = prev.root.overrideAttrs (prev: {
-    cmakeFlags = prev.cmakeFlags ++ [
+    cmakeFlags = (builtins.filter (flag: flag != "-Drpath=OFF") prev.cmakeFlags) ++ [
       "-DCMAKE_CXX_STANDARD=17"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
