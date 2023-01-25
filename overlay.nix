@@ -71,6 +71,10 @@ final: prev: with final; {
       openssl
       pythia6
     ];
+    postPatch = (prev.postPatch or "") + ''
+      substituteInPlace cmake/modules/RootBuildOptions.cmake \
+        --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' ""
+    '';
   });
 
   dd4hep = callPackage pkgs/dd4hep {
