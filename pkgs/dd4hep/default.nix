@@ -17,22 +17,14 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-23";
+  version = "01-24";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = "DD4hep";
     rev = "v${version}";
-    hash = "sha256-fiVzpB7kNSm0/3eO6L6OMCXcSSXyD+e/iyy53rEzi74=";
+    hash = "sha256-jGLo3qsHBcq/Ogs7+pIenbHAZ6m8bVJZDncAG2YBO6U=";
   };
-
-  patches = [
-    # https://github.com/AIDASoft/DD4hep/pull/983
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/DD4hep/commit/f7775644930f27f80c63b5185feed964d60d90a7.diff";
-      hash = "sha256-i2eEQ8giTrJYnqHVtMBOGhV9v1I8Yy3qaMN3DElUwyo=";
-    })
-  ];
 
   postPatch = ''
     patchShebangs --host .
