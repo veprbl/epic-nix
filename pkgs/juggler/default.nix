@@ -37,12 +37,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
   ];
+  propagatedBuildInputs = [
+    gaudi
+  ];
   buildInputs = [
     acts
     edm4eic
     edm4hep
     dd4hep
-    gaudi
     genfit
     podio
     root
