@@ -116,6 +116,8 @@ stdenv.mkDerivation rec {
       --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
   '';
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "A reconstruction framework";
     longDescription = ''
