@@ -57,6 +57,8 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = "-Wno-narrowing";
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "Concurrent Event Processor for EIC Experiments Based on the Gaudi Framework";
     license = licenses.lgpl3Only;
