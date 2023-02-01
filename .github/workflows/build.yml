@@ -28,4 +28,4 @@ jobs:
       with:
         name: epic-eic
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix flake check --keep-going --print-build-logs --no-write-lock-file
+    - run: nix flake check --keep-going --print-build-logs --no-write-lock-file --cores `nproc || getconf _NPROCESSORS_ONLN`
