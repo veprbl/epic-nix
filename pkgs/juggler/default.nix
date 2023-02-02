@@ -37,12 +37,14 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
   ];
+  propagatedBuildInputs = [
+    gaudi
+  ];
   buildInputs = [
     acts
     edm4eic
     edm4hep
     dd4hep
-    gaudi
     genfit
     podio
     root
@@ -56,6 +58,8 @@ stdenv.mkDerivation rec {
   ];
 
   NIX_CFLAGS_COMPILE = "-Wno-narrowing";
+
+  setupHook = ./setup-hook.sh;
 
   meta = with lib; {
     description = "Concurrent Event Processor for EIC Experiments Based on the Gaudi Framework";

@@ -4,6 +4,7 @@
 , fetchFromGitHub
 , fetchpatch
 , aida
+, bash
 , boost
 , cmake
 , clhep
@@ -83,6 +84,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --build GaudiKernel/scripts/
+    substituteInPlace cmake/GaudiToolbox.cmake \
+      --replace '/bin/sh' '${bash}/bin/sh'
 
     sed -i GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp \
       -e '1i#include <boost/filesystem/fstream.hpp>'
@@ -115,6 +118,8 @@ stdenv.mkDerivation rec {
       ${lib.optionalString stdenv.isDarwin ''--prefix DYLD_LIBRARY_PATH : "$out"/lib''} \
       --prefix PYTHONPATH : "$PYTHONPATH:$out/${python3.sitePackages}"
   '';
+
+  setupHook = ./setup-hook.sh;
 
   meta = with lib; {
     description = "A reconstruction framework";
