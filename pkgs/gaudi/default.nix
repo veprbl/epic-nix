@@ -4,6 +4,7 @@
 , fetchFromGitHub
 , fetchpatch
 , aida
+, bash
 , boost
 , cmake
 , clhep
@@ -83,6 +84,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --build GaudiKernel/scripts/
+    substituteInPlace cmake/GaudiToolbox.cmake \
+      --replace '/bin/sh' '${bash}/bin/sh'
 
     sed -i GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp \
       -e '1i#include <boost/filesystem/fstream.hpp>'
