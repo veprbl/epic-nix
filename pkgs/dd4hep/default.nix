@@ -35,6 +35,8 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
+    patchShebangs --host .
+
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
   '' + lib.optionalString stdenv.isDarwin ''
