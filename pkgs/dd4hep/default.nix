@@ -35,12 +35,18 @@ stdenv.mkDerivation rec {
   ];
 
   postPatch = ''
+    patchShebangs --host .
+
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
+    substituteInPlace cmake/DD4hep.cmake \
+      --replace \
+      'set(''${ENV_VAR}_VALUE $<TARGET_FILE_DIR:''${library}>:$<TARGET_FILE_DIR:DD4hep::DD4hepGaudiPluginMgr>)' \
+      'set(''${ENV_VAR}_VALUE $<TARGET_FILE_DIR:''${library}>:$<TARGET_FILE_DIR:DD4hep::DD4hepGaudiPluginMgr>:''$ENV{''${ENV_VAR}})'
   '';
 
   nativeBuildInputs = [

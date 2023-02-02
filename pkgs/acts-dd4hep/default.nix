@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "acts-dd4hep";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "acts-project";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-8mZ0SaCwCV0Xgw2vplMTkY7FRe7Ss6nfsPr7tA8pQvk=";
+    hash = "sha256-cTGYVSxHsalALSk4+CsvdRULuT5ma4zVdIlwonqaHhI=";
   };
 
   nativeBuildInputs = [
