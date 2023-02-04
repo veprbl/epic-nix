@@ -7,6 +7,7 @@
 , dd4hep
 , edm4eic
 , edm4hep
+, eigen
 , irt
 , fmt_8
 , jana2
@@ -20,13 +21,13 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.4.0";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-n31ScBaVsJRADfYxoBWEII36eB98+wsyCciD41tO69U=";
+    hash = "sha256-9KteUP1VsTET7Rk+m+qKh1I/We8Jev79rKrGrgn1Kf0=";
   };
 
   postPatch = ''
@@ -50,6 +51,7 @@ stdenv.mkDerivation rec {
     dd4hep
     edm4eic
     edm4hep
+    eigen
     fmt_8
     irt
     jana2
@@ -64,6 +66,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=17"
   ];
 
+  NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
   LDFLAGS = lib.optionals stdenv.isDarwin [ "-Wl,-undefined,dynamic_lookup" ];
 
   postInstall = ''
