@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.0.7";
+  version = "2.0.8";
 
   src = fetchFromGitHub {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-7+9ZOVnEnogZa/p0+PpC39+y/Gwt/cF+a0O4RNunBSw=";
+    hash = "sha256-mE7CWtlYzs1BY25VIVHIKPYTIIWpXOuPd2LopXOldG8=";
   };
 
   postPatch = lib.optionalString stdenv.isDarwin ''
