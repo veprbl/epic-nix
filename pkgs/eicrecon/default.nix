@@ -21,24 +21,18 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.5.1";
+  version = "0.5.2";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-9KteUP1VsTET7Rk+m+qKh1I/We8Jev79rKrGrgn1Kf0=";
+    hash = "sha256-cmvcXLgS5UUVpgekAisOQREIsvaQLcLOewY1BK1r8Zs=";
   };
 
   postPatch = ''
-    substituteInPlace src/services/io/podio/JEventSourcePODIOsimple.cc \
-      --replace '_exit(-1);' 'std::terminate();';
-    substituteInPlace src/services/geometry/dd4hep/JDD4hep_service.cc \
-      --replace '_exit(-1);' 'std::terminate();';
     substituteInPlace cmake/jana_plugin.cmake \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
-    substituteInPlace src/utilities/dump_flags/DumpFlags_processor.h \
-      --replace 'std::ptr_fun<int, int>(' 'static_cast<int (*)(int)>(&'
   '';
 
   nativeBuildInputs = [
