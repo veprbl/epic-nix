@@ -10,18 +10,14 @@
 
 stdenv.mkDerivation rec {
   pname = "EDM4eic";
-  version = "1.0.0";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "EDM4eic";
     rev = "v${version}";
-    hash = "sha256-glCjveCAXUN5/YWNWMipLJ+9mVnRHMrUcjaHUQfTR1A=";
+    hash = "sha256-dWcmOdMBlge928+Tsv63m0qEtEo5fbTRUbc4JJrXZP0=";
   };
-
-  patches = [
-    ./link_edm4hep.diff
-  ];
 
   nativeBuildInputs = [
     cmake
