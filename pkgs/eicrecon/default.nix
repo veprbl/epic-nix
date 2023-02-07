@@ -30,6 +30,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-cmvcXLgS5UUVpgekAisOQREIsvaQLcLOewY1BK1r8Zs=";
   };
 
+  patches = [
+    # https://github.com/eic/EICrecon/pull/467
+    ./podio_00_16.diff
+  ];
+
   postPatch = ''
     substituteInPlace cmake/jana_plugin.cmake \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'

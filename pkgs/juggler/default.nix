@@ -25,6 +25,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-3DOZEWVmJSidXYDujdqQn5MKmKVuN4IPc1TWyrf4VYU=";
   };
 
+  patches = [
+    # https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/505
+    ./podio_00_16.diff
+  ];
+
   nativeBuildInputs = [
     cmake
   ];
