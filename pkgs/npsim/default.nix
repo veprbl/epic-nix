@@ -22,6 +22,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-jZMRiDtRiJlxNQJLmP4EMvAQSmVXw/gRfV0o9Equ+iQ=";
   };
 
+  patches = [
+    # support ROOT with "-Dimt=OFF"
+    ../npdet/imt_less_workaround.patch
+  ];
+
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "FetchContent_MakeAvailable(Catch2)" ""
