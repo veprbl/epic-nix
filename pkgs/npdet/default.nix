@@ -27,6 +27,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-pEn3oi8+rrWeZR0Fs8sIlYUvfYNiKD9T8b7xrSVPkbE=";
   };
 
+  patches = [
+    # https://eicweb.phy.anl.gov/EIC/NPDet/-/merge_requests/276
+    ./dd4hep_01_24.patch
+
+    # support ROOT with "-Dimt=OFF"
+    ./imt_less_workaround.patch
+  ];
+
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "FetchContent_MakeAvailable(Catch2)" ""

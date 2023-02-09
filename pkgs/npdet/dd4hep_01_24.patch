@@ -1,0 +1,28 @@
+diff --git a/src/detectors/pid/sdet/include/PMTHit.h b/src/detectors/pid/sdet/include/PMTHit.h
+--- a/src/detectors/pid/sdet/include/PMTHit.h
++++ b/src/detectors/pid/sdet/include/PMTHit.h
+@@ -14,7 +14,8 @@
+ #define NPDet_PMTHit_H
+ 
+ /// Framework include files
+-#include "DDG4/Geant4Data.h"
++#include <DD4hep/Version.h>
++#include <DDG4/Geant4Data.h>
+ 
+ namespace npdet {
+ 
+@@ -62,7 +63,13 @@ namespace npdet {
+     PMTHit() = default;
+     /// Initializing constructor
+     PMTHit(int track_id, int pdg_id, double en, double time_stamp)
+-      : length(0.0), truth(track_id, pdg_id, en, time_stamp, 0.), energyDeposit(en) {}
++      : length(0.0)
++#if DD4HEP_VERSION_GE(1,24)
++      , truth(track_id, pdg_id, en, time_stamp, 0., dd4hep::Position {}, dd4hep::Direction {})
++#else
++      , truth(track_id, pdg_id, en, time_stamp, 0.)
++#endif
++      , energyDeposit(en) {}
+     /// Default destructor
+     virtual ~PMTHit() = default;
+     /// Assignment operator
