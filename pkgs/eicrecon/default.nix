@@ -21,19 +21,14 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.5.2";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-cmvcXLgS5UUVpgekAisOQREIsvaQLcLOewY1BK1r8Zs=";
+    hash = "sha256-/AHv091Bi5wmZ75nuL2l0q+8iD+30Mjf0qfkBVGVTmw=";
   };
-
-  patches = [
-    # https://github.com/eic/EICrecon/pull/467
-    ./podio_00_16.diff
-  ];
 
   postPatch = ''
     substituteInPlace cmake/jana_plugin.cmake \
