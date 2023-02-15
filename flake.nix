@@ -53,7 +53,7 @@
               buildInputs = builtins.attrValues self.packages.${system};
             };
 
-            eicrecon = pkgs.mkShell rec {
+            eicrecon-env = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 dd4hep
                 edm4eic
@@ -67,7 +67,7 @@
               ];
             };
 
-            fun4all = pkgs.mkShell rec {
+            fun4all-env = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 fun4all
                 root
