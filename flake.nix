@@ -60,11 +60,16 @@
                 edm4hep
                 eicrecon
                 epic
-                ip6
+                irt
                 jana2
                 podio
                 root
               ];
+              shellHook = let
+                var_name = "${lib.optionalString pkgs.stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
+              in with self.packages.${system}; ''
+                export ${var_name}=${"$"}${var_name}:${lib.makeLibraryPath [ podio irt edm4hep edm4eic ]}
+              '';
             };
 
             fun4all-env = pkgs.mkShell rec {
