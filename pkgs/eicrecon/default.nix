@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
 
     # workaround https://github.com/eic/EICrecon/issues/483
-    echo 'target_link_libraries(''${PLUGIN_NAME}_plugin richgeo_plugin)' src/services/geometry/rich/CMakeLists.txt
+    echo 'target_link_libraries(''${PLUGIN_NAME}_plugin richgeo_plugin)' > src/services/geometry/rich/CMakeLists.txt
   '';
 
   nativeBuildInputs = [
