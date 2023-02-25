@@ -33,6 +33,13 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace cmake/jana_plugin.cmake \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
+
+    # workaround https://github.com/eic/EICrecon/issues/340
+    substituteInPlace src/algorithms/tracking/CKFTracking.cc \
+      --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
+
+    # workaround https://github.com/eic/EICrecon/issues/483
+    echo 'target_link_libraries(''${PLUGIN_NAME}_plugin richgeo_plugin)' src/services/geometry/rich/CMakeLists.txt
   '';
 
   nativeBuildInputs = [
