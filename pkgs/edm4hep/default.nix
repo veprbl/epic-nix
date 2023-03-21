@@ -59,6 +59,8 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "Generic event data model for HEP collider experiments";
     license = licenses.asl20;
