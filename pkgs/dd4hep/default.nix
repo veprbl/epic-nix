@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , assimp
 , boost
 , cmake
@@ -25,6 +24,10 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-MeUOl7IZYmDqwjPzUMYu5BlnJOij9leZl0dh2c2tLcg=";
   };
+
+  patches = [
+    ./without_frames.patch
+  ];
 
   postPatch = ''
     patchShebangs --host .
