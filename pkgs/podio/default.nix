@@ -55,6 +55,8 @@ stdenv.mkDerivation rec {
     patchShebangs --host "$out"/python/podio_class_generator.py
   '';
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "A C++ library to support the creation and handling of data models in particle physics";
     longDescription = ''
