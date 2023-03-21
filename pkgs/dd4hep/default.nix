@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTING=ON"
   ];
 
-  doInstallCheck = stdenv.isDarwin; # crashes on linux
+  doInstallCheck = true;
   installCheckTarget = "test";
   installCheckInputs = [
     geant4.data.G4EMLOW
