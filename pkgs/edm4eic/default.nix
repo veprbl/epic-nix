@@ -35,6 +35,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=17"
   ];
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "Generic EIC Data Model for Simulations, Reconstruction, and Analysis";
     license = licenses.free; # FIXME https://github.com/eic/EDM4eic/issues/4
