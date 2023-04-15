@@ -2,6 +2,7 @@
 , stdenv
 , fetchFromGitHub
 , cmake
+, podio
 , python3
 , root
 , xercesc
@@ -10,33 +11,32 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.0.8";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-mE7CWtlYzs1BY25VIVHIKPYTIIWpXOuPd2LopXOldG8=";
+    hash = "sha256-DInxpCTBNmxk+tz0rQm2JULPHTiALSCX8iyeOANzZIw=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
-    cat >> src/libraries/JANA/Services/JParameterManager.h <<EOF
-    #pragma once
-    template <>
-    inline std::vector<unsigned long> JParameterManager::parse(const std::string& value) {
-        return parse_vector<unsigned long>(value);
-    }
-    template<>
-    inline std::string JParameterManager::stringify(const std::vector<unsigned long>& values) {
-        return stringify_vector(values);
-    }
-    EOF
+  patches = [
+    # JParameterManager: specialize templates with more variants of the fundamental types
+    ./jana2_pr218.patch
+
+    # cmake: fix a conflict between USE_PODIO and USE_PYTHON
+    ./jana2_pr219.patch
+  ];
+
+  postPatch = ''
+    echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt
   '';
 
   nativeBuildInputs = [
     cmake
   ];
   buildInputs = [
+    podio
     python3
     python3.pkgs.pybind11
     root
@@ -46,10 +46,11 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
-    "-DUSE_ROOT=ON"
-    "-DUSE_ZEROMQ=ON"
-    "-DUSE_XERCES=ON"
+    "-DUSE_PODIO=ON"
     "-DUSE_PYTHON=ON"
+    "-DUSE_ROOT=ON"
+    "-DUSE_XERCES=ON"
+    "-DUSE_ZEROMQ=ON"
     "-DXercesC_DIR=${xercesc}"
   ];
 
