@@ -38,6 +38,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     python3
+    python3.pkgs.pybind11
     root
     xercesc
     zeromq
