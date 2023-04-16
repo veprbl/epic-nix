@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , python3
 , root
@@ -24,6 +25,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-n9IcT+Z5Q6pmT2JhyOlKDXneY4+gK1jHnHMGE2JwNBQ=";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "podio-multiple-def-fix.patch";
+      url = "https://github.com/AIDASoft/podio/commit/811aca97d46a5ba622af0ff7a914aeef12a006cd.diff";
+      hash = "sha256-zvxgWIJqrFvoRgs4Rvut6euPQ9emm8qolHoOvk/f4EU=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
