@@ -8,6 +8,7 @@
 , edm4eic
 , edm4hep
 , eigen
+, fastjet
 , irt
 , fmt_8
 , jana2
@@ -19,15 +20,25 @@
 , makeWrapper
 }:
 
+let
+
+  _fastjet = fastjet.overrideAttrs (prev: {
+    configureFlags = prev.configureFlags ++ [
+      "--enable-auto-ptr=no"
+    ];
+  });
+
+in
+
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "0.6.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-/AHv091Bi5wmZ75nuL2l0q+8iD+30Mjf0qfkBVGVTmw=";
+    hash = "sha256-hV4JsygTdHA6XL+L5PV1KBLbzI6XhQL6eF2/8EPeEgY=";
   };
 
   postPatch = ''
@@ -52,6 +63,7 @@ stdenv.mkDerivation rec {
     dd4hep
     edm4eic
     edm4hep
+    _fastjet
     eigen
     fmt_8
     irt
