@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "EDM4eic";
-  version = "1.2.2";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "EDM4eic";
     rev = "v${version}";
-    hash = "sha256-dWcmOdMBlge928+Tsv63m0qEtEo5fbTRUbc4JJrXZP0=";
+    hash = "sha256-vwG+JOEmrD4s6wwGWlMT0VYBQVxNUWDiq1ceIVJ8aSw=";
   };
 
   nativeBuildInputs = [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Generic EIC Data Model for Simulations, Reconstruction, and Analysis";
-    license = licenses.free; # FIXME https://github.com/eic/EDM4eic/issues/4
+    license = licenses.lgpl3Plus;
     homepage = "https://github.com/eic/EDM4eic";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
