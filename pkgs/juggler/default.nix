@@ -16,19 +16,14 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "9.1.0";
+  version = "9.4.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-3DOZEWVmJSidXYDujdqQn5MKmKVuN4IPc1TWyrf4VYU=";
+    hash = "sha256-U4080BWg7IMj1CQP0+YRCemdP4crri/sPbUqCTRX+qg=";
   };
-
-  patches = [
-    # https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/505
-    ./podio_00_16.diff
-  ];
 
   nativeBuildInputs = [
     cmake
