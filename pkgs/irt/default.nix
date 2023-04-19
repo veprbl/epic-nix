@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "irt";
-  version = "1.0.1";
+  version = "1.0.6";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-FaE0IFh0qjrPCbxDVzjbB/qyveZK4AdFbStvf0JCZ/8=";
+    hash = "sha256-f6oHbFEsCPi23h6lxO2dRQEDeXVTZX9/ueqQiwvze0g=";
   };
 
   nativeBuildInputs = [
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Indirect Ray Tracing library for EPIC Cherenkov detector reconstruction";
-    license = licenses.unfree; # https://github.com/eic/irt/issues/18
+    license = licenses.lgpl3;
     homepage = "https://github.com/eic/irt";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
