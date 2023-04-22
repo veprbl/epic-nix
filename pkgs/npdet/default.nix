@@ -1,7 +1,7 @@
 { lib
 , stdenv
+, acts
 , fetchFromGitLab
-, acts-dd4hep
 , cmake
 , dd4hep
 , fmt_8
@@ -38,14 +38,17 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace "FetchContent_MakeAvailable(Catch2)" ""
+    substituteInPlace src/detectors/CMakeLists.txt \
+      --replace "trackers/src/GEMTrackerDisc_geo.cpp" "" \
+      --replace "trackers/src/GaplessGEMTrackerDisc_geo.cpp" ""
   '';
 
   nativeBuildInputs = [
+    acts
     cmake
     which
   ];
   buildInputs = [
-    acts-dd4hep
     dd4hep
     fmt_8
     opencascade-occt

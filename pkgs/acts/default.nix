@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, acts-dd4hep
 , boost
 , cmake
 , dd4hep
@@ -24,7 +23,6 @@ stdenv.mkDerivation rec {
     cmake
   ];
   propagatedBuildInputs = [
-    acts-dd4hep
     eigen
   ];
   buildInputs = [
@@ -36,7 +34,6 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DACTS_BUILD_PLUGIN_DD4HEP=ON"
     "-DACTS_BUILD_PLUGIN_JSON=ON"
-    "-DACTS_USE_SYSTEM_ACTSDD4HEP=ON"
     "-DACTS_USE_SYSTEM_BOOST=ON"
     "-DACTS_USE_SYSTEM_EIGEN3=ON"
     "-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON"

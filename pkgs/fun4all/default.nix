@@ -11,7 +11,6 @@
 , clhep
 , cgal, gmp, mpfr
 , cmake
-, dd4hep
 , e2fsprogs # provides libuuid on macOS
 , eigen
 , eic-smear
@@ -24,6 +23,7 @@
 , hepmc2
 , log4cpp
 , libuuid
+, nlohmann_json
 , pythia6
 , pythia
 , rave
@@ -153,12 +153,14 @@ let
 
       buildInputs = [
         boost
-        dd4hep
         tbb
+        nlohmann_json
+        root
       ];
 
       cmakeFlags = prev.cmakeFlags ++ [
         "-DACTS_BUILD_EXAMPLES=ON"
+        "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
       ];
     });
 

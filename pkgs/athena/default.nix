@@ -21,6 +21,14 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
+
+    # Drop detectors that rely on old ACTS support
+    substituteInPlace CMakeLists.txt \
+      --replace "src/BarrelTrackerWithFrame_geo.cpp" "" \
+      --replace "src/CompositeTracker_geo.cpp" "" \
+      --replace "src/CylinderTrackerBarrel_geo.cpp" "" \
+      --replace "src/SimpleDiskDetector_geo.cpp" "" \
+      --replace "src/TrapEndcapTracker_geo.cpp" ""
   '';
 
   nativeBuildInputs = [
