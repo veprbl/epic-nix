@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "acts";
-  version = "20.3.0";
+  version = "21.1.0";
 
   src = fetchFromGitHub {
     owner = "acts-project";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-bbCBcv9KHtid0+EeUVTnEVH5WimVfbcL78To5c0JkfE=";
+    hash = "sha256-VW9kERAp/ILMmTWV9oVCjxcjERn7NG049sqbkJBmhkg=";
   };
 
   nativeBuildInputs = [
