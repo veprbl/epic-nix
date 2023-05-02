@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , acts
 , boost
+, catch2_3
 , cmake
 , dd4hep
 , edm4eic
@@ -74,6 +75,9 @@ stdenv.mkDerivation rec {
     spdlog
     xercesc
   ];
+  checkInputs = [
+    catch2_3
+  ];
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
@@ -81,6 +85,8 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
   LDFLAGS = lib.optionals stdenv.isDarwin [ "-Wl,-undefined,dynamic_lookup" ];
+
+  doCheck = true;
 
   postInstall = ''
     wrapProgram "$out"/bin/eicrecon \
