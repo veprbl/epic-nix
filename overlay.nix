@@ -43,10 +43,6 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
-  ip6 = epic.overrideAttrs (prev: {
-    pname = lib.warn "using outdated `ip6` attr" prev.pname;
-  });
-
   irt = callPackage pkgs/irt {};
 
   jana2 = callPackage pkgs/jana2 {};
