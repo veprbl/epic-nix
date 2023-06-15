@@ -50,7 +50,15 @@
         in
           {
             default = pkgs.mkShell rec {
-              buildInputs = builtins.attrValues self.packages.${system};
+              buildInputs =
+                builtins.attrValues self.packages.${system} ++
+                (with self.packages.${system}; [
+                  geant4.data.G4EMLOW
+                  geant4.data.G4ENSDFSTATE
+                  geant4.data.G4ENSDFSTATE
+                  geant4.data.G4PARTICLEXS
+                  geant4.data.G4PhotonEvaporation
+                ]);
             };
 
             eicrecon-env = pkgs.mkShell rec {
