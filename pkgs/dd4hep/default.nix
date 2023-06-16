@@ -34,6 +34,9 @@ stdenv.mkDerivation rec {
 
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
+
+    substituteInPlace DDG4/edm4hep/Geant4Output2EDM4hep.cpp \
+      --replace "setValues" "setValue"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
