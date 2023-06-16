@@ -19,7 +19,7 @@ jobs:
     runs-on: ${{ matrix.arch.runs-on }}
     steps:
     - uses: actions/checkout@v2.4.0
-    - uses: cachix/install-nix-action@v20
+    - uses: cachix/install-nix-action@v22
       with:
         nix_path: nixpkgs=channel:nixpkgs-22.05-darwin
         extra_nix_config: |
