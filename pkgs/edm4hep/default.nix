@@ -23,16 +23,18 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-06";
+  version = "00-09";
 
   src = fetchFromGitHub {
     owner = "key4hep";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-ALf9RKAuQYrm9WQhchXQpeQ+CPc4WW6UZIaLyh3FLm8=";
+    hash = "sha256-ejchf9a/P5+Nu/qXzq9uXAxgRSqPVCkfOae8edftSFw=";
   };
 
-  postPatch = lib.optionalString stdenv.isDarwin ''
+  postPatch = ''
+    patchShebangs .
+  '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/EDM4HEPBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
@@ -57,7 +59,13 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=17"
   ];
 
-  doCheck = true;
+  doInstallCheck = true;
+  installCheckTarget = "test";
+  preInstallCheck = let
+    var_name = "${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH";
+  in ''
+    export ${var_name}=${"$"}${var_name}:${placeholder "out"}/lib
+  '';
 
   setupHook = ./setup-hook.sh;
 
