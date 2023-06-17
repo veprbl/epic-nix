@@ -41,6 +41,9 @@ stdenv.mkDerivation rec {
     substituteInPlace src/detectors/CMakeLists.txt \
       --replace "trackers/src/GEMTrackerDisc_geo.cpp" "" \
       --replace "trackers/src/GaplessGEMTrackerDisc_geo.cpp" ""
+
+    substituteInPlace src/dd4pod/plugins/Geant4Output2Podio.h \
+      --replace "setValues" "setValue"
   '';
 
   nativeBuildInputs = [

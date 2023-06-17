@@ -17,22 +17,14 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-02";
+  version = "00-16-05";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-n9IcT+Z5Q6pmT2JhyOlKDXneY4+gK1jHnHMGE2JwNBQ=";
+    hash = "sha256-JggIEEWnBgvA1XoJ/sxh3N3M2O/m88YujRe0ApL7/l4=";
   };
-
-  patches = [
-    (fetchpatch {
-      name = "podio-multiple-def-fix.patch";
-      url = "https://github.com/AIDASoft/podio/commit/811aca97d46a5ba622af0ff7a914aeef12a006cd.diff";
-      hash = "sha256-zvxgWIJqrFvoRgs4Rvut6euPQ9emm8qolHoOvk/f4EU=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
