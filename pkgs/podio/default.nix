@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , python3
 , root
@@ -17,30 +16,14 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-05";
+  version = "00-16-06";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-JggIEEWnBgvA1XoJ/sxh3N3M2O/m88YujRe0ApL7/l4=";
+    hash = "sha256-FL37pbN41nFSNJKaQMKGDs5HfxorWbxq3DvT3CGHDpw=";
   };
-
-  patches = [
-    # needed for the next patch
-    # https://github.com/AIDASoft/podio/pull/423
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/podio/commit/8a3b2ff5b14fdd2882c0f85f158ea1c04d70d6e3.diff";
-      hash = "sha256-kfXDdgEqt8LWwOobdsDRG+6NAj2lAZRhsNgeqFelMAU=";
-    })
-    # fix reading old files
-    # https://github.com/AIDASoft/podio/pull/434
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/podio/commit/184c0970440556e1d2c749ec36617d24a32970e2.diff";
-      hash = "sha256-0EDr5OuUsMKco0qpU64M75UTRYpPOCJtvC1RPEDguAw=";
-      includes = [ "src/ROOTLegacyReader.cc" ];
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
