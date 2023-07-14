@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, catch2_3
 , cmake
 , python3
 , root
@@ -29,6 +30,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs = [
+    catch2_3
     python
     root
   ];
@@ -37,6 +39,14 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace cmake/podioMacros.cmake \
       --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
+
+    patchShebangs --host tools/
+    patchShebangs --build tests/scripts/
+
+    # Calls via shebang are not advertised/used by upstream, but let's cover that
+    # case as well
+    chmod +x python/podio_class_generator.py # need to chmod for patchShebangs
+    patchShebangs --host python/podio_class_generator.py
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/podioBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
@@ -45,15 +55,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
+    "-DUSE_EXTERNAL_CATCH2=ON"
+    "-DBUILD_TESTING=ON"
   ];
 
-  # Calls via shebang are not advertised/used by upstream, but let's cover that
-  # case as well
-  postInstall = ''
-    # need to chmod for patchShebangs
-    chmod +x "$out"/python/podio_class_generator.py
-    patchShebangs --host "$out"/python/podio_class_generator.py
-  '';
+  doInstallCheck = !stdenv.isDarwin;
+  installCheckTarget = "test";
 
   setupHook = ./setup-hook.sh;
 
