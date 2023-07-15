@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
+, catch2_3
 , cmake
 , python3
 , root
@@ -17,35 +17,20 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-05";
+  version = "00-16-06";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-JggIEEWnBgvA1XoJ/sxh3N3M2O/m88YujRe0ApL7/l4=";
+    hash = "sha256-FL37pbN41nFSNJKaQMKGDs5HfxorWbxq3DvT3CGHDpw=";
   };
-
-  patches = [
-    # needed for the next patch
-    # https://github.com/AIDASoft/podio/pull/423
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/podio/commit/8a3b2ff5b14fdd2882c0f85f158ea1c04d70d6e3.diff";
-      hash = "sha256-kfXDdgEqt8LWwOobdsDRG+6NAj2lAZRhsNgeqFelMAU=";
-    })
-    # fix reading old files
-    # https://github.com/AIDASoft/podio/pull/434
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/podio/commit/184c0970440556e1d2c749ec36617d24a32970e2.diff";
-      hash = "sha256-0EDr5OuUsMKco0qpU64M75UTRYpPOCJtvC1RPEDguAw=";
-      includes = [ "src/ROOTLegacyReader.cc" ];
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
   ];
   buildInputs = [
+    catch2_3
     python
     root
   ];
@@ -54,6 +39,14 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace cmake/podioMacros.cmake \
       --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
+
+    patchShebangs --host tools/
+    patchShebangs --build tests/scripts/
+
+    # Calls via shebang are not advertised/used by upstream, but let's cover that
+    # case as well
+    chmod +x python/podio_class_generator.py # need to chmod for patchShebangs
+    patchShebangs --host python/podio_class_generator.py
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/podioBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
@@ -62,15 +55,12 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
+    "-DUSE_EXTERNAL_CATCH2=ON"
+    "-DBUILD_TESTING=ON"
   ];
 
-  # Calls via shebang are not advertised/used by upstream, but let's cover that
-  # case as well
-  postInstall = ''
-    # need to chmod for patchShebangs
-    chmod +x "$out"/python/podio_class_generator.py
-    patchShebangs --host "$out"/python/podio_class_generator.py
-  '';
+  doInstallCheck = !stdenv.isDarwin;
+  installCheckTarget = "test";
 
   setupHook = ./setup-hook.sh;
 
