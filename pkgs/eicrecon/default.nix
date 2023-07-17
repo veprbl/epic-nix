@@ -33,13 +33,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.1.1";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-kanqwcu2ux5lYD8uQ0M5bCj+KE7NMKWtoH8SoaxJ7Qc=";
+    hash = "sha256-24DpUGfp8rgfRmJbpU38Yrzrld0m+kVowu2032teaR0=";
   };
 
   postPatch = ''
@@ -49,9 +49,8 @@ stdenv.mkDerivation rec {
     # workaround https://github.com/eic/EICrecon/issues/340
     substituteInPlace src/algorithms/tracking/CKFTracking.cc \
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
-
-    # workaround https://github.com/eic/EICrecon/issues/483
-    echo 'target_link_libraries(''${PLUGIN_NAME}_plugin richgeo_plugin)' src/services/geometry/rich/CMakeLists.txt
+    substituteInPlace src/algorithms/tracking/IterativeVertexFinder.cc \
+      --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
   '';
 
   nativeBuildInputs = [
@@ -95,7 +94,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "EIC Reconstruction - JANA based";
-    license = licenses.unfree; # https://github.com/eic/EICrecon/issues/2
+    license = with licenses; [ publicDomain lgpl3Plus ];
     homepage = "https://github.com/eic/EICrecon";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
