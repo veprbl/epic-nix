@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "EIC Reconstruction - JANA based";
-    license = licenses.unfree; # https://github.com/eic/EICrecon/issues/2
+    license = with licenses; [ publicDomain lgpl3Plus ];
     homepage = "https://github.com/eic/EICrecon";
     platforms = platforms.unix;
     maintainers = with maintainers; [ veprbl ];
