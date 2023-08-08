@@ -11,22 +11,14 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "JeffersonLab";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-DInxpCTBNmxk+tz0rQm2JULPHTiALSCX8iyeOANzZIw=";
+    hash = "sha256-P9SZxtsqhwhYJ9X00v5EDToKKJsCvfLgWICB2bjJDD8=";
   };
-
-  patches = [
-    # JParameterManager: specialize templates with more variants of the fundamental types
-    ./jana2_pr218.patch
-
-    # cmake: fix a conflict between USE_PODIO and USE_PYTHON
-    ./jana2_pr219.patch
-  ];
 
   postPatch = ''
     echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt
