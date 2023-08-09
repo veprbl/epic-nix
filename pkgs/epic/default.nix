@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "23.07.1";
+  version = "23.07.2";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = version;
-    hash = "sha256-FQaqm1jbpYbbPpYF376WZnVLvZ+4b0LccatQPVPUWWs=";
+    hash = "sha256-WOYxmHkcrBhMO35NctKUO9D9TpAnvvRsOuyXjpEQy5g=";
   };
 
   postPatch = ''
