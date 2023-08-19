@@ -6,7 +6,9 @@
     flake = false;
   };
 
-  outputs = { self, nixpkgs, ... }:
+  inputs.site-overlay.url = "github:veprbl/empty-overlay-flake";
+
+  outputs = { self, nixpkgs, site-overlay, ... }:
     let
 
       inherit (nixpkgs) lib;
@@ -27,7 +29,10 @@
     in
     {
 
-      overlays.default = import ./overlay.nix;
+      overlays.default = lib.composeManyExtensions [
+        (import ./overlay.nix)
+        site-overlay.overlays.default
+      ];
 
       packages = lib.genAttrs supportedSystems
         (system:

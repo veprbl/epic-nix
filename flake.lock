@@ -33,7 +33,23 @@
     "root": {
       "inputs": {
         "flake-compat": "flake-compat",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "site-overlay": "site-overlay"
+      }
+    },
+    "site-overlay": {
+      "locked": {
+        "lastModified": 1692478388,
+        "narHash": "sha256-uVx/EVDRrXYjqHSZcpDbeNWG4mA0at11xi/dnN7xyEk=",
+        "owner": "veprbl",
+        "repo": "empty-overlay-flake",
+        "rev": "a29c5c5670303cd98cc976072af11e9ad7daecb3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "veprbl",
+        "repo": "empty-overlay-flake",
+        "type": "github"
       }
     }
   },
