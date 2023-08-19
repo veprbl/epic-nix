@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "9.4.0";
+  version = "10.0.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-U4080BWg7IMj1CQP0+YRCemdP4crri/sPbUqCTRX+qg=";
+    hash = "sha256-q0lIOqPIgF6+UWYRz9J0cfcG6//9vmt3nGZzo2+S9zU=";
   };
 
   nativeBuildInputs = [
