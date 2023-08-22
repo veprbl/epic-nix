@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , assimp
 , boost
 , cmake
@@ -24,6 +25,22 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-pggRj7oxeitcO/6GfBuMD6k0vNfZ1XdoA9svBxoc7Mg=";
   };
+
+  patches = [
+    # HepMC3FileReader.cpp: avoid double call to HepMC3::Reader::close()
+    (fetchpatch {
+      name = "dd4hep-xrd-fix.patch";
+      url = "https://github.com/AIDASoft/DD4hep/commit/94994604256b248f91e345a109131498fa15dd1a.diff";
+      hash = "sha256-EzTBmxAv8LiuGmb4yBUIMfouX1Ls1wtxVtG4kVxnVzE=";
+    })
+
+    # Geant4Output2EDM4hep: allow reuse of collection names... again
+    (fetchpatch {
+      name = "dd4hep-tracking-collection-fix.patch";
+      url = "https://github.com/AIDASoft/DD4hep/commit/81254eae004f1a54a60d1df5ad06e0db342b04cd.diff";
+      hash = "sha256-jOYKfMvEm70MPfYfkeI1sCiUfWp8NnqS4Ir20RJIa3k=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs --host .
