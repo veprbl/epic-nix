@@ -16,18 +16,14 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-25-01";
+  version = "01-26";
 
   src = fetchFromGitHub {
     owner = "AIDASoft";
     repo = "DD4hep";
     rev = "v${version}";
-    hash = "sha256-MeUOl7IZYmDqwjPzUMYu5BlnJOij9leZl0dh2c2tLcg=";
+    hash = "sha256-pggRj7oxeitcO/6GfBuMD6k0vNfZ1XdoA9svBxoc7Mg=";
   };
-
-  patches = [
-    ./without_frames.patch
-  ];
 
   postPatch = ''
     patchShebangs --host .
@@ -35,8 +31,12 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
 
+    substituteInPlace DDCore/CMakeLists.txt \
+      --replace "ROOT::ROOTHistDraw" ""
+
     substituteInPlace DDG4/edm4hep/Geant4Output2EDM4hep.cpp \
-      --replace "setValues" "setValue"
+      --replace "setValues" "setValue" \
+      --replace "hits = m_calorimeterHits[colName] = edm4hep::SimTrackerHitCollection()" "hits = m_calorimeterHits[colName]"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
