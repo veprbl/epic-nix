@@ -51,3 +51,12 @@ git clone https://github.com/veprbl/epic-nix.git
 cd epic-nix
 nix develop
 ```
+
+Singularity
+-----------
+
+A pre-built container can be entered like so:
+
+```shell
+singularity shell docker://ghcr.io/veprbl/epic-nix
+```

@@ -1,0 +1,51 @@
+name: Docker deployment
+
+on:
+  push:
+    branches:
+      - master
+      - 'pr/docker'
+
+permissions:
+  packages: write
+
+jobs:
+  build-container:
+    name: Build Docker container
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.4.0
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: '${{ github.actor }}'
+        password: '${{ secrets.GITHUB_TOKEN }}'
+
+    - uses: cachix/install-nix-action@v22
+      with:
+        nix_path: nixpkgs=channel:nixpkgs-22.05-darwin
+        extra_nix_config: |
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+    - uses: cachix/cachix-action@v12
+      with:
+        name: epic-eic
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        skipPush: true
+
+    - name: Build Docker image
+      run: |
+        nix build .#dockerImage --keep-going --print-build-logs --no-write-lock-file -o docker-image
+
+    - name: Load Docker image
+      run: |
+        docker load -i docker-image | tee docker_load
+        grep "Loaded image: " docker_load
+
+    - name: Push to the Container Registry
+      run: |
+        DOCKER_IMAGE=$(cut -d " " -f 3 docker_load)
+        docker image tag $DOCKER_IMAGE ghcr.io/${{ github.repository }}:latest
+        docker image push ghcr.io/${{ github.repository }}:latest
