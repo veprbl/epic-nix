@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, edm4hep-src
 , hepmc3
 , catch2_3
 , cmake
@@ -23,14 +23,9 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-09";
+  version = "00-09.${edm4hep-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "key4hep";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-ejchf9a/P5+Nu/qXzq9uXAxgRSqPVCkfOae8edftSFw=";
-  };
+  src = edm4hep-src;
 
   postPatch = ''
     patchShebangs .

@@ -8,7 +8,33 @@
 
   inputs.site-overlay.url = "github:veprbl/empty-overlay-flake";
 
-  outputs = { self, nixpkgs, site-overlay, ... }:
+  # define source repositories as flake inputs to enable overrides from CLI
+  inputs.dd4hep-src = {
+    url = "github:AIDASoft/DD4hep/v01-26";
+    flake = false;
+  };
+  inputs.edm4eic-src = {
+    url = "github:eic/EDM4eic/v2.0.0";
+    flake = false;
+  };
+  inputs.edm4hep-src = {
+    url = "github:key4hep/EDM4hep/v00-09";
+    flake = false;
+  };
+  inputs.epic-src = {
+    url = "github:eic/epic/23.08.0";
+    flake = false;
+  };
+  inputs.eicrecon-src = {
+    url = "github:eic/EICrecon/v1.4.1";
+    flake = false;
+  };
+  inputs.podio-src = {
+    url = "github:AIDASoft/podio/v00-16-06";
+    flake = false;
+  };
+
+  outputs = { self, nixpkgs, site-overlay, ... }@inputs:
     let
 
       inherit (nixpkgs) lib;
@@ -30,7 +56,7 @@
     {
 
       overlays.default = lib.composeManyExtensions [
-        (import ./overlay.nix)
+        (import ./overlay.nix inputs)
         site-overlay.overlays.default
       ];
 

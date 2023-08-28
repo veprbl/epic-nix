@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, podio-src
 , catch2_3
 , cmake
 , python3
@@ -17,14 +17,9 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-06";
+  version = "00-16-06.${podio-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "AIDASoft";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-FL37pbN41nFSNJKaQMKGDs5HfxorWbxq3DvT3CGHDpw=";
-  };
+  src = podio-src;
 
   nativeBuildInputs = [
     cmake

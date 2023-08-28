@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, dd4hep-src
 , fetchpatch
 , assimp
 , boost
@@ -17,14 +17,9 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-26";
+  version = "01-26.${dd4hep-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "AIDASoft";
-    repo = "DD4hep";
-    rev = "v${version}";
-    hash = "sha256-pggRj7oxeitcO/6GfBuMD6k0vNfZ1XdoA9svBxoc7Mg=";
-  };
+  src = dd4hep-src;
 
   patches = [
     # HepMC3FileReader.cpp: avoid double call to HepMC3::Reader::close()
