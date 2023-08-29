@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, epic-src
 , cmake
 , acts
 , dd4hep
@@ -10,14 +10,9 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "23.08.0";
+  version = "23.08.0.${epic-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = pname;
-    rev = version;
-    hash = "sha256-EKll4cCfIpSxr5NBjpIMvufAacxOUP/w0/B2mSg/TQA=";
-  };
+  src = epic-src;
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration

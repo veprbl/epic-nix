@@ -1,3 +1,12 @@
+{ dd4hep-src
+, edm4eic-src
+, edm4hep-src
+, epic-src
+, eicrecon-src
+, podio-src
+, ...
+}:
+
 final: prev: with final; {
 
   acts = callPackage pkgs/acts {};
@@ -8,13 +17,13 @@ final: prev: with final; {
 
   athena = callPackage pkgs/athena {};
 
-  epic = callPackage pkgs/epic {};
+  epic = callPackage pkgs/epic { inherit epic-src; };
 
-  edm4eic = callPackage pkgs/edm4eic {};
+  edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
 
-  edm4hep = callPackage pkgs/edm4hep {};
+  edm4hep = callPackage pkgs/edm4hep { inherit edm4hep-src; };
 
-  eicrecon = callPackage pkgs/eicrecon {};
+  eicrecon = callPackage pkgs/eicrecon { inherit eicrecon-src; };
 
   eic-smear = callPackage pkgs/eic-smear {};
 
@@ -71,10 +80,11 @@ final: prev: with final; {
   });
 
   dd4hep = callPackage pkgs/dd4hep {
+    inherit dd4hep-src;
     inherit (darwin.apple_sdk.frameworks) AGL OpenGL;
   };
 
-  podio = callPackage pkgs/podio {};
+  podio = callPackage pkgs/podio { inherit podio-src; };
 
   pythia6 = callPackage pkgs/pythia6 {};
 

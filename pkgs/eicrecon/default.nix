@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, eicrecon-src
 , acts
 , boost
 , catch2_3
@@ -33,14 +33,9 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.4.1";
+  version = "1.4.1.${eicrecon-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-SBwU5/lQl323CYarWAEdZR3UWy3f2bj+nvgV8w7z78U=";
-  };
+  src = eicrecon-src;
 
   postPatch = ''
     substituteInPlace cmake/jana_plugin.cmake \

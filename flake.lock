@@ -1,5 +1,90 @@
 {
   "nodes": {
+    "dd4hep-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690278161,
+        "narHash": "sha256-pggRj7oxeitcO/6GfBuMD6k0vNfZ1XdoA9svBxoc7Mg=",
+        "owner": "AIDASoft",
+        "repo": "DD4hep",
+        "rev": "ad3c96d6ff95dca60d510fe78f0cffa25068c81c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AIDASoft",
+        "ref": "v01-26",
+        "repo": "DD4hep",
+        "type": "github"
+      }
+    },
+    "edm4eic-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681417152,
+        "narHash": "sha256-vwG+JOEmrD4s6wwGWlMT0VYBQVxNUWDiq1ceIVJ8aSw=",
+        "owner": "eic",
+        "repo": "EDM4eic",
+        "rev": "c8ffba77708dfd01a9f1ee2134001d59e47920cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v2.0.0",
+        "repo": "EDM4eic",
+        "type": "github"
+      }
+    },
+    "edm4hep-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686062292,
+        "narHash": "sha256-ejchf9a/P5+Nu/qXzq9uXAxgRSqPVCkfOae8edftSFw=",
+        "owner": "key4hep",
+        "repo": "EDM4hep",
+        "rev": "03b34bcd87df6918189dd17ab0185a225746d742",
+        "type": "github"
+      },
+      "original": {
+        "owner": "key4hep",
+        "ref": "v00-09",
+        "repo": "EDM4hep",
+        "type": "github"
+      }
+    },
+    "eicrecon-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691954690,
+        "narHash": "sha256-SBwU5/lQl323CYarWAEdZR3UWy3f2bj+nvgV8w7z78U=",
+        "owner": "eic",
+        "repo": "EICrecon",
+        "rev": "60b5d27f741a824f7bd13d813065d081c7089cf1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v1.4.1",
+        "repo": "EICrecon",
+        "type": "github"
+      }
+    },
+    "epic-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1691540088,
+        "narHash": "sha256-EKll4cCfIpSxr5NBjpIMvufAacxOUP/w0/B2mSg/TQA=",
+        "owner": "eic",
+        "repo": "epic",
+        "rev": "206677e12660535280438fefed67aae5b90223a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "23.08.0",
+        "repo": "epic",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -30,10 +115,33 @@
         "type": "indirect"
       }
     },
+    "podio-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1689317444,
+        "narHash": "sha256-FL37pbN41nFSNJKaQMKGDs5HfxorWbxq3DvT3CGHDpw=",
+        "owner": "AIDASoft",
+        "repo": "podio",
+        "rev": "d9ce7bce24f45a2e0d9fdb1434dc2ae7d07e0543",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AIDASoft",
+        "ref": "v00-16-06",
+        "repo": "podio",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "dd4hep-src": "dd4hep-src",
+        "edm4eic-src": "edm4eic-src",
+        "edm4hep-src": "edm4hep-src",
+        "eicrecon-src": "eicrecon-src",
+        "epic-src": "epic-src",
         "flake-compat": "flake-compat",
         "nixpkgs": "nixpkgs",
+        "podio-src": "podio-src",
         "site-overlay": "site-overlay"
       }
     },

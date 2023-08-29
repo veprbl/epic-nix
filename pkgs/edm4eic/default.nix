@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, edm4eic-src
 , cmake
 , edm4hep
 , podio
@@ -10,14 +10,9 @@
 
 stdenv.mkDerivation rec {
   pname = "EDM4eic";
-  version = "2.0.0";
+  version = "2.0.0.${edm4eic-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = "EDM4eic";
-    rev = "v${version}";
-    hash = "sha256-vwG+JOEmrD4s6wwGWlMT0VYBQVxNUWDiq1ceIVJ8aSw=";
-  };
+  src = edm4eic-src;
 
   nativeBuildInputs = [
     cmake
