@@ -78,11 +78,13 @@
       devShells = lib.genAttrs supportedSystems (system:
         let
           pkgs = pkgsFor system;
+          includePredicate = attr: pkg:
+             !(builtins.elem attr [ "athena" "BeastMagneticField" "fun4all" "genfit" "pythia6" "rave" "veccore" "vecgeom" ]);
         in
           {
             default = pkgs.mkShell rec {
               buildInputs =
-                builtins.attrValues self.packages.${system} ++
+                builtins.attrValues (lib.filterAttrs includePredicate self.packages.${system}) ++
                 (with self.packages.${system}; [
                   geant4.data.G4EMLOW
                   geant4.data.G4ENSDFSTATE
