@@ -52,6 +52,24 @@ final: prev: with final; {
 
   genfit = callPackage pkgs/genfit {};
 
+  hepmc3 = prev.hepmc3.overrideAttrs (old:
+    (final.lib.optionalAttrs (final.lib.versionOlder prev.hepmc3.version "3.2.6") rec {
+      version = "3.2.6";
+      src = final.fetchurl {
+        url = "http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${version}.tar.gz";
+        hash = "sha256-JI87WzbddzhEy+c9UfYIkUWDNLmGsll1TFnb9Lvx1SU=";
+      };
+    }) // {
+      postPatch = old.postPatch or "" + ''
+        substituteInPlace CMakeLists.txt \
+          --replace 'SET(CMAKE_INSTALL_RPATH "''${CMAKE_INSTALL_PREFIX}/''${CMAKE_INSTALL_LIBDIR}")' \
+                    'SET(CMAKE_INSTALL_RPATH "''${CMAKE_INSTALL_FULL_LIBDIR}")'
+      '';
+      # Prevent patchelf from stripping search paths for plugins
+      # (it can't see them because they are dlopen'ed)
+      dontPatchELF = true;
+    });
+
   irt = callPackage pkgs/irt {};
 
   jana2 = callPackage pkgs/jana2 {};
