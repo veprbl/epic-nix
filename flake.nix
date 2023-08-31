@@ -14,7 +14,7 @@
     flake = false;
   };
   inputs.edm4eic-src = {
-    url = "github:eic/EDM4eic/v2.0.0";
+    url = "github:eic/EDM4eic/v2.1.0";
     flake = false;
   };
   inputs.edm4hep-src = {
