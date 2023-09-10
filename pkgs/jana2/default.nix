@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch
 , cmake
 , podio
 , python3
@@ -19,6 +20,14 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     hash = "sha256-P9SZxtsqhwhYJ9X00v5EDToKKJsCvfLgWICB2bjJDD8=";
   };
+
+  patches = [
+    # https://github.com/JeffersonLab/JANA2/pull/239
+    (fetchpatch {
+      url = "https://github.com/JeffersonLab/JANA2/commit/36dcd4928670418ac6b90c2a0b835586eca6a18e.diff";
+      hash = "sha256-Hausq0YXwDXI7peLbTY5dkKMC0v92hOiZ8BdmDvHcUc=";
+    })
+  ];
 
   postPatch = ''
     echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt

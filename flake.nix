@@ -26,7 +26,7 @@
     flake = false;
   };
   inputs.eicrecon-src = {
-    url = "github:eic/EICrecon/v1.4.1";
+    url = "github:eic/EICrecon/v1.5.0";
     flake = false;
   };
   inputs.podio-src = {
