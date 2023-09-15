@@ -9,6 +9,10 @@
   inputs.site-overlay.url = "github:veprbl/empty-overlay-flake";
 
   # define source repositories as flake inputs to enable overrides from CLI
+  inputs.acts-src = {
+    url = "github:acts-project/acts/v21.1.0";
+    flake = false;
+  };
   inputs.dd4hep-src = {
     url = "github:AIDASoft/DD4hep/v01-26";
     flake = false;

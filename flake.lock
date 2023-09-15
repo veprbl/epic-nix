@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "acts-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1668160771,
+        "narHash": "sha256-VW9kERAp/ILMmTWV9oVCjxcjERn7NG049sqbkJBmhkg=",
+        "owner": "acts-project",
+        "repo": "acts",
+        "rev": "3b4b5c741c8541491d496a36b917b00b344d52d1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acts-project",
+        "ref": "v21.1.0",
+        "repo": "acts",
+        "type": "github"
+      }
+    },
     "dd4hep-src": {
       "flake": false,
       "locked": {
@@ -151,6 +168,7 @@
     },
     "root": {
       "inputs": {
+        "acts-src": "acts-src",
         "dd4hep-src": "dd4hep-src",
         "edm4eic-src": "edm4eic-src",
         "edm4hep-src": "edm4hep-src",

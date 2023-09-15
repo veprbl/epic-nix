@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, acts-src
 , boost
 , cmake
 , dd4hep
@@ -10,14 +10,9 @@
 
 stdenv.mkDerivation rec {
   pname = "acts";
-  version = "21.1.0";
+  version = "21.1.0.${acts-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "acts-project";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-VW9kERAp/ILMmTWV9oVCjxcjERn7NG049sqbkJBmhkg=";
-  };
+  src = acts-src;
 
   nativeBuildInputs = [
     cmake

@@ -1,4 +1,5 @@
-{ dd4hep-src
+{ acts-src
+, dd4hep-src
 , edm4eic-src
 , edm4hep-src
 , epic-src
@@ -10,7 +11,7 @@
 
 final: prev: with final; {
 
-  acts = callPackage pkgs/acts {};
+  acts = callPackage pkgs/acts { inherit acts-src; };
 
   afterburner = callPackage pkgs/afterburner {};
 
