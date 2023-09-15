@@ -33,7 +33,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.5.0.${eicrecon-src.shortRev}";
+  version = "1.5.1.${eicrecon-src.shortRev}";
 
   src = eicrecon-src;
 
