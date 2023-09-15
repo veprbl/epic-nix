@@ -29,6 +29,10 @@
     url = "github:eic/EICrecon/v1.5.0";
     flake = false;
   };
+  inputs.jana2-src = {
+    url = "github:JeffersonLab/JANA2/v2.1.1";
+    flake = false;
+  };
   inputs.podio-src = {
     url = "github:AIDASoft/podio/v00-16-07";
     flake = false;

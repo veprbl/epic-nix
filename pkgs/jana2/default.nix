@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, jana2-src
 , fetchpatch
 , cmake
 , podio
@@ -12,14 +12,9 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.1.1";
+  version = "2.1.1.${jana2-src.shortRev}";
 
-  src = fetchFromGitHub {
-    owner = "JeffersonLab";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-P9SZxtsqhwhYJ9X00v5EDToKKJsCvfLgWICB2bjJDD8=";
-  };
+  src = jana2-src;
 
   patches = [
     # https://github.com/JeffersonLab/JANA2/pull/239
