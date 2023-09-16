@@ -1,15 +1,17 @@
-{ dd4hep-src
+{ acts-src
+, dd4hep-src
 , edm4eic-src
 , edm4hep-src
 , epic-src
 , eicrecon-src
+, jana2-src
 , podio-src
 , ...
 }:
 
 final: prev: with final; {
 
-  acts = callPackage pkgs/acts {};
+  acts = callPackage pkgs/acts { inherit acts-src; };
 
   afterburner = callPackage pkgs/afterburner {};
 
@@ -72,7 +74,7 @@ final: prev: with final; {
 
   irt = callPackage pkgs/irt {};
 
-  jana2 = callPackage pkgs/jana2 {};
+  jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 
   juggler = callPackage pkgs/juggler {};
 
