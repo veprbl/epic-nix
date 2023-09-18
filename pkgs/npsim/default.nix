@@ -3,7 +3,6 @@
 , fetchFromGitHub
 , cmake
 , dd4hep
-, fmt_8
 , opencascade-occt
 , spdlog
 , fontconfig
@@ -37,7 +36,6 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     dd4hep
-    fmt_8
     opencascade-occt
     spdlog
   ] ++ lib.optional stdenv.isLinux [

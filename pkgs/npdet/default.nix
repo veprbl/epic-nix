@@ -4,7 +4,6 @@
 , fetchFromGitLab
 , cmake
 , dd4hep
-, fmt_8
 , opencascade-occt
 , podio
 , python3
@@ -53,7 +52,6 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     dd4hep
-    fmt_8
     opencascade-occt
     podio
     python3

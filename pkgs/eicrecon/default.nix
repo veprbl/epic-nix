@@ -11,7 +11,6 @@
 , eigen
 , fastjet
 , irt
-, fmt_8
 , jana2
 , nlohmann_json
 , podio
@@ -60,7 +59,6 @@ stdenv.mkDerivation rec {
     edm4hep
     _fastjet
     eigen
-    fmt_8
     irt
     jana2
     nlohmann_json
