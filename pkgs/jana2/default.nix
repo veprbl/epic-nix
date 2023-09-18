@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.1.1.${jana2-src.shortRev}";
+  version = "2.1.1.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
 

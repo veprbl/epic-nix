@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-09.${edm4hep-src.shortRev}";
+  version = "00-09.${edm4hep-src.shortRev or "dirty"}";
 
   src = edm4hep-src;
 

@@ -17,7 +17,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-07.${podio-src.shortRev}";
+  version = "00-16-07.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
 
