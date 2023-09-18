@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation rec {
   pname = "acts";
-  version = "21.1.0.${acts-src.shortRev}";
+  version = "21.1.0.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
 
