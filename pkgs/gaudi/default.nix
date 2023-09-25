@@ -52,6 +52,12 @@ stdenv.mkDerivation rec {
       hash = "sha256-o05iYMCr+RKbkY/DDE0B3U5kVuqYqd4MQeOyVu01JJo=";
     })
 
+    # fix for fmt 9+
+    (fetchpatch {
+      url = "https://gitlab.cern.ch/gaudi/Gaudi/-/commit/1f3a08bd1ee092e55829f17eccf22def11203dd4.diff";
+      hash = "sha256-IoNIOpRvZzHqFjcv5/yg9gpbYIjJcWSAlW8xW6hkwy8=";
+    })
+
     ./cxx20_result_of_fix.patch
   ];
 
@@ -93,6 +99,12 @@ stdenv.mkDerivation rec {
     # error: template-id not allowed for destructor
     substituteInPlace GaudiKernel/src/Lib/KeyedObjectManager.cpp \
       --replace "::~KeyedObjectManager<T>()" "::~KeyedObjectManager()"
+
+    for file in GaudiCoreSvc/src/JobOptionsSvc/Grammar.h GaudiKernel/include/Gaudi/Parsers/Grammars.h; do
+      substituteInPlace "$file" \
+        --replace 'boost/spirit/include/phoenix_core.hpp' 'boost/phoenix/core.hpp' \
+        --replace 'boost/spirit/include/phoenix_operator.hpp' 'boost/phoenix/operator.hpp'
+    done
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \
       --replace "typename ALLOCATOR::size_type" std::size_t \
