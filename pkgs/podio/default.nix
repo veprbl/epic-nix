@@ -11,13 +11,13 @@ let
 
   # instead of adding python3 and packages to propagatedNativeBuildInputs,
   # let's hardcode a wrapped python into the specific scripts
-  python = python3.withPackages (pkgs: with pkgs; [ jinja2 pyyaml ]);
+  python = python3.withPackages (pkgs: with pkgs; [ jinja2 pyyaml tabulate ]);
 
 in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-16-07.${podio-src.shortRev or "dirty"}";
+  version = "00-17.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
 
