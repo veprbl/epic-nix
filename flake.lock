@@ -54,16 +54,16 @@
     "edm4hep-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1686062292,
-        "narHash": "sha256-ejchf9a/P5+Nu/qXzq9uXAxgRSqPVCkfOae8edftSFw=",
+        "lastModified": 1689002358,
+        "narHash": "sha256-qtw8VfYintpbwIeLqDX/KRSHJDJlBXy8VcD4UmCr4ho=",
         "owner": "key4hep",
         "repo": "EDM4hep",
-        "rev": "03b34bcd87df6918189dd17ab0185a225746d742",
+        "rev": "3cf4537fc2d882dd78425510de14f9915fe79786",
         "type": "github"
       },
       "original": {
         "owner": "key4hep",
-        "ref": "v00-09",
+        "ref": "v00-10",
         "repo": "EDM4hep",
         "type": "github"
       }
