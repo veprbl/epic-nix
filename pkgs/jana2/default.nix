@@ -22,6 +22,12 @@ stdenv.mkDerivation rec {
       url = "https://github.com/JeffersonLab/JANA2/commit/36dcd4928670418ac6b90c2a0b835586eca6a18e.diff";
       hash = "sha256-Hausq0YXwDXI7peLbTY5dkKMC0v92hOiZ8BdmDvHcUc=";
     })
+
+    # https://github.com/eic/EICrecon/issues/949
+    (fetchpatch {
+      url = "https://github.com/JeffersonLab/JANA2/commit/fad0866d147913759b50789573066b40eb0abc16.diff";
+      hash = "sha256-Fuf70sCDl7FKnlwKWfHC2LGZMNJ9IK5TV8a5ENUfO8s=";
+    })
   ];
 
   postPatch = ''
