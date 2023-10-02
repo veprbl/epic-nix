@@ -25,6 +25,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17"
+    "-DIRT_ROOT_IO=OFF" # not needed for reconstruction
   ];
 
   meta = with lib; {
