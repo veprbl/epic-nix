@@ -12,6 +12,7 @@
 , fastjet
 , irt
 , jana2
+, microsoft_gsl
 , nlohmann_json
 , podio
 , root
@@ -61,6 +62,7 @@ stdenv.mkDerivation rec {
     eigen
     irt
     jana2
+    microsoft_gsl
     nlohmann_json
     podio
     root
