@@ -12,9 +12,18 @@
 
 stdenv.mkDerivation (self: with self; {
   pname = "acts";
-  version = "21.1.0.${acts-src.shortRev or "dirty"}";
+  version = "30.3.2.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
+
+  postPatch = ''
+    sed -i Core/include/Acts/Seeding/SeedFinderConfig.hpp -e '1i#include <vector>'
+  '' + lib.optionalString stdenv.isDarwin ''
+    substituteInPlace Core/include/Acts/Propagator/ConstrainedStep.hpp \
+      --replace "constexpr" ""
+    substituteInPlace Fatras/include/ActsFatras/EventData/Particle.hpp \
+      --replace "constexpr" ""
+  '';
 
   nativeBuildInputs = [
     cmake
@@ -44,6 +53,7 @@ stdenv.mkDerivation (self: with self; {
     "-DACTS_USE_SYSTEM_EIGEN3=ON"
     "-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON"
     "-DFETCHCONTENT_SOURCE_DIR_DFELIBS=${dfelibs}"
+    "-DPython_FIND_FRAMEWORK=NEVER" # fix for missing sandboxing on GitHub actions
   ];
 
   meta = with lib; {
