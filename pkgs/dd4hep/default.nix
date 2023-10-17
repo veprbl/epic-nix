@@ -4,10 +4,13 @@
 , fetchpatch
 , assimp
 , boost
+, bzip2
 , cmake
 , edm4hep
 , geant4
 , hepmc3
+, lzma
+, zlib
 , gnugrep
 , python3
 , root
@@ -64,9 +67,12 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     assimp
+    bzip2
     edm4hep
     geant4
     hepmc3
+    lzma
+    zlib
   ];
   propagatedBuildInputs = [
     boost
@@ -88,6 +94,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=17" # match geant4
+    "-DDD4HEP_HEPMC3_COMPRESSION_SUPPORT=ON"
     "-DDD4HEP_USE_EDM4HEP=ON"
     "-DDD4HEP_USE_HEPMC3=ON"
     "-DDD4HEP_USE_GEANT4=ON"
