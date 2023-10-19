@@ -30,7 +30,7 @@ final: prev: with final; {
   eic-smear = callPackage pkgs/eic-smear {};
 
   # Required by a recent EICrecon
-  fmt = if final.lib.versionOlder prev.fmt.version "9" then fmt_9 else fmt;
+  fmt = if final.lib.versionOlder prev.fmt.version "9" then fmt_9 else prev.fmt;
   # Also update an input hardcoded in nixpkgs' spdlog (it switched to fmt
   # later, so we'd like to stay forward-compatible)
   fmt_8 = prev.fmt_9;
