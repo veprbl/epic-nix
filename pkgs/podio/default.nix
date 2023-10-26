@@ -21,6 +21,15 @@ stdenv.mkDerivation rec {
 
   src = podio-src;
 
+  patches = [
+    # AttributeError: <class cppyy.gbl.tuple_element<1,tuple<int,float,string,double> > at 0x...> has no attribute 'type'. Full details:
+    #   type object 'tuple_element<1,tuple<int,float,string,double> >' has no attribute 'type'
+    #   'tuple_element<1,tuple<int,float,string,double> >::type' is not a known C++ class
+    #   'type' is not a known C++ template
+    #   'type' is not a known C++ enum
+    ./tuple_element.patch
+  ];
+
   nativeBuildInputs = [
     cmake
   ];
@@ -54,7 +63,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTING=ON"
   ];
 
-  doInstallCheck = !stdenv.isDarwin;
+  doInstallCheck = true;
   installCheckTarget = "test";
 
   setupHook = ./setup-hook.sh;
