@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , dd4hep-src
-, fetchpatch
 , assimp
 , boost
 , bzip2
@@ -20,32 +19,11 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-26.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-27.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
 
   patches = [
-    # HepMC3FileReader.cpp: avoid double call to HepMC3::Reader::close()
-    (fetchpatch {
-      name = "dd4hep-xrd-fix.patch";
-      url = "https://github.com/AIDASoft/DD4hep/commit/94994604256b248f91e345a109131498fa15dd1a.diff";
-      hash = "sha256-EzTBmxAv8LiuGmb4yBUIMfouX1Ls1wtxVtG4kVxnVzE=";
-    })
-
-    # Geant4Output2EDM4hep: allow reuse of collection names... again
-    (fetchpatch {
-      name = "dd4hep-tracking-collection-fix.patch";
-      url = "https://github.com/AIDASoft/DD4hep/commit/81254eae004f1a54a60d1df5ad06e0db342b04cd.diff";
-      hash = "sha256-jOYKfMvEm70MPfYfkeI1sCiUfWp8NnqS4Ir20RJIa3k=";
-    })
-
-    # https://github.com/AIDASoft/DD4hep/pull/1161
-    (fetchpatch {
-      name = "dd4hep-hexgrid-support.patch";
-      url = "https://github.com/AIDASoft/DD4hep/commit/03a54fdb313fb507448327269712851bc809b3ca.diff";
-      hash = "sha256-HLcweBL37eHQ+DuyjCe1fWfNSw3zoFCMr5IkNOEw6rI=";
-    })
-
     ./hexgrid_fix.patch
   ];
 
