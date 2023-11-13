@@ -17,6 +17,12 @@ stdenv.mkDerivation rec {
   src = jana2-src;
 
   patches = [
+    # https://github.com/JeffersonLab/JANA2/pull/237
+    (fetchpatch {
+      url = "https://github.com/JeffersonLab/JANA2/pull/237/commits/7f5b0d4b419964c916e365749d87b8d62c2c73af.diff";
+      hash = "sha256-oEmiQgKRumCoZAgOBmsPSDp7jzqQQV0wNiAxsJcLTvA=";
+    })
+
     # https://github.com/JeffersonLab/JANA2/pull/239
     (fetchpatch {
       url = "https://github.com/JeffersonLab/JANA2/commit/36dcd4928670418ac6b90c2a0b835586eca6a18e.diff";

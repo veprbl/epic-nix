@@ -1,0 +1,48 @@
+diff --git a/JugBase/src/components/PodioLegacyInput.cpp b/JugBase/src/components/PodioLegacyInput.cpp
+index fa3f39b..89bf9ff 100644
+--- a/JugBase/src/components/PodioLegacyInput.cpp
++++ b/JugBase/src/components/PodioLegacyInput.cpp
+@@ -5,6 +5,7 @@
+ 
+ #include "TFile.h"
+ #include "TROOT.h"
++#include "podio/podioVersion.h"
+ 
+ #include "JugBase/DataWrapper.h"
+ #include "JugBase/PodioLegacyDataSvc.h"
+@@ -29,7 +30,11 @@ StatusCode PodioLegacyInput::initialize() {
+       error() << "Requested product " << name << " not found." << endmsg;
+       return StatusCode::FAILURE;
+     }
++#if podio_VERSION >= PODIO_VERSION(0, 17, 0)
++    m_collectionIDs.push_back(idTable->collectionID(name).value());
++#else
+     m_collectionIDs.push_back(idTable->collectionID(name));
++#endif
+   }
+   return StatusCode::SUCCESS;
+ }
+diff --git a/JugBase/src/components/PodioLegacyOutput.cpp b/JugBase/src/components/PodioLegacyOutput.cpp
+index c9f6ec3..13e5d53 100644
+--- a/JugBase/src/components/PodioLegacyOutput.cpp
++++ b/JugBase/src/components/PodioLegacyOutput.cpp
+@@ -7,6 +7,7 @@
+ #include "TFile.h"
+ #include "JugBase/PodioLegacyDataSvc.h"
+ #include "rootUtils.h"
++#include "podio/podioVersion.h"
+ 
+ DECLARE_COMPONENT(PodioLegacyOutput)
+ 
+@@ -104,7 +105,11 @@ void PodioLegacyOutput::createBranches(const std::vector<std::pair<std::string,
+       }
+     }
+ 
++#if podio_VERSION >= PODIO_VERSION(0, 17, 0)
++    const auto collID = m_podioLegacyDataSvc->getCollectionIDs()->collectionID(collName).value();
++#else
+     const auto collID = m_podioLegacyDataSvc->getCollectionIDs()->collectionID(collName);
++#endif
+     // No check necessary, only registered collections possible
+     auto       coll     = collNamePair.second;
+     const auto collType = std::string(coll->getValueTypeName()) + "Collection";

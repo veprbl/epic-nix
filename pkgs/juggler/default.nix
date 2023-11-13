@@ -25,6 +25,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-HeLOQAsR7xgn2dfkTGBVf5EYgbfpa5yz/8K5PheKHRY=";
   };
 
+  patches = [
+    ./podio_00_17.patch
+  ];
+
   nativeBuildInputs = [
     cmake
   ];
