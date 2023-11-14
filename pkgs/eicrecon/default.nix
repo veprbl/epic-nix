@@ -2,6 +2,7 @@
 , stdenv
 , eicrecon-src
 , acts
+, algorithms
 , boost
 , catch2_3
 , cmake
@@ -54,6 +55,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     acts
+    algorithms
     boost
     dd4hep
     edm4eic

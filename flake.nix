@@ -13,6 +13,10 @@
     url = "github:acts-project/acts/v21.1.0";
     flake = false;
   };
+  inputs.algorithms-src = {
+    url = "github:eic/algorithms/ebc8f85709bc7233574843b843ee0191a5bf3c1d";
+    flake = false;
+  };
   inputs.dd4hep-src = {
     url = "github:AIDASoft/DD4hep/v01-27";
     flake = false;

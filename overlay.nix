@@ -1,4 +1,5 @@
 { acts-src
+, algorithms-src
 , dd4hep-src
 , edm4eic-src
 , edm4hep-src
@@ -12,6 +13,8 @@
 final: prev: with final; {
 
   acts = callPackage pkgs/acts { inherit acts-src; };
+
+  algorithms = callPackage pkgs/algorithms { inherit algorithms-src; };
 
   afterburner = callPackage pkgs/afterburner {};
 
