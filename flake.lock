@@ -37,16 +37,16 @@
     "edm4eic-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1692107245,
-        "narHash": "sha256-pM+0WXyNxMCfUZaHm4EXOeZAVgUc0+6c9pURr7HVtgo=",
+        "lastModified": 1698095659,
+        "narHash": "sha256-tdDVzkchePTlhD3uLUjf8Ww09jiEXlMTDbb4W4Ao510=",
         "owner": "eic",
         "repo": "EDM4eic",
-        "rev": "b46ba9a94d2c1fd4ef722c23348d87a51923e3fe",
+        "rev": "f41acf12643455f8decd8acb46f3ac50fce2a83e",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v2.1.0",
+        "ref": "v4.0.0",
         "repo": "EDM4eic",
         "type": "github"
       }
