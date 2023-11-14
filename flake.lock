@@ -17,6 +17,23 @@
         "type": "github"
       }
     },
+    "algorithms-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1698420084,
+        "narHash": "sha256-gye+EMSUo0UOydhh3mG86rjuhtdEK/BnR2ud2qT9HNA=",
+        "owner": "eic",
+        "repo": "algorithms",
+        "rev": "ebc8f85709bc7233574843b843ee0191a5bf3c1d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "repo": "algorithms",
+        "rev": "ebc8f85709bc7233574843b843ee0191a5bf3c1d",
+        "type": "github"
+      }
+    },
     "dd4hep-src": {
       "flake": false,
       "locked": {
@@ -169,6 +186,7 @@
     "root": {
       "inputs": {
         "acts-src": "acts-src",
+        "algorithms-src": "algorithms-src",
         "dd4hep-src": "dd4hep-src",
         "edm4eic-src": "edm4eic-src",
         "edm4hep-src": "edm4hep-src",
