@@ -42,7 +42,8 @@ stdenv.mkDerivation rec {
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
-      --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
+      --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' "" \
+      --replace 'SET(Python_FIND_FRAMEWORK LAST)' 'set(Python_FIND_FRAMEWORK NEVER)'
     substituteInPlace cmake/DD4hep.cmake \
       --replace \
       'set(''${ENV_VAR}_VALUE $<TARGET_FILE_DIR:''${library}>:$<TARGET_FILE_DIR:DD4hep::DD4hepGaudiPluginMgr>)' \
