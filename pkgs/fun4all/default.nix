@@ -151,6 +151,8 @@ let
         hash = "sha256-8TYw6XZfSmJ1v1WlMI2eY8t/fO5+exPwM999qziPa6Q=";
       };
 
+      postPatch = ":";
+
       buildInputs = [
         boost
         tbb
@@ -159,7 +161,6 @@ let
       ];
 
       cmakeFlags = prev.cmakeFlags ++ [
-        "-DACTS_BUILD_EXAMPLES=ON"
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
       ];
     });

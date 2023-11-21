@@ -10,7 +10,7 @@
 
   # define source repositories as flake inputs to enable overrides from CLI
   inputs.acts-src = {
-    url = "github:acts-project/acts/v21.1.0";
+    url = "github:acts-project/acts/v30.3.2";
     flake = false;
   };
   inputs.algorithms-src = {
@@ -34,7 +34,7 @@
     flake = false;
   };
   inputs.eicrecon-src = {
-    url = "github:eic/EICrecon/v1.5.1";
+    url = "github:eic/EICrecon/v1.8.0";
     flake = false;
   };
   inputs.jana2-src = {

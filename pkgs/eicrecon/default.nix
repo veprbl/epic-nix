@@ -34,7 +34,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.5.1.${eicrecon-src.shortRev or "dirty"}";
+  version = "1.8.0.${eicrecon-src.shortRev or "dirty"}";
 
   src = eicrecon-src;
 
@@ -47,6 +47,10 @@ stdenv.mkDerivation rec {
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
     substituteInPlace src/algorithms/tracking/IterativeVertexFinder.cc \
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
+
+    substituteInPlace cmake/jana_plugin.cmake \
+      --replace 'libActsExamplesFramework.so' \
+                '${"$"}{CMAKE_SHARED_LIBRARY_PREFIX}ActsExamplesFramework${"$"}{CMAKE_SHARED_LIBRARY_SUFFIX}'
   '';
 
   nativeBuildInputs = [

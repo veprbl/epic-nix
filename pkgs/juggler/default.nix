@@ -16,18 +16,20 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "10.1.0";
+  version = "11.0.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-HeLOQAsR7xgn2dfkTGBVf5EYgbfpa5yz/8K5PheKHRY=";
+    hash = "sha256-OzVRVirSVQIn9xuQTo2Gk4nqI1geBiojUow2PDJvCrs=";
   };
 
-  patches = [
-    ./podio_00_17.patch
-  ];
+  postPatch = ''
+    substituteInPlace JugTrack/CMakeLists.txt \
+      --replace 'libActsExamplesFramework.so' \
+                '${"$"}{CMAKE_SHARED_LIBRARY_PREFIX}ActsExamplesFramework${"$"}{CMAKE_SHARED_LIBRARY_SUFFIX}'
+  '';
 
   nativeBuildInputs = [
     cmake

@@ -3,16 +3,16 @@
     "acts-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1668160771,
-        "narHash": "sha256-VW9kERAp/ILMmTWV9oVCjxcjERn7NG049sqbkJBmhkg=",
+        "lastModified": 1698354503,
+        "narHash": "sha256-stRoSNq+LspmLWYAf2mZ+8HrugwvGiekGDZ1e6JqN3A=",
         "owner": "acts-project",
         "repo": "acts",
-        "rev": "3b4b5c741c8541491d496a36b917b00b344d52d1",
+        "rev": "76826f208f5929d8326798c87263f2563d0ae7e9",
         "type": "github"
       },
       "original": {
         "owner": "acts-project",
-        "ref": "v21.1.0",
+        "ref": "v30.3.2",
         "repo": "acts",
         "type": "github"
       }
@@ -88,16 +88,16 @@
     "eicrecon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1694749174,
-        "narHash": "sha256-3Zk4+jO59P1a4WnGbw1QolYpVbA5nI2uhksQqNCZsis=",
+        "lastModified": 1700252671,
+        "narHash": "sha256-79v6gxmvjgV+jwp42DaO3yIveh+MgRB/mZ5sbShzDYs=",
         "owner": "eic",
         "repo": "EICrecon",
-        "rev": "9f08a4136ea2a78b35cc050fd2f46472fe0a87d8",
+        "rev": "fdc79ac42bf27b9000e2a9c752b5b9cfc6a85ba4",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.5.1",
+        "ref": "v1.8.0",
         "repo": "EICrecon",
         "type": "github"
       }
