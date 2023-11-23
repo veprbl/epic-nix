@@ -19,13 +19,9 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-27.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-27-01.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
-
-  patches = [
-    ./hexgrid_fix.patch
-  ];
 
   postPatch = ''
     patchShebangs --host .
