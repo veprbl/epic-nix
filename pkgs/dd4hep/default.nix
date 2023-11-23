@@ -31,19 +31,11 @@ stdenv.mkDerivation rec {
 
     substituteInPlace DDCore/CMakeLists.txt \
       --replace "ROOT::ROOTHistDraw" ""
-
-    substituteInPlace DDG4/edm4hep/Geant4Output2EDM4hep.cpp \
-      --replace "setValues" "setValue" \
-      --replace "hits = m_calorimeterHits[colName] = edm4hep::SimTrackerHitCollection()" "hits = m_calorimeterHits[colName]"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' "" \
       --replace 'SET(Python_FIND_FRAMEWORK LAST)' 'set(Python_FIND_FRAMEWORK NEVER)'
-    substituteInPlace cmake/DD4hep.cmake \
-      --replace \
-      'set(''${ENV_VAR}_VALUE $<TARGET_FILE_DIR:''${library}>:$<TARGET_FILE_DIR:DD4hep::DD4hepGaudiPluginMgr>)' \
-      'set(''${ENV_VAR}_VALUE $<TARGET_FILE_DIR:''${library}>:$<TARGET_FILE_DIR:DD4hep::DD4hepGaudiPluginMgr>:''$ENV{''${ENV_VAR}})'
   '';
 
   nativeBuildInputs = [
