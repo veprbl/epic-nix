@@ -67,7 +67,16 @@ final: prev: with final; {
 
   geant4 = (prev.geant4.override {
     enableQt = true;
-  }).overrideAttrs (prev: {
+  }).overrideAttrs (prev: rec {
+    version = "11.1.3";
+    src = fetchurl {
+      url = "https://cern.ch/geant4-data/releases/geant4-v${version}.tar.gz";
+      hash = "sha256-TF++pnidjWGe2sygYx1rUhGmDhv5l0w9P6ue+eImkvU=";
+    };
+    postPatch = ''
+      substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake \
+        --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
+    '';
     cmakeFlags = prev.cmakeFlags ++ [
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];

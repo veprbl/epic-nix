@@ -198,7 +198,7 @@ let
         hash = "sha256-7Nrb+EaAevi6oHHzgQT7DcwkhHyEdc2DlzAuKu+o9m8=";
       };
 
-      postPatch = (prev.postPatch or "") + ''
+      postPatch = (builtins.replaceStrings ["substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake"] ["echo"] prev.postPatch or "") + ''
         substituteInPlace cmake/Modules/FindXQuartzGL.cmake \
           --replace "NO_DEFAULT_PATH" ""
 
