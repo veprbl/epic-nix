@@ -28,9 +28,6 @@ stdenv.mkDerivation rec {
 
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
-
-    substituteInPlace DDCore/CMakeLists.txt \
-      --replace "ROOT::ROOTHistDraw" ""
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
