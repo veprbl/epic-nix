@@ -22,6 +22,18 @@ final: prev: with final; {
 
   athena = callPackage pkgs/athena {};
 
+  # geant4 requires at least version 2.4.6.0
+  clhep = prev.clhep.overrideAttrs (old:
+    final.lib.optionalAttrs (final.lib.versionOlder prev.clhep.version "2.4.7.1") rec {
+      version = "2.4.7.1";
+
+      src = fetchurl {
+        url = "https://proj-clhep.web.cern.ch/proj-clhep/dist1/clhep-${version}.tgz";
+        hash = "sha256-HIMEp3cqxrmRlfEwA3jG4930rQfIXWSgRQVlKruKVfk=";
+      };
+    }
+  );
+
   epic = callPackage pkgs/epic { inherit epic-src; };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
@@ -55,7 +67,16 @@ final: prev: with final; {
 
   geant4 = (prev.geant4.override {
     enableQt = true;
-  }).overrideAttrs (prev: {
+  }).overrideAttrs (prev: rec {
+    version = "11.1.3";
+    src = fetchurl {
+      url = "https://cern.ch/geant4-data/releases/geant4-v${version}.tar.gz";
+      hash = "sha256-TF++pnidjWGe2sygYx1rUhGmDhv5l0w9P6ue+eImkvU=";
+    };
+    postPatch = ''
+      substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake \
+        --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
+    '';
     cmakeFlags = prev.cmakeFlags ++ [
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
