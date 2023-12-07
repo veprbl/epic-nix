@@ -22,6 +22,18 @@ final: prev: with final; {
 
   athena = callPackage pkgs/athena {};
 
+  # geant4 requires at least version 2.4.6.0
+  clhep = prev.clhep.overrideAttrs (old:
+    final.lib.optionalAttrs (final.lib.versionOlder prev.clhep.version "2.4.7.1") rec {
+      version = "2.4.7.1";
+
+      src = fetchurl {
+        url = "https://proj-clhep.web.cern.ch/proj-clhep/dist1/clhep-${version}.tgz";
+        hash = "sha256-HIMEp3cqxrmRlfEwA3jG4930rQfIXWSgRQVlKruKVfk=";
+      };
+    }
+  );
+
   epic = callPackage pkgs/epic { inherit epic-src; };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
