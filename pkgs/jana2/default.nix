@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , jana2-src
-, fetchpatch
 , cmake
 , podio
 , python3
@@ -12,29 +11,9 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.1.1.${jana2-src.shortRev or "dirty"}";
+  version = "2.1.2.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
-
-  patches = [
-    # https://github.com/JeffersonLab/JANA2/pull/237
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/pull/237/commits/7f5b0d4b419964c916e365749d87b8d62c2c73af.diff";
-      hash = "sha256-oEmiQgKRumCoZAgOBmsPSDp7jzqQQV0wNiAxsJcLTvA=";
-    })
-
-    # https://github.com/JeffersonLab/JANA2/pull/239
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/commit/36dcd4928670418ac6b90c2a0b835586eca6a18e.diff";
-      hash = "sha256-Hausq0YXwDXI7peLbTY5dkKMC0v92hOiZ8BdmDvHcUc=";
-    })
-
-    # https://github.com/eic/EICrecon/issues/949
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/commit/fad0866d147913759b50789573066b40eb0abc16.diff";
-      hash = "sha256-Fuf70sCDl7FKnlwKWfHC2LGZMNJ9IK5TV8a5ENUfO8s=";
-    })
-  ];
 
   postPatch = ''
     echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt
