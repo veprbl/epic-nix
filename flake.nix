@@ -38,7 +38,7 @@
     flake = false;
   };
   inputs.jana2-src = {
-    url = "github:JeffersonLab/JANA2/v2.1.1";
+    url = "github:JeffersonLab/JANA2/v2.1.2";
     flake = false;
   };
   inputs.podio-src = {
