@@ -62,8 +62,9 @@ let
       root
     ];
 
-    NIX_CFLAGS_COMPILE =
-      lib.optionals stdenv.isDarwin [ "-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" ];
+    CXXFLAGS =
+      lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=unused-but-set-variable" ]
+      ++ lib.optionals stdenv.isDarwin [ "-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" ];
 
     preAutoreconf = ''
       cd ${path}
@@ -135,6 +136,8 @@ let
       postPatch = ''
         substituteInPlace src/dtconv.h \
           --replace ODBCXX_STRING_PERCENT '"%"'
+
+        find . -type f \( -name "*.cpp" -o -name "*.h" \) -exec sed -i {} -e 's/auto_ptr/shared_ptr/g' \;
       '';
 
       meta.license = lib.licenses.lgpl2Only;
@@ -151,7 +154,10 @@ let
         hash = "sha256-8TYw6XZfSmJ1v1WlMI2eY8t/fO5+exPwM999qziPa6Q=";
       };
 
-      postPatch = ":";
+      # overrides postPatch of the acts_orig
+      postPatch = ''
+        find . -type f -name "*.hpp" -exec sed -i {} -e 's/std::binary_function<T, T, bool>/std::function<bool(T, T)>/g' \;
+      '';
 
       buildInputs = [
         boost
@@ -601,6 +607,8 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   simulation.g4simulation.g4eiccalos = mk_path_eicdetectors "simulation/g4simulation/g4eiccalos" {
     buildInputs = [ gsl extra_deps.acts offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4gdml simulation.g4simulation.g4main ];
+    CXXFLAGS =
+      lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=array-parameter" ];
   };
   simulation.g4simulation.g4eicdirc = mk_path_eicdetectors "simulation/g4simulation/g4eicdirc" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
