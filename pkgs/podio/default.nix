@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     "-DBUILD_TESTING=ON"
   ];
 
-  doInstallCheck = true;
+  doInstallCheck = !stdenv.isDarwin;
   installCheckTarget = "test";
 
   setupHook = ./setup-hook.sh;
