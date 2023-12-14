@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   CPPFLAGS="-DDISABLE_GNU_EXTENSIONS";
-  CXXFLAGS="-std=c++11";
+  CXXFLAGS="-std=c++11 -Wno-enum-constexpr-conversion";
 
   nativeBuildInputs = [
     pkg-config
