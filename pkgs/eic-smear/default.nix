@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , hepmc3
 , root
@@ -10,22 +9,14 @@
 
 stdenv.mkDerivation rec {
   pname = "eic-smear";
-  version = "1.1.9";
+  version = "1.1.12";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = version;
-    hash = "sha256-K/UzH2Ti/GtGm8X5sLzCMx8AjEZluTbGt+g/zsL4xrE=";
+    hash = "sha256-qYJyMUcTuWQXAnddXGTgqe2MKZLe//3InEUpCxjW9lo=";
   };
-
-  patches = [
-    # fix build on clang
-    (fetchpatch {
-      url = "https://github.com/eic/eic-smear/pull/21/commits/9854378900602dd0dda9071c557abe7b0873ef01.diff";
-      hash = "sha256-Goz+YjgqeZF0OhbGivsFvynkoiymkn4o5dXnOLuBszg=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
