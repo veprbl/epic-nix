@@ -15,6 +15,14 @@ stdenv.mkDerivation rec {
 
   src = algorithms-src;
 
+  # https://github.com/eic/algorithms/pull/10
+  postPatch = ''
+    substituteInPlace core/include/algorithms/detail/random.h \
+      --replace "value_type" "result_type"
+    substituteInPlace core/include/algorithms/random.h \
+      --replace "::value_type" "::result_type"
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
