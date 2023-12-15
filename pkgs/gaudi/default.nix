@@ -105,6 +105,9 @@ stdenv.mkDerivation rec {
         --replace 'boost/spirit/include/phoenix_core.hpp' 'boost/phoenix/core.hpp' \
         --replace 'boost/spirit/include/phoenix_operator.hpp' 'boost/phoenix/operator.hpp'
     done
+
+    substituteInPlace GaudiCommonSvc/src/PersistencySvc/SequentialOutputStream.cpp \
+      --replace "bf::path outputPath( m_outputName );" "bf::path outputPath( static_cast<std::string>(m_outputName) );"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \
       --replace "typename ALLOCATOR::size_type" std::size_t \

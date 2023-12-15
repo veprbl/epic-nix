@@ -29,6 +29,12 @@ stdenv.mkDerivation rec {
     substituteInPlace JugTrack/CMakeLists.txt \
       --replace 'libActsExamplesFramework.so' \
                 '${"$"}{CMAKE_SHARED_LIBRARY_PREFIX}ActsExamplesFramework${"$"}{CMAKE_SHARED_LIBRARY_SUFFIX}'
+
+    # https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/528
+    substituteInPlace external/algorithms/core/include/algorithms/detail/random.h \
+      --replace "value_type" "result_type"
+    substituteInPlace external/algorithms/core/include/algorithms/random.h \
+      --replace "::value_type" "::result_type"
   '';
 
   nativeBuildInputs = [
