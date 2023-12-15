@@ -256,6 +256,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     propagatedBuildInputs = [ clhep gsl hepmc2 ];
     buildInputs = [ boost generators.flowAfterburner offline.framework.frog offline.framework.fun4all offline.framework.phool ];
     OFFLINE_MAIN = hepmc2;
+    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=restrict" ];
   };
   generators.PHPythia6 = mk_path "generators/PHPythia6" {
     buildInputs = [ cgal fastjet generators.phhepmc offline.framework.fun4all offline.framework.phool ];
@@ -324,6 +325,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   offline.packages.HelixHough = mk_path "offline/packages/HelixHough" {
     buildInputs = [ eigen offline.packages.trackbase ];
     NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
+    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=maybe-uninitialized" ];
   };
   offline.packages.jetbackground = mk_path "offline/packages/jetbackground" {
     buildInputs = [ cgal fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
