@@ -16,6 +16,7 @@
 , libuuid
 , makeWrapper
 , microsoft_gsl
+, pkg-config
 , python3
 , range-v3
 , root
@@ -33,38 +34,23 @@ in
 
 stdenv.mkDerivation rec {
   pname = "Gaudi";
-  version = "36r5";
+  version = "36r16";
 
   src = fetchFromGitLab {
     domain = "gitlab.cern.ch";
     owner = "gaudi";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-zSJLK6GysNM+xhPZP5K4hTrVSEYGUZjrvuojBfulUZ8=";
+    hash = "sha256-qMIZESS9hDdgVnZ8qR/KhUQVO8xBCAmqq/XoQc5fT+w=";
   };
-
-  patches = [
-    # fix for libc++
-    (fetchpatch {
-      url = "https://gitlab.cern.ch/gaudi/Gaudi/-/commit/d7aaac403909b52eb81ec06ff692dc758c47d8ae.diff";
-      revert = true;
-      includes = [ "GaudiPluginService/include/Gaudi/PluginServiceV2.h" ];
-      hash = "sha256-o05iYMCr+RKbkY/DDE0B3U5kVuqYqd4MQeOyVu01JJo=";
-    })
-
-    # fix for fmt 9+
-    (fetchpatch {
-      url = "https://gitlab.cern.ch/gaudi/Gaudi/-/commit/1f3a08bd1ee092e55829f17eccf22def11203dd4.diff";
-      hash = "sha256-IoNIOpRvZzHqFjcv5/yg9gpbYIjJcWSAlW8xW6hkwy8=";
-    })
-
-    ./cxx20_result_of_fix.patch
-  ];
 
   nativeBuildInputs = [
     cmake
     makeWrapper
     python3.pkgs.six
+  ];
+  propagatedNativeBuildInputs = [
+    pkg-config
   ];
   propagatedBuildInputs = [
     aida
@@ -92,22 +78,6 @@ stdenv.mkDerivation rec {
     patchShebangs --build GaudiKernel/scripts/
     substituteInPlace cmake/GaudiToolbox.cmake \
       --replace '/bin/sh' '${bash}/bin/sh'
-
-    sed -i GaudiHive/src/PRGraph/PrecedenceRulesGraph.cpp \
-      -e '1i#include <boost/filesystem/fstream.hpp>'
-
-    # error: template-id not allowed for destructor
-    substituteInPlace GaudiKernel/src/Lib/KeyedObjectManager.cpp \
-      --replace "::~KeyedObjectManager<T>()" "::~KeyedObjectManager()"
-
-    for file in GaudiCoreSvc/src/JobOptionsSvc/Grammar.h GaudiKernel/include/Gaudi/Parsers/Grammars.h; do
-      substituteInPlace "$file" \
-        --replace 'boost/spirit/include/phoenix_core.hpp' 'boost/phoenix/core.hpp' \
-        --replace 'boost/spirit/include/phoenix_operator.hpp' 'boost/phoenix/operator.hpp'
-    done
-
-    substituteInPlace GaudiCommonSvc/src/PersistencySvc/SequentialOutputStream.cpp \
-      --replace "bf::path outputPath( m_outputName );" "bf::path outputPath( static_cast<std::string>(m_outputName) );"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \
       --replace "typename ALLOCATOR::size_type" std::size_t \
