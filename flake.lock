@@ -20,17 +20,17 @@
     "algorithms-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1698420084,
-        "narHash": "sha256-gye+EMSUo0UOydhh3mG86rjuhtdEK/BnR2ud2qT9HNA=",
+        "lastModified": 1702617573,
+        "narHash": "sha256-tS2vunbFt2bfy6UZ++QmTAajeQTsGGYPg62oQdpyEEE=",
         "owner": "eic",
         "repo": "algorithms",
-        "rev": "ebc8f85709bc7233574843b843ee0191a5bf3c1d",
+        "rev": "ed4ede1971fdd883d13714972346fb6f61362eb5",
         "type": "github"
       },
       "original": {
         "owner": "eic",
         "repo": "algorithms",
-        "rev": "ebc8f85709bc7233574843b843ee0191a5bf3c1d",
+        "rev": "ed4ede1971fdd883d13714972346fb6f61362eb5",
         "type": "github"
       }
     },
