@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17"
+    "-DCMAKE_CXX_STANDARD=20"
     "-DIRT_ROOT_IO=OFF" # not needed for reconstruction
   ];
 

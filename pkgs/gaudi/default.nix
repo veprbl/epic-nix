@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_SKIP_BUILD_RPATH=OFF" # until this lands https://github.com/NixOS/nixpkgs/pull/108496
-    "-DGAUDI_CXX_STANDARD=17"
+    "-DGAUDI_CXX_STANDARD=20"
     "-DGAUDI_USE_AIDA=TRUE"
     "-DGAUDI_USE_CLHEP=TRUE"
     "-DGAUDI_USE_HEPPDT=FALSE"

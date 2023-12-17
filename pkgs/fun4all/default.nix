@@ -63,7 +63,9 @@ let
     ];
 
     CXXFLAGS =
-      lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=unused-but-set-variable" ]
+      lib.optionals stdenv.cc.isClang [ "-Wno-error=\\#warnings" ]
+      ++ lib.optionals stdenv.cc.isGNU [ "-Wno-error=cpp" ]
+      ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=unused-but-set-variable" ]
       ++ lib.optionals stdenv.isDarwin [ "-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" ];
 
     preAutoreconf = ''
@@ -169,6 +171,8 @@ let
       cmakeFlags = prev.cmakeFlags ++ [
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
       ];
+
+      NIX_CFLAGS_COMPILE="-std=c++17";
     });
 
     BeastMagneticField = stdenv.mkDerivation rec {
@@ -214,6 +218,12 @@ let
         substituteInPlace source/persistency/ascii/src/G4tgrEvaluator.cc \
           --replace fsqrt _fsqrt
       '';
+
+      cmakeFlags = prev.cmakeFlags ++ [
+        "-DGEANT4_USE_G3TOG4=OFF"
+        "-DGEANT4_BUILD_CXXSTD=17"
+        "-DCMAKE_CXX_STANDARD=17"
+      ];
     });
 
     KFParticle = stdenv.mkDerivation rec {

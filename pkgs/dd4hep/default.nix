@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17" # match geant4
+    "-DCMAKE_CXX_STANDARD=20" # match geant4
     "-DDD4HEP_HEPMC3_COMPRESSION_SUPPORT=ON"
     "-DDD4HEP_USE_EDM4HEP=ON"
     "-DDD4HEP_USE_HEPMC3=ON"
