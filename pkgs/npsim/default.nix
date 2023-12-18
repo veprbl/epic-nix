@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17" # match dd4hep
+    "-DCMAKE_CXX_STANDARD=20" # match dd4hep
   ];
 
   meta = with lib; {

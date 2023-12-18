@@ -29,6 +29,9 @@ stdenv.mkDerivation rec {
       --replace "src/CylinderTrackerBarrel_geo.cpp" "" \
       --replace "src/SimpleDiskDetector_geo.cpp" "" \
       --replace "src/TrapEndcapTracker_geo.cpp" ""
+
+    substituteInPlace src/FileLoaderHelper.h \
+      --replace "fmt::format(cmd," "fmt::format(fmt::runtime(cmd),"
   '';
 
   nativeBuildInputs = [
@@ -44,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17" # match dd4hep
+    "-DCMAKE_CXX_STANDARD=20" # match dd4hep
   ];
 
   meta = with lib; {

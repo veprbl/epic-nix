@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17"
+    "-DCMAKE_CXX_STANDARD=20"
   ];
 
   NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];

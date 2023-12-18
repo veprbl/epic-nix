@@ -78,6 +78,7 @@ final: prev: with final; {
         --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
     '';
     cmakeFlags = prev.cmakeFlags ++ [
+      "-DCMAKE_CXX_STANDARD=20"
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
   });
@@ -112,9 +113,20 @@ final: prev: with final; {
 
   npsim = callPackage pkgs/npsim {};
 
+  llvm_13 = prev.llvm_13.overrideAttrs (prev: {
+    patches = (prev.patches or []) ++ [
+      # Fix compilation with C++20 for clang
+      (final.fetchpatch {
+        url = "https://github.com/llvm/llvm-project/commit/a2ac383b44172ec47e4086d7572597ab251a4793.diff";
+        hash = "sha256-PoqxmQsIkrCyvvdFvkuEof+C3HWOjgGFRUfvVlZYPsI=";
+        stripLen = 1;
+      })
+    ];
+  });
+
   root = prev.root.overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
-      "-DCMAKE_CXX_STANDARD=17"
+      "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
       "-Dpythia6=ON" # for fun4all

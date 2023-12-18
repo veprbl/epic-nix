@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17"
+    "-DCMAKE_CXX_STANDARD=20"
     "-DUSE_PODIO=ON"
     "-DUSE_PYTHON=ON"
     "-DUSE_ROOT=ON"

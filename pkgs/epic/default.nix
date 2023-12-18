@@ -16,6 +16,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
+
+    substituteInPlace src/FileLoaderHelper.h \
+      --replace "fmt::format(cmd," "fmt::format(fmt::runtime(cmd),"
   '';
 
   nativeBuildInputs = [
@@ -31,7 +34,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
-    "-DCMAKE_CXX_STANDARD=17" # match dd4hep
+    "-DCMAKE_CXX_STANDARD=20" # match dd4hep
   ];
 
   setupHook = ./setup-hook.sh;
