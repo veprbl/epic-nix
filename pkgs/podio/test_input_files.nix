@@ -1,0 +1,14 @@
+{ fetchurl }:
+''
+ln -s ${fetchurl { name = "v00-13-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/86a33a765483c6e9f0babe798ef5a8c5"; hash = "sha256-gJ494jKE4i2zdpVQbzOVF4GlPHmWB2IzESZri6Sw68U="; }} ./tests/input_files/v00-13-example.root
+ln -s ${fetchurl { name = "v00-16-02-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/153ca8cc2f6110076c16319f425e214d"; hash = "sha256-/HLmx4JH1mJJPi4MxbBwd9pFEvUq30FBQniP+WHPGnk="; }} ./tests/input_files/v00-16-02-example.root
+ln -s ${fetchurl { name = "v00-16-02-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/44fded47f2b01b168d3aece05a52fd43"; hash = "sha256-3YYc/+INUzDz9E7TOUO83boGzHzP01prOA5htRnky6w="; }} ./tests/input_files/v00-16-02-example_frame.root
+ln -s ${fetchurl { name = "v00-16-04-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/3c31525e669e0d278826409f08eba48a"; hash = "sha256-ZjpTrs02uB6bI7Fa0El8WOjEaaAyY0N6OAA7gv0hjRw="; }} ./tests/input_files/v00-16-04-example.root
+ln -s ${fetchurl { name = "v00-16-04-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/8bd4fa838c6165a6539be86edc5c31ca"; hash = "sha256-fPvJmE4CvqJdgJ0uiBymPvgq9Y9qusp/jPFD7TVm4M8="; }} ./tests/input_files/v00-16-04-example_frame.root
+ln -s ${fetchurl { name = "v00-16-05-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/dc6181be4825cd49225e17d655134dba"; hash = "sha256-JfzOqCrfZjkY/0Gv+fcwjN0rIS4Te38IH776YwhRxbY="; }} ./tests/input_files/v00-16-05-example.root
+ln -s ${fetchurl { name = "v00-16-05-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/4851c2cd392d2dff52d0c0804640a581"; hash = "sha256-DT78yEGES7T7M+6twUQ7Zk4oMoV6ykBo9Io7Jv4Vec0="; }} ./tests/input_files/v00-16-05-example_frame.root
+ln -s ${fetchurl { name = "v00-16-06-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/db390543bab1a89f52968516a2648af7"; hash = "sha256-RcZ2MBDW9ZR3avxM0D/I+1/ukSC2tsZhkHKmz5G49E4="; }} ./tests/input_files/v00-16-06-example.root
+ln -s ${fetchurl { name = "v00-16-06-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/e64e8720a2746ae30c363aa0d4f5935e"; hash = "sha256-2hH/kxi61+7ZZazlHSjm+Z7xRLFhH4EjxNok7RLVoEc="; }} ./tests/input_files/v00-16-06-example_frame.root
+ln -s ${fetchurl { name = "v00-16-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/fc47e06f8c42b249dc0fbcbff09ef562"; hash = "sha256-nVyofzGiSv35hJeC4dzXKBDj1o0w7HqvFT0MYykdTRY="; }} ./tests/input_files/v00-16-example.root
+ln -s ${fetchurl { name = "v00-16-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/a1065876927fa04f70687ed507dba5a2"; hash = "sha256-6KusKns0JBI4KmcGIulgXmxcfL/rDwHIgIVkhbogZ88="; }} ./tests/input_files/v00-16-example_frame.root
+''
