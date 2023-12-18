@@ -10,15 +10,12 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "23.08.0.${epic-src.shortRev or "dirty"}";
+  version = "23.12.0.${epic-src.shortRev or "dirty"}";
 
   src = epic-src;
 
   postPatch = ''
     patchShebangs --host bin/make_detector_configuration
-
-    substituteInPlace src/FileLoaderHelper.h \
-      --replace "fmt::format(cmd," "fmt::format(fmt::runtime(cmd),"
   '';
 
   nativeBuildInputs = [
