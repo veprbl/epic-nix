@@ -109,6 +109,8 @@ final: prev: with final; {
 
   juggler = callPackage pkgs/juggler {};
 
+  k4FWCore = callPackage pkgs/k4FWCore {};
+
   npdet = callPackage pkgs/npdet {};
 
   npsim = callPackage pkgs/npsim {};
