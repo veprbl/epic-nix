@@ -152,6 +152,25 @@
         "type": "github"
       }
     },
+    "juggler-src": {
+      "flake": false,
+      "locked": {
+        "host": "eicweb.phy.anl.gov",
+        "lastModified": 1703337281,
+        "narHash": "sha256-lg5C261mpls411IVtwFEBcNbOL9DhGFVppJUsBbWX4E=",
+        "owner": "EIC",
+        "repo": "juggler",
+        "rev": "b707f2cbebbbb880bfbc95e467a0e330f0ac4a1d",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "eicweb.phy.anl.gov",
+        "owner": "EIC",
+        "ref": "v13.0.0",
+        "repo": "juggler",
+        "type": "gitlab"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1706801171,
@@ -194,6 +213,7 @@
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",
         "jana2-src": "jana2-src",
+        "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",
         "podio-src": "podio-src",
         "site-overlay": "site-overlay"

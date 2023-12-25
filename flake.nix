@@ -41,6 +41,10 @@
     url = "github:JeffersonLab/JANA2/v2.1.2";
     flake = false;
   };
+  inputs.juggler-src = {
+    url = "gitlab:EIC/juggler/v13.0.0?host=eicweb.phy.anl.gov";
+    flake = false;
+  };
   inputs.podio-src = {
     url = "github:AIDASoft/podio/v00-17-04";
     flake = false;

@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, juggler-src
 , fetchpatch
 , acts
 , cmake
@@ -18,14 +18,9 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "13.0.0";
+  version = "13.0.0.${juggler-src.shortRev or "dirty"}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-lg5C261mpls411IVtwFEBcNbOL9DhGFVppJUsBbWX4E=";
-  };
+  src = juggler-src;
 
   patches = [
     (fetchpatch {
