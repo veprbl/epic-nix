@@ -14,7 +14,7 @@
     flake = false;
   };
   inputs.algorithms-src = {
-    url = "github:eic/algorithms/ed4ede1971fdd883d13714972346fb6f61362eb5";
+    url = "github:eic/algorithms/e42f75e031e46e3425e3223c8b6af361a618c3ed";
     flake = false;
   };
   inputs.dd4hep-src = {
