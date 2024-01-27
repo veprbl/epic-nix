@@ -18,7 +18,7 @@ jobs:
     name: ${{ matrix.arch.name }}
     runs-on: ${{ matrix.arch.runs-on }}
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v4.1.1
     - uses: cachix/install-nix-action@v25
       with:
         nix_path: nixpkgs=channel:nixpkgs-22.05-darwin
