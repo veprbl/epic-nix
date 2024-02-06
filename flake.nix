@@ -26,7 +26,7 @@
     flake = false;
   };
   inputs.edm4hep-src = {
-    url = "github:key4hep/EDM4hep/v00-10-02";
+    url = "github:key4hep/EDM4hep/v00-10-05";
     flake = false;
   };
   inputs.epic-src = {
