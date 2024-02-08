@@ -23,7 +23,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-10-02.${edm4hep-src.shortRev or "dirty"}";
+  version = "00-10-05.${edm4hep-src.shortRev or "dirty"}";
 
   src = edm4hep-src;
 
@@ -52,6 +52,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
+    "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ];
 
   doInstallCheck = true;
