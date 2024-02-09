@@ -25,6 +25,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-OzVRVirSVQIn9xuQTo2Gk4nqI1geBiojUow2PDJvCrs=";
   };
 
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/eic/juggler/commit/61cf5c5d67889c3c26eacc3d831e8608f6c3255e.diff";
+      hash = "sha256-4M6A4rAvsDJegTqd+UJz89pQKFZCTGmVDJwjVHChRVI=";
+    })
+  ];
+
   postPatch = ''
     substituteInPlace JugTrack/CMakeLists.txt \
       --replace 'libActsExamplesFramework.so' \
