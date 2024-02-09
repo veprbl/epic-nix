@@ -88,16 +88,16 @@
     "eicrecon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1702058038,
-        "narHash": "sha256-mq2jAtdITmMcCaijOLu8/piTRe8Er7gNBW2+0L3/PLA=",
+        "lastModified": 1707443522,
+        "narHash": "sha256-EqA+qnMYaaARxCXDfZttGZvbV3ml0GZgIN9q2VuvKiw=",
         "owner": "eic",
         "repo": "EICrecon",
-        "rev": "3ad7e59cc30a871f6ef219215131334df9badf7a",
+        "rev": "8d28402f1f4a672b036bb45e702161201ed3cbb2",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.9.0",
+        "ref": "v1.10.0",
         "repo": "EICrecon",
         "type": "github"
       }
