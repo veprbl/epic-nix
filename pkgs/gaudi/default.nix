@@ -63,6 +63,7 @@ stdenv.mkDerivation rec {
     range-v3
     tbb
     xercesc
+    zlib
   ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
   buildInputs = [
     _boost
@@ -71,7 +72,6 @@ stdenv.mkDerivation rec {
     doxygen
     python3
     root
-    zlib
   ];
 
   postPatch = ''

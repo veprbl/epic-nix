@@ -152,6 +152,25 @@
         "type": "github"
       }
     },
+    "juggler-src": {
+      "flake": false,
+      "locked": {
+        "host": "eicweb.phy.anl.gov",
+        "lastModified": 1703337281,
+        "narHash": "sha256-lg5C261mpls411IVtwFEBcNbOL9DhGFVppJUsBbWX4E=",
+        "owner": "EIC",
+        "repo": "juggler",
+        "rev": "b707f2cbebbbb880bfbc95e467a0e330f0ac4a1d",
+        "type": "gitlab"
+      },
+      "original": {
+        "host": "eicweb.phy.anl.gov",
+        "owner": "EIC",
+        "ref": "v13.0.0",
+        "repo": "juggler",
+        "type": "gitlab"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1706801171,
@@ -169,16 +188,16 @@
     "podio-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1695623732,
-        "narHash": "sha256-vownh0TrIMfUpcaDraIs3Ys/pz/hbKF5KMwJZBOVW24=",
+        "lastModified": 1702631401,
+        "narHash": "sha256-d2nzgGn6va5srcYqPrjgMu1k847VKQYlDIuyTjgXxAA=",
         "owner": "AIDASoft",
         "repo": "podio",
-        "rev": "babec745c12727cd5da590abbe1e3cf1ab8743ad",
+        "rev": "db4eec27700d3bd5a8bb5856da2924481e63c5f8",
         "type": "github"
       },
       "original": {
         "owner": "AIDASoft",
-        "ref": "v00-17",
+        "ref": "v00-17-04",
         "repo": "podio",
         "type": "github"
       }
@@ -194,6 +213,7 @@
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",
         "jana2-src": "jana2-src",
+        "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",
         "podio-src": "podio-src",
         "site-overlay": "site-overlay"

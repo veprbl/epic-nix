@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, fetchurl
 , podio-src
 , catch2_3
 , cmake
@@ -17,7 +18,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-17.${podio-src.shortRev or "dirty"}";
+  version = "00-17-04.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
 
@@ -51,15 +52,23 @@ stdenv.mkDerivation rec {
     # case as well
     chmod +x python/podio_class_generator.py # need to chmod for patchShebangs
     patchShebangs --host python/podio_class_generator.py
+
+    # https://github.com/AIDASoft/podio/commit/8320d6ea2acf2467c4c05ee1f8b0a062af9829cb
+    sed -i src/rootUtils.h -e '1i#include <sstream>'
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/podioBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
   '';
 
+  preConfigure = ''
+    ${import ./test_input_files.nix { inherit fetchurl; }}
+  '';
+
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
     "-DUSE_EXTERNAL_CATCH2=ON"
+  ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DBUILD_TESTING=ON"
   ];
 

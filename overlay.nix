@@ -6,6 +6,7 @@
 , epic-src
 , eicrecon-src
 , jana2-src
+, juggler-src
 , podio-src
 , ...
 }:
@@ -107,7 +108,9 @@ final: prev: with final; {
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 
-  juggler = callPackage pkgs/juggler {};
+  juggler = callPackage pkgs/juggler { inherit juggler-src; };
+
+  k4FWCore = callPackage pkgs/k4FWCore {};
 
   npdet = callPackage pkgs/npdet {};
 
