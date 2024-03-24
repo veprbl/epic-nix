@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out"/bin/eicrecon \
-      --set-default JANA_PLUGIN_PATH "$out"/lib/EICrecon/plugins/
+      --set-default JANA_PLUGIN_PATH "$out"/lib/EICrecon/plugins:"${jana2}"/plugins
   '';
 
   meta = with lib; {
