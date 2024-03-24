@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
-      --replace "FetchContent_MakeAvailable(Catch2)" ""
+      --replace "FetchContent_MakeAvailable(Catch2)" "" \
+      --replace "add_subdirectory(src/dd4pod)" ""
     substituteInPlace src/detectors/CMakeLists.txt \
       --replace "trackers/src/GEMTrackerDisc_geo.cpp" "" \
       --replace "trackers/src/GaplessGEMTrackerDisc_geo.cpp" ""
