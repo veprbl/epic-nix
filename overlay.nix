@@ -139,6 +139,7 @@ final: prev: with final; {
       # https://github.com/AIDASoft/podio/issues/367
       "-Dimt=OFF"
     ];
+    NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
     preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
