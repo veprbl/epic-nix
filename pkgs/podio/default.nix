@@ -18,18 +18,9 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-17-04.${podio-src.shortRev or "dirty"}";
+  version = "00-99.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
-
-  patches = [
-    # AttributeError: <class cppyy.gbl.tuple_element<1,tuple<int,float,string,double> > at 0x...> has no attribute 'type'. Full details:
-    #   type object 'tuple_element<1,tuple<int,float,string,double> >' has no attribute 'type'
-    #   'tuple_element<1,tuple<int,float,string,double> >::type' is not a known C++ class
-    #   'type' is not a known C++ template
-    #   'type' is not a known C++ enum
-    ./tuple_element.patch
-  ];
 
   nativeBuildInputs = [
     cmake
@@ -59,6 +50,16 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/podioBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
       --replace 'set(CMAKE_INSTALL_RPATH "@loader_path/../lib")' ""
+
+    # AttributeError: <class cppyy.gbl.tuple_element<1,tuple<int,float,string,double> > at 0x...> has no attribute 'type'. Full details:
+    #   type object 'tuple_element<1,tuple<int,float,string,double> >' has no attribute 'type'
+    #   'tuple_element<1,tuple<int,float,string,double> >::type' is not a known C++ class
+    #   'type' is not a known C++ template
+    #   'type' is not a known C++ enum
+    substituteInPlace \
+      --replace "cpp_type = cppyy.gbl.std.tuple_element[idx, podio.SupportedGenericDataTypes].type" "" \
+      --replace 'if cppyy.typeid(cpp_type).name() == "d":' "if idx == 3:" \
+      --replace "if cppyy.typeid(cpp_type).name() == 'd':" "if idx == 3:"
   '';
 
   preConfigure = ''
