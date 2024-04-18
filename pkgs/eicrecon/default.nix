@@ -15,6 +15,7 @@
 , jana2
 , microsoft_gsl
 , nlohmann_json
+, onnxruntime
 , podio
 , root
 , spdlog
@@ -66,6 +67,7 @@ stdenv.mkDerivation rec {
     jana2
     microsoft_gsl
     nlohmann_json
+    onnxruntime
     podio
     root
     spdlog
