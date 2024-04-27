@@ -54,7 +54,7 @@
     let
 
       inherit (nixpkgs) lib;
-      supportedSystems = [ "x86_64-linux" "x86_64-darwin" ];
+      supportedSystems = [ "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
       pkgsFor = system: import nixpkgs {
         inherit system;
