@@ -144,7 +144,7 @@ final: prev: with final; {
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
-    ] ++ final.lib.optionals final.stdenv.isDarwin [
+    ] ++ final.lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook # for roofit/xroofit/src/xRooNLLVar.cxx
     ];
   });
