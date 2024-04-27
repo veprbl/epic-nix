@@ -24,8 +24,15 @@ jobs:
         nix_path: nixpkgs=channel:nixpkgs-22.05-darwin
         extra_nix_config: |
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          extra-platforms = ${{ matrix.arch.name }}
     - uses: cachix/cachix-action@v14
       with:
         name: epic-eic
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: nix flake check --keep-going --print-build-logs --no-write-lock-file --cores `nproc || getconf _NPROCESSORS_ONLN`
+    - run: |
+        nix flake check \
+          --keep-going \
+          --print-build-logs \
+          --no-write-lock-file \
+          --system ${{ matrix.arch.name }} \
+          --cores `nproc || getconf _NPROCESSORS_ONLN`
