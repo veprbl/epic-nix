@@ -154,6 +154,45 @@ final: prev: with final; {
     inherit (darwin.apple_sdk.frameworks) AGL OpenGL;
   };
 
+  onnxruntime = prev.onnxruntime.overrideAttrs (old: let
+    eigen = fetchFromGitLab {
+      owner = "libeigen";
+      repo = "eigen";
+      # https://github.com/microsoft/onnxruntime/blob/v1.16.3/cgmanifests/cgmanifest.json#L571
+      rev = "e7248b26a1ed53fa030c5c459f7ea095dfd276ac";
+      hash = "sha256-uQ1YYV3ojbMVfHdqjXRyUymRPjJZV3WHT36PTxPRius=";
+    };
+
+    onnx = fetchFromGitHub {
+      owner = "onnx";
+      repo = "onnx";
+      rev = "refs/tags/v1.14.1";
+      hash = "sha256-ZVSdk6LeAiZpQrrzLxphMbc1b3rNUMpcxcXPP8s/5tE=";
+    };
+  in final.lib.optionalAttrs (final.lib.versionOlder prev.onnxruntime.version "1.16") rec {
+    version = "1.16.3";
+
+    src = fetchFromGitHub {
+      owner = "microsoft";
+      repo = "onnxruntime";
+      rev = "refs/tags/v${version}";
+      hash = "sha256-bTW9Pc3rvH+c8VIlDDEtAXyA3sajVyY5Aqr6+SxaMF4=";
+      fetchSubmodules = true;
+    };
+
+    cmakeFlags = old.cmakeFlags ++ [
+      "-DFETCHCONTENT_SOURCE_DIR_EIGEN=${eigen}"
+      "-DFETCHCONTENT_SOURCE_DIR_ONNX=${onnx}"
+    ];
+
+    # https://github.com/microsoft/onnxruntime/issues/13225
+    postPatch = (old.postPatch or "") + lib.optionalString stdenv.isDarwin ''
+      sed \
+        -i onnxruntime/test/framework/inference_session_test.cc \
+        -e '/InterThreadPoolWithDenormalAsZero/areturn;'
+    '';
+  });
+
   podio = callPackage pkgs/podio { inherit podio-src; };
 
   pythia6 = callPackage pkgs/pythia6 {};
