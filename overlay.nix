@@ -193,6 +193,19 @@ final: prev: with final; {
     '';
   });
 
+  opencascade-occt = prev.opencascade-occt.overrideAttrs (old:
+    final.lib.optionalAttrs (final.lib.versionOlder prev.opencascade-occt.version "7.7.2") rec {
+      version = "7.7.2";
+      commit = "V${builtins.replaceStrings ["."] ["_"] version}";
+
+      src = fetchurl {
+        name = "occt-${commit}.tar.gz";
+        url = "https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${commit};sf=tgz";
+        hash = "sha256-M0G/pJuxsJu5gRk0rIgC173/XxI1ERpmCtWjgr/0dyY=";
+      };
+    }
+  );
+
   podio = callPackage pkgs/podio { inherit podio-src; };
 
   pythia6 = callPackage pkgs/pythia6 {};
