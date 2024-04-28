@@ -52,6 +52,8 @@ stdenv.mkDerivation rec {
     done
   '';
 
+  setupHook = ./setup-hook.sh;
+
   meta = with lib; {
     description = "DD4hep-based simulation plugins, front-end, and related utilities";
     license = licenses.unfree; # https://github.com/eic/npsim/issues/1
