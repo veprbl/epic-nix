@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , cmake
 , dd4hep
+, geant4
 , opencascade-occt
 , spdlog
 , fontconfig
@@ -12,19 +13,14 @@
 
 stdenv.mkDerivation rec {
   pname = "npsim";
-  version = "1.1.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "npsim";
     rev = "v${version}";
-    hash = "sha256-jZMRiDtRiJlxNQJLmP4EMvAQSmVXw/gRfV0o9Equ+iQ=";
+    hash = "sha256-Fd3h3stZydZhLkTClPvT3yimL0tioAPqvs8bzfrnTUY=";
   };
-
-  patches = [
-    # support ROOT with "-Dimt=OFF"
-    ../npdet/imt_less_workaround.patch
-  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
