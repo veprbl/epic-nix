@@ -18,7 +18,7 @@
     flake = false;
   };
   inputs.dd4hep-src = {
-    url = "github:AIDASoft/DD4hep/v01-27-02";
+    url = "github:AIDASoft/DD4hep/v01-28";
     flake = false;
   };
   inputs.edm4eic-src = {

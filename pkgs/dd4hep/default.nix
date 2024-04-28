@@ -19,7 +19,7 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-27-02.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-28.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
 
@@ -85,6 +85,8 @@ stdenv.mkDerivation rec {
   ];
 
   setupHook = ./setup-hook.sh;
+
+  CXXFLAGS = lib.optionals stdenv.cc.isClang [ "-Wno-error=c++11-narrowing" ];
 
   meta = with lib; {
     description = "Detector Description Toolkit for High Energy Physics";
