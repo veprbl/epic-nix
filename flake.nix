@@ -129,18 +129,18 @@
               '';
             };
 
-            fun4all-env = pkgs.mkShell rec {
-              buildInputs = with self.packages.${system}; [
-                fun4all
-                root
-                sartre
-                geant4.data.G4EMLOW
-                geant4.data.G4ENSDFSTATE
-                geant4.data.G4ENSDFSTATE
-                geant4.data.G4PARTICLEXS
-                geant4.data.G4PhotonEvaporation
-              ];
-            };
+            #fun4all-env = pkgs.mkShell rec {
+            #  buildInputs = with self.packages.${system}; [
+            #    fun4all
+            #    root
+            #    sartre
+            #    geant4.data.G4EMLOW
+            #    geant4.data.G4ENSDFSTATE
+            #    geant4.data.G4ENSDFSTATE
+            #    geant4.data.G4PARTICLEXS
+            #    geant4.data.G4PhotonEvaporation
+            #  ];
+            #};
           });
 
     };

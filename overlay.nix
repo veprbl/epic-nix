@@ -60,7 +60,7 @@ final: prev: with final; {
     '';
   });
 
-  fun4all = callPackage pkgs/fun4all {};
+  #fun4all = callPackage pkgs/fun4all {};
 
   gaudi = callPackage pkgs/gaudi {
     inherit (darwin.apple_sdk.frameworks) Foundation;
@@ -84,7 +84,7 @@ final: prev: with final; {
     ];
   });
 
-  genfit = callPackage pkgs/genfit {};
+  #genfit = callPackage pkgs/genfit {};
 
   hepmc3 = prev.hepmc3.overrideAttrs (old:
     (final.lib.optionalAttrs (final.lib.versionOlder prev.hepmc3.version "3.2.6") rec {
@@ -108,7 +108,7 @@ final: prev: with final; {
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 
-  juggler = callPackage pkgs/juggler { inherit juggler-src; };
+  #juggler = callPackage pkgs/juggler { inherit juggler-src; };
 
   k4FWCore = callPackage pkgs/k4FWCore {};
 
@@ -197,12 +197,12 @@ final: prev: with final; {
 
   pythia6 = callPackage pkgs/pythia6 {};
 
-  rave = callPackage pkgs/rave {};
+  #rave = callPackage pkgs/rave {};
 
   sartre = callPackage pkgs/sartre {};
 
-  veccore = callPackage pkgs/veccore {};
+  #veccore = callPackage pkgs/veccore {};
 
-  vecgeom = callPackage pkgs/vecgeom {};
+  #vecgeom = callPackage pkgs/vecgeom {};
 
 }
