@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-  ];
+  ] ++ geant4.propagatedNativeBuildInputs; # provides Qt
   buildInputs = [
     dd4hep
     opencascade-occt
@@ -43,6 +43,14 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20" # match dd4hep
   ];
+
+  # not every executable is a binary - process them manually
+  dontWrapQtApps = true;
+  postFixup = lib.optionalString geant4.enableQt ''
+    for file in $(find "$out"/bin -type f -executable); do
+      wrapQtApp "$file"
+    done
+  '';
 
   meta = with lib; {
     description = "DD4hep-based simulation plugins, front-end, and related utilities";
