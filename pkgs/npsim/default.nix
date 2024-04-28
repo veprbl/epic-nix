@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , cmake
 , dd4hep
+, geant4
 , opencascade-occt
 , spdlog
 , fontconfig
@@ -12,19 +13,14 @@
 
 stdenv.mkDerivation rec {
   pname = "npsim";
-  version = "1.1.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "npsim";
     rev = "v${version}";
-    hash = "sha256-jZMRiDtRiJlxNQJLmP4EMvAQSmVXw/gRfV0o9Equ+iQ=";
+    hash = "sha256-Fd3h3stZydZhLkTClPvT3yimL0tioAPqvs8bzfrnTUY=";
   };
-
-  patches = [
-    # support ROOT with "-Dimt=OFF"
-    ../npdet/imt_less_workaround.patch
-  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -33,7 +29,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-  ];
+  ] ++ geant4.propagatedNativeBuildInputs; # provides Qt
   buildInputs = [
     dd4hep
     opencascade-occt
@@ -47,6 +43,14 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20" # match dd4hep
   ];
+
+  # not every executable is a binary - process them manually
+  dontWrapQtApps = true;
+  postFixup = lib.optionalString geant4.enableQt ''
+    for file in $(find "$out"/bin -type f -executable); do
+      wrapQtApp "$file"
+    done
+  '';
 
   meta = with lib; {
     description = "DD4hep-based simulation plugins, front-end, and related utilities";
