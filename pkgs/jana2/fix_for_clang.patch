@@ -1,0 +1,28 @@
+commit 560cbb008e628794f30c668651de40c21af43e68
+Author: Dmitry Kalinkin <dmitry.kalinkin@gmail.com>
+Date:   Mon Apr 29 20:52:15 2024 -0400
+
+    Fix "error: use template keyword to treat GetCollection as a dependent template name"
+
+diff --git a/src/libraries/JANA/Omni/JHasInputs.h b/src/libraries/JANA/Omni/JHasInputs.h
+index 7c6161ba..94508807 100644
+--- a/src/libraries/JANA/Omni/JHasInputs.h
++++ b/src/libraries/JANA/Omni/JHasInputs.h
+@@ -213,7 +213,7 @@ protected:
+                 }
+                 else {
+                     if (this->is_optional && !event.HasParent(level)) return;
+-                    m_data.push_back(event.GetParent(level).GetCollection<PodioT>(coll_name, !this->is_optional));
++                    m_data.push_back(event.GetParent(level).template GetCollection<PodioT>(coll_name, !this->is_optional));
+                 }
+             }
+         }
+@@ -230,7 +230,7 @@ protected:
+                 }
+                 else {
+                     if (this->is_optional && !event.HasParent(level)) return;
+-                    event.GetParent(level).GetCollection<PodioT>(coll_name, !this->is_optional);
++                    event.GetParent(level).template GetCollection<PodioT>(coll_name, !this->is_optional);
+                 }
+             }
+         }

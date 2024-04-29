@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , jana2-src
-, fetchpatch
 , cmake
 , podio
 , python3
@@ -12,20 +11,12 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.1.2.${jana2-src.shortRev or "dirty"}";
+  version = "2.2.0.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
 
   patches = [
-    # PODIO compatibility https://github.com/JeffersonLab/JANA2/pull/269
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/commit/6bbab9929bd2e03dec4b43af19453d6163b5f9c6.diff";
-      hash = "sha256-CTo6+2JUDeiUeECUJPtvn+sdr6mnY6jKZYRa0SmbA5I=";
-    })
-    (fetchpatch {
-      url = "https://github.com/JeffersonLab/JANA2/commit/3c12d58f5489448283dbc6a88397d1cea20b4a2e.diff";
-      hash = "sha256-5N4D+3taDs6N5aCiT46M+Jw9FPlU0VC14hRsTYFK1VA=";
-    })
+    ./fix_for_clang.patch
   ];
 
   postPatch = ''
