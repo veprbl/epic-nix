@@ -15,10 +15,6 @@ stdenv.mkDerivation rec {
 
   src = jana2-src;
 
-  patches = [
-    ./DecodeDASSource_fix.patch
-  ];
-
   postPatch = ''
     echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt
   '';
