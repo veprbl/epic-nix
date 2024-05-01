@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   src = jana2-src;
 
   patches = [
-    ./fix_for_clang.patch
+    ./DecodeDASSource_fix.patch
   ];
 
   postPatch = ''
