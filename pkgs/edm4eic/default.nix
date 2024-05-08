@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation rec {
   pname = "EDM4eic";
-  version = "5.0.0.${edm4eic-src.shortRev or "dirty"}";
+  version = "6.0.1.${edm4eic-src.shortRev or "dirty"}";
 
   src = edm4eic-src;
 
