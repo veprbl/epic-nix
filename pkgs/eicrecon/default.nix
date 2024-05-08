@@ -35,12 +35,13 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.12.0.${eicrecon-src.shortRev or "dirty"}";
+  version = "1.13.1.${eicrecon-src.shortRev or "dirty"}";
 
   src = eicrecon-src;
 
   postPatch = ''
     substituteInPlace cmake/jana_plugin.cmake \
+      --replace 'target_link_libraries(''${_name}_plugin ''${_name}_library>)' 'target_link_libraries(''${_name}_plugin ''${_name}_library)' \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
 
     # workaround https://github.com/eic/EICrecon/issues/340
