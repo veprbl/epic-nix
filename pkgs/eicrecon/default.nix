@@ -35,6 +35,9 @@ stdenv.mkDerivation rec {
       --replace 'target_link_libraries(''${_name}_plugin ''${_name}_library>)' 'target_link_libraries(''${_name}_plugin ''${_name}_library)' \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
 
+    substituteInPlace src/tests/omnifactory_test/JOmniFactoryTests.cc \
+      --replace "push_back(edm4hep::SimCalorimeterHit())" "create()"
+
     # workaround https://github.com/eic/EICrecon/issues/340
     substituteInPlace src/algorithms/tracking/CKFTracking.cc \
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
@@ -65,8 +68,6 @@ stdenv.mkDerivation rec {
     root
     spdlog
     xercesc
-  ];
-  checkInputs = [
     catch2_3
   ];
 
@@ -84,6 +85,9 @@ stdenv.mkDerivation rec {
     wrapProgram "$out"/bin/eicrecon \
       --set-default JANA_PLUGIN_PATH "$out"/lib/EICrecon/plugins:"${jana2}"/plugins
   '';
+
+  # For tests
+  JANA_PLUGIN_PATH="${placeholder "out"}/lib/EICrecon/plugins:${jana2}/plugins";
 
   meta = with lib; {
     description = "EIC Reconstruction - JANA based";
