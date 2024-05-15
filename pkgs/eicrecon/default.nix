@@ -11,6 +11,7 @@
 , edm4hep
 , eigen
 , fastjet
+, fastjet-contrib
 , irt
 , jana2
 , microsoft_gsl
@@ -22,16 +23,6 @@
 , xercesc
 , makeWrapper
 }:
-
-let
-
-  _fastjet = fastjet.overrideAttrs (prev: {
-    configureFlags = prev.configureFlags ++ [
-      "--enable-auto-ptr=no"
-    ];
-  });
-
-in
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
@@ -62,7 +53,8 @@ stdenv.mkDerivation rec {
     dd4hep
     edm4eic
     edm4hep
-    _fastjet
+    fastjet
+    fastjet-contrib
     eigen
     irt
     jana2
