@@ -45,6 +45,12 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
+  fastjet = prev.fastjet.overrideAttrs (prev: {
+    configureFlags = prev.configureFlags ++ [
+      "--enable-auto-ptr=no"
+    ];
+  });
+
   # Required by a recent EICrecon
   fmt = if final.lib.versionOlder prev.fmt.version "9" then fmt_9 else prev.fmt;
   # Also update an input hardcoded in nixpkgs' spdlog (it switched to fmt
