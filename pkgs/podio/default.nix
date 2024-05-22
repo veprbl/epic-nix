@@ -46,6 +46,10 @@ stdenv.mkDerivation rec {
 
     # https://github.com/AIDASoft/podio/commit/8320d6ea2acf2467c4c05ee1f8b0a062af9829cb
     sed -i src/rootUtils.h -e '1i#include <sstream>'
+
+    substituteInPlace python/CMakeLists.txt \
+      --replace 'SET(podio_PYTHON_INSTALLDIR python)' \
+                'SET(podio_PYTHON_INSTALLDIR "${python.sitePackages}")'
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/podioBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
