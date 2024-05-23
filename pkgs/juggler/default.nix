@@ -1,8 +1,8 @@
 { lib
 , stdenv
 , juggler-src
-, fetchpatch
 , acts
+, algorithms
 , cmake
 , edm4eic
 , edm4hep
@@ -18,28 +18,9 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "13.0.0.${juggler-src.shortRev or "dirty"}";
+  version = "14.0.3.${juggler-src.shortRev or "dirty"}";
 
   src = juggler-src;
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/eic/juggler/commit/61cf5c5d67889c3c26eacc3d831e8608f6c3255e.diff";
-      hash = "sha256-4M6A4rAvsDJegTqd+UJz89pQKFZCTGmVDJwjVHChRVI=";
-    })
-    (fetchpatch {
-      url = "https://github.com/eic/juggler/commit/de7fc2656b1d6e0933a3500617f39f1e1da1f9d4.diff";
-      hash = "sha256-Czq14bP1ivfgqrYduB8G5DhugzjGbarAmcvftgc7BIo=";
-    })
-    (fetchpatch {
-      url = "https://github.com/eic/juggler/commit/8e6d75c21011af76a2492c7f4840b16833874245.diff";
-      hash = "sha256-e7jQLdbhdxfDj2pnSP1Y4zdPbY2jqpOA47Fj66qra1A=";
-    })
-    (fetchpatch {
-      url = "https://github.com/eic/juggler/commit/b903d32c7fe3813b57e65a528cfa871d69d582b6.diff";
-      hash = "sha256-NbJWVaBmYhDITMAErh4hVuDcbWw0y6RTVpMiz0hswjY=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
@@ -49,6 +30,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     acts
+    algorithms
     edm4eic
     edm4hep
     eigen

@@ -42,7 +42,7 @@
     flake = false;
   };
   inputs.juggler-src = {
-    url = "gitlab:EIC/juggler/v13.0.0?host=eicweb.phy.anl.gov";
+    url = "gitlab:EIC/juggler/v14.0.3?host=eicweb.phy.anl.gov";
     flake = false;
   };
   inputs.podio-src = {
