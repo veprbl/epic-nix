@@ -13,9 +13,7 @@ jobs:
     strategy:
       matrix:
         arch:
-          - { name: 'x86_64-linux', runs-on: ubuntu-latest }
           - { name: 'aarch64-darwin', runs-on: macos-latest }
-          - { name: 'x86_64-darwin', runs-on: macos-latest }
     name: ${{ matrix.arch.name }}
     runs-on: ${{ matrix.arch.runs-on }}
     steps:
