@@ -130,6 +130,7 @@ final: prev: with final; {
   root = (prev.root.override { tbb = null; }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
+      "-DCMAKE_BUILD_TYPE=Debug"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
       "-Dpythia6=ON" # for fun4all
