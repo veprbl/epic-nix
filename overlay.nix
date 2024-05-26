@@ -129,7 +129,7 @@ final: prev: with final; {
     ];
   });
 
-  root = prev.root.overrideAttrs (prev: {
+  root = (prev.root.override { tbb = null; }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
