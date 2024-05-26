@@ -136,6 +136,7 @@ final: prev: with final; {
       "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
+      "-Dbuiltin_glew=ON"
     ] ++ final.lib.optionals final.stdenv.isDarwin [
       # https://github.com/AIDASoft/podio/issues/367
       "-Dimt=OFF"
