@@ -142,7 +142,7 @@ final: prev: with final; {
       "-Dimt=OFF"
     ];
     NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
-    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
+    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" "for path in builtins/*; do" ] [ "" "for path in ; do" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
