@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation rec {
   pname = "epic";
-  version = "24.05.0.${epic-src.shortRev or "dirty"}";
+  version = "24.05.2.${epic-src.shortRev or "dirty"}";
 
   src = epic-src;
 
