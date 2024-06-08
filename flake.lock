@@ -37,16 +37,16 @@
     "dd4hep-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1708694864,
-        "narHash": "sha256-ogHFqVL9gG3eONVlYmqUDGboGoshXvjb4XvpxNzf91M=",
+        "lastModified": 1717749658,
+        "narHash": "sha256-wuTY64ogw61AncK6qk9JEmg79/OUQ3rYIPhrZTuqONk=",
         "owner": "AIDASoft",
         "repo": "DD4hep",
-        "rev": "abab2099dcf55540eb52e47a5956aeb96313fdff",
+        "rev": "d119e3f8f5da75bd87632467df088197f84ed1b8",
         "type": "github"
       },
       "original": {
         "owner": "AIDASoft",
-        "ref": "v01-28",
+        "ref": "v01-29",
         "repo": "DD4hep",
         "type": "github"
       }
