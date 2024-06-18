@@ -110,6 +110,8 @@ final: prev: with final; {
       dontPatchELF = true;
     });
 
+  hepmcmerger = callPackage pkgs/hepmcmerger {};
+
   irt = callPackage pkgs/irt {};
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
