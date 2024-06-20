@@ -28,6 +28,11 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     patchShebangs .
+
+    substituteInPlace k4FWCore/CMakeLists.txt \
+      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
+    substituteInPlace k4FWCore/components/PodioOutput.cpp \
+      --replace '#include "rootUtils.h"' ""
   '';
 
   nativeBuildInputs = [

@@ -26,6 +26,8 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs --host .
 
+    substituteInPlace CMakeLists.txt \
+      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
   '' + lib.optionalString stdenv.isDarwin ''
