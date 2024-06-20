@@ -66,7 +66,7 @@ final: prev: with final; {
     '';
   });
 
-  fun4all = callPackage pkgs/fun4all {};
+  #fun4all = callPackage pkgs/fun4all {};
 
   gaudi = callPackage pkgs/gaudi {
     inherit (darwin.apple_sdk.frameworks) Foundation;
@@ -90,7 +90,7 @@ final: prev: with final; {
     ];
   });
 
-  genfit = callPackage pkgs/genfit {};
+  #genfit = callPackage pkgs/genfit {};
 
   hepmc3 = prev.hepmc3.overrideAttrs (old:
     (final.lib.optionalAttrs (final.lib.versionOlder prev.hepmc3.version "3.2.6") rec {
@@ -116,7 +116,7 @@ final: prev: with final; {
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 
-  juggler = callPackage pkgs/juggler { inherit juggler-src; };
+  #juggler = callPackage pkgs/juggler { inherit juggler-src; };
 
   k4FWCore = callPackage pkgs/k4FWCore {};
 
@@ -135,24 +135,26 @@ final: prev: with final; {
     ];
   });
 
-  root = prev.root.overrideAttrs (prev: {
+  root = (prev.root.override { tbb = null; }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
+      "-DCMAKE_BUILD_TYPE=Debug"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
       "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
+      "-Dbuiltin_glew=ON"
     ] ++ final.lib.optionals final.stdenv.isDarwin [
       # https://github.com/AIDASoft/podio/issues/367
       "-Dimt=OFF"
     ];
     NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
-    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
+    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" "for path in builtins/*; do" ] [ "" "for path in ; do" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
-    ] ++ final.lib.optionals final.stdenv.isDarwin [
+    ] ++ final.lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook # for roofit/xroofit/src/xRooNLLVar.cxx
     ];
   });
@@ -218,12 +220,12 @@ final: prev: with final; {
 
   pythia6 = callPackage pkgs/pythia6 {};
 
-  rave = callPackage pkgs/rave {};
+  #rave = callPackage pkgs/rave {};
 
   sartre = callPackage pkgs/sartre {};
 
-  veccore = callPackage pkgs/veccore {};
+  #veccore = callPackage pkgs/veccore {};
 
-  vecgeom = callPackage pkgs/vecgeom {};
+  #vecgeom = callPackage pkgs/vecgeom {};
 
 }
