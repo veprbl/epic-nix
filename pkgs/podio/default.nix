@@ -6,6 +6,7 @@
 , cmake
 , python3
 , root
+, makeWrapper
 }:
 
 let
@@ -18,16 +19,18 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "00-99.${podio-src.shortRev or "dirty"}";
+  version = "01-00.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
 
   nativeBuildInputs = [
     cmake
+    makeWrapper
   ];
   buildInputs = [
     catch2_3
     python
+    python3.pkgs.graphviz
     root
   ];
 
@@ -36,7 +39,7 @@ stdenv.mkDerivation rec {
     substituteInPlace cmake/podioMacros.cmake \
       --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
 
-    patchShebangs --host tools/
+    patchShebangs --host tools/ python/
     patchShebangs --build tests/scripts/
 
     # Calls via shebang are not advertised/used by upstream, but let's cover that
@@ -72,6 +75,11 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DBUILD_TESTING=ON"
   ];
+
+  postInstall = ''
+    wrapProgram "$out"/bin/podio-vis \
+      --prefix PYTHONPATH : "$PYTHONPATH"
+  '';
 
   doInstallCheck = !stdenv.isDarwin;
   installCheckTarget = "test";

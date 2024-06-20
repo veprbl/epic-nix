@@ -22,6 +22,11 @@ stdenv.mkDerivation rec {
 
   src = juggler-src;
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
+  '';
+
   nativeBuildInputs = [
     cmake
   ];

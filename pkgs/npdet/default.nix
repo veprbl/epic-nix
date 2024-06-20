@@ -36,6 +36,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
+      --replace "find_package(podio 0.14.1 REQUIRED )" "find_package(podio REQUIRED)" \
       --replace "FetchContent_MakeAvailable(Catch2)" "" \
       --replace "add_subdirectory(src/dd4pod)" ""
     substituteInPlace src/detectors/CMakeLists.txt \

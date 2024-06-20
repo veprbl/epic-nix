@@ -11,4 +11,5 @@ ln -s ${fetchurl { name = "v00-16-06-example.root"; url = "https://key4hep.web.c
 ln -s ${fetchurl { name = "v00-16-06-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/e64e8720a2746ae30c363aa0d4f5935e"; hash = "sha256-2hH/kxi61+7ZZazlHSjm+Z7xRLFhH4EjxNok7RLVoEc="; }} ./tests/input_files/v00-16-06-example_frame.root
 ln -s ${fetchurl { name = "v00-16-example.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/fc47e06f8c42b249dc0fbcbff09ef562"; hash = "sha256-nVyofzGiSv35hJeC4dzXKBDj1o0w7HqvFT0MYykdTRY="; }} ./tests/input_files/v00-16-example.root
 ln -s ${fetchurl { name = "v00-16-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/a1065876927fa04f70687ed507dba5a2"; hash = "sha256-6KusKns0JBI4KmcGIulgXmxcfL/rDwHIgIVkhbogZ88="; }} ./tests/input_files/v00-16-example_frame.root
+ln -s ${fetchurl { name = "v00-99-example_frame.root"; url = "https://key4hep.web.cern.ch:443/testFiles/podio/dbd91affe295c85c1838c40fb9da5013"; hash = "sha256-WwG86bDRatYwPSQPCw6x8NhEqLZ09+5PIcjluGcxXh8="; }} ./tests/input_files/v00-99-example_frame.root
 ''
