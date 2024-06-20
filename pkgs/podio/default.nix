@@ -77,7 +77,10 @@ stdenv.mkDerivation rec {
   ];
 
   postInstall = ''
+    wrapProgram "$out"/bin/podio-dump \
+      --prefix PYTHONPATH : "$out/${python3.sitePackages}"
     wrapProgram "$out"/bin/podio-vis \
+      --prefix PYTHONPATH : "$out/${python3.sitePackages}" \
       --prefix PYTHONPATH : "$PYTHONPATH"
   '';
 
