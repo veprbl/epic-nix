@@ -135,6 +135,19 @@
         "type": "github"
       }
     },
+    "geant4-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1699515883,
+        "narHash": "sha256-bDbqQY22Em6mP3LbkuNnTEUjgc18yqQRbeG/yWwkUbk=",
+        "type": "tarball",
+        "url": "https://cern.ch/geant4-data/releases/geant4-v11.1.3.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://cern.ch/geant4-data/releases/geant4-v11.1.3.tar.gz"
+      }
+    },
     "jana2-src": {
       "flake": false,
       "locked": {
@@ -212,6 +225,7 @@
         "eicrecon-src": "eicrecon-src",
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",
+        "geant4-src": "geant4-src",
         "jana2-src": "jana2-src",
         "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",

@@ -37,6 +37,10 @@
     url = "github:eic/EICrecon/v1.14.0";
     flake = false;
   };
+  inputs.geant4-src = {
+    url = "https://cern.ch/geant4-data/releases/geant4-v11.1.3.tar.gz";
+    flake = false;
+  };
   inputs.jana2-src = {
     url = "github:JeffersonLab/JANA2/v2.2.0";
     flake = false;

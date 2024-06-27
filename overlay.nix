@@ -5,6 +5,7 @@
 , edm4hep-src
 , epic-src
 , eicrecon-src
+, geant4-src
 , jana2-src
 , juggler-src
 , podio-src
@@ -76,10 +77,7 @@ final: prev: with final; {
     enableQt = true;
   }).overrideAttrs (prev: rec {
     version = "11.1.3";
-    src = fetchurl {
-      url = "https://cern.ch/geant4-data/releases/geant4-v${version}.tar.gz";
-      hash = "sha256-TF++pnidjWGe2sygYx1rUhGmDhv5l0w9P6ue+eImkvU=";
-    };
+    src = geant4-src;
     postPatch = ''
       substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake \
         --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
