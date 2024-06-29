@@ -30,6 +30,9 @@ stdenv.mkDerivation rec {
       --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
     substituteInPlace cmake/thisdd4hep.sh \
       --replace "grep" "${gnugrep}/bin/grep"
+
+    substituteInPlace DDG4/python/DDSim/DD4hepSimulation.py \
+      --replace "if not os.path.exists(fileName):" "if False:"
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace cmake/DD4hepBuild.cmake \
       --replace 'set(CMAKE_INSTALL_NAME_DIR "@rpath")' "" \
