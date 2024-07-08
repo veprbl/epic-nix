@@ -44,7 +44,21 @@ let
        => { a = [ 1 5 ]; b = 7; }
   */
   update_attrs =
-    builtins.zipAttrsWith (name: values: if builtins.isList (builtins.elemAt values 0) then builtins.concatLists values else lib.last values);
+    let
+      process_attr = name: values:
+        let reference_value = builtins.elemAt values 0; in
+        if builtins.isList reference_value then
+          builtins.concatLists values
+        else
+          if builtins.isString reference_value then
+            builtins.concatStringsSep " " values
+          else
+            if (name == "env") && (builtins.isAttrs reference_value) then
+              builtins.zipAttrsWith process_attr values
+            else
+              lib.last values;
+    in
+      builtins.zipAttrsWith process_attr;
 
   mk_path = path: args: stdenv.mkDerivation (update_attrs [ rec {
     pname = "fun4all_coresoftware_${builtins.replaceStrings [ "/" ] [ "_" ] path}";
@@ -62,11 +76,12 @@ let
       root
     ];
 
-    CXXFLAGS =
-      lib.optionals stdenv.cc.isClang [ "-Wno-error=\\#warnings" ]
-      ++ lib.optionals stdenv.cc.isGNU [ "-Wno-error=cpp" ]
-      ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=unused-but-set-variable" ]
-      ++ lib.optionals stdenv.isDarwin [ "-DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED" ];
+    env.CXXFLAGS =
+      "-std=c++17"
+      + lib.optionalString stdenv.cc.isClang " -Wno-error=\\#warnings"
+      + lib.optionalString stdenv.cc.isGNU " -Wno-error=cpp"
+      + lib.optionalString (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") " -Wno-error=unused-but-set-variable"
+      + lib.optionalString stdenv.isDarwin " -DBOOST_STACKTRACE_GNU_SOURCE_NOT_REQUIRED";
 
     preAutoreconf = ''
       cd ${path}
@@ -172,7 +187,7 @@ let
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
       ];
 
-      NIX_CFLAGS_COMPILE="-std=c++17";
+      env.NIX_CFLAGS_COMPILE = "-std=c++17";
     });
 
     BeastMagneticField = stdenv.mkDerivation rec {
@@ -266,7 +281,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     propagatedBuildInputs = [ clhep gsl hepmc2 ];
     buildInputs = [ boost generators.flowAfterburner offline.framework.frog offline.framework.fun4all offline.framework.phool ];
     OFFLINE_MAIN = hepmc2;
-    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=restrict" ];
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=restrict";
   };
   generators.PHPythia6 = mk_path "generators/PHPythia6" {
     buildInputs = [ cgal fastjet generators.phhepmc offline.framework.fun4all offline.framework.phool ];
@@ -290,7 +305,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   offline.framework.ffaobjects = mk_path "offline/framework/ffaobjects" {
     buildInputs = [ offline.framework.phool ];
-    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ];
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=deprecated-copy";
   };
   offline.framework.frog = mk_path "offline/framework/frog" {
     buildInputs = [ boost libodbcxx offline.framework.phool ];
@@ -309,7 +324,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   offline.database.PHParameter = mk_path "offline/database/PHParameter" {
     buildInputs = [ boost offline.database.pdbcal.base offline.framework.phool ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
     postPatch = ''
       substituteInPlace offline/database/PHParameter/Makefile.am \
         --replace "-lstdc++fs" ""
@@ -330,12 +344,12 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     buildInputs = [ offline.framework.phool ];
   };
   offline.packages.Half = mk_path "offline/packages/Half" {
-    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ];
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=deprecated-copy";
   };
   offline.packages.HelixHough = mk_path "offline/packages/HelixHough" {
     buildInputs = [ eigen offline.packages.trackbase ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals stdenv.cc.isGNU [ "-Wno-error=maybe-uninitialized" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=maybe-uninitialized";
   };
   offline.packages.jetbackground = mk_path "offline/packages/jetbackground" {
     buildInputs = [ cgal fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
@@ -347,13 +361,11 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       sed -i offline/packages/KFParticle_sPHENIX/KFParticle_particleList.h \
         -e "1i#include <string>"
     '';
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   offline.packages.micromegas = mk_path "offline/packages/micromegas" {
     buildInputs = [ clhep offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   offline.packages.mvtx = mk_path "offline/packages/mvtx" {
     buildInputs = [ clhep boost offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
@@ -374,7 +386,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     postPatch = ''
       ln -s ./ offline/packages/PHGenFitPkg/PHGenFit/phgenfit
     '';
-    NIX_CFLAGS_COMPILE = [ "-Wno-nonportable-include-path" ];
+    env.NIX_CFLAGS_COMPILE = "-Wno-nonportable-include-path";
     buildInputs = [ genfit offline.packages.PHGenFitPkg.GenFitExp offline.packages.PHField offline.packages.trackbase ];
     propagatedBuildInputs = [ genfit_includes ];
   };
@@ -383,8 +395,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       ln -s ./ offline/packages/tpc/tpc
     '';
     buildInputs = [ offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   offline.packages.trackbase = mk_path "offline/packages/trackbase" {
 #    patches = [
@@ -397,8 +408,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
 #    ];
     propagatedBuildInputs = [ extra_deps.acts ];
     buildInputs = [ offline.framework.phool ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
     postPatch = ''
       # resolve include for g4main (possibly others)
       export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/simulation/g4simulation
@@ -428,8 +438,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/simulation/g4simulation"
     '';
     buildInputs = [ extra_deps.acts boost offline.framework.phool offline.packages.trackbase ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   offline.packages.trackreco = mk_path "offline/packages/trackreco" {
 #    patches = [
@@ -463,8 +472,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       extra_deps.acts boost clhep geant4 genfit gsl rave offline.framework.fun4all offline.framework.phool offline.packages.HelixHough /*offline.packages.intt*/ offline.packages.PHGenFitPkg.GenFitExp offline.packages.PHGenFitPkg.PHGenFit offline.packages.PHGeometry offline.database.PHParameter offline.packages.trackbase offline.packages.trackbase_historic
     offline.packages.PHField simulation.g4simulation.g4eval simulation.g4simulation.g4detectors offline.packages.tpc simulation.g4simulation.g4bbc offline.packages.intt offline.packages.mvtx offline.packages.micromegas offline.packages.CaloBase simulation.g4simulation.g4intt simulation.g4simulation.g4tpc simulation.g4simulation.g4mvtx
     ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   offline.packages.trigger = mk_path "offline/packages/trigger" {
     buildInputs = [ offline.framework.fun4all offline.framework.phool offline.packages.CaloBase ];
@@ -474,8 +482,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   offline.QA.modules = mk_path "offline/QA/modules" {
     buildInputs = [ boost generators.phhepmc offline.framework.fun4all offline.packages.intt offline.framework.phool offline.packages.CaloBase offline.packages.KFParticle_sPHENIX offline.packages.micromegas offline.packages.mvtx offline.packages.tpc offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4eval simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   simulation.g4simulation.g4bbc = mk_path "simulation/g4simulation/g4bbc" {
     buildInputs = [ gsl offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors ];
@@ -498,28 +505,24 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/simulation/g4simulation
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/simulation/g4simulation"
     '' + simulation.g4simulation.g4main.postPatch;
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
   };
   simulation.g4simulation.EICPhysicsList = mk_path "simulation/g4simulation/EICPhysicsList" {
     buildInputs = [ clhep geant4 ];
     # /nix/store/<hash>-geant4-11.0.0/include/Geant4/PTL/Globals.hh:33:10: fatal error: 'PTL/Types.hh' file not found
-    NIX_CFLAGS_COMPILE = [ "-isystem ${geant4}/include/Geant4" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${geant4}/include/Geant4";
   };
   simulation.g4simulation.g4calo = mk_path "simulation/g4simulation/g4calo" {
     buildInputs = [ boost gsl offline.database.pdbcal.base offline.database.PHParameter offline.framework.fun4all offline.packages.CaloBase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
   };
   simulation.g4simulation.g4dst = mk_path "simulation/g4simulation/g4dst" {
     buildInputs = [ generators.phhepmc offline.framework.ffaobjects offline.packages.CaloBase offline.packages.centrality offline.packages.jetbackground offline.packages.KFParticle_sPHENIX offline.packages.particleflow offline.packages.PHGeometry offline.packages.PHField offline.packages.tpc offline.packages.trackbase_historic offline.packages.trackreco offline.packages.trigger offline.packages.intt offline.packages.micromegas offline.packages.mvtx simulation.g4simulation.g4bbc simulation.g4simulation.g4detectors simulation.g4simulation.g4jets simulation.g4simulation.g4intt simulation.g4simulation.g4vertex simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4eval = mk_path "simulation/g4simulation/g4eval" {
     buildInputs = [ boost hepmc2 generators.phhepmc offline.framework.fun4all offline.packages.intt offline.framework.phool offline.packages.CaloBase offline.packages.micromegas offline.packages.mvtx offline.packages.tpc offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4jets simulation.g4simulation.g4main simulation.g4simulation.g4vertex ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   simulation.g4simulation.g4gdml = mk_path "simulation/g4simulation/g4gdml" {
     buildInputs = [ geant4 xercesc offline.framework.fun4all offline.framework.phool ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
     patches = lib.optionals (lib.versionAtLeast geant4.version "11.0.0") [
       (fetchpatch {
         url = "https://github.com/sPHENIX-Collaboration/coresoftware/commit/623f4513ea8f925e1076ba5a437b63a06f3b0e95.diff";
@@ -542,16 +545,14 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
         --replace "<tr1/functional>" "<functional>" \
         --replace "std::tr1" "std"
     '';
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   simulation.g4simulation.g4mvtx = mk_path "simulation/g4simulation/g4mvtx" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.mvtx offline.packages.trackbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4tpc = mk_path "simulation/g4simulation/g4tpc" {
     buildInputs = [ boost offline.database.pdbcal.base offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.tpc offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    CXXFLAGS = lib.optionals (lib.versionOlder geant4.version "11.0.0") [ "-std=c++17" ];
-    NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
+    env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   };
   simulation.g4simulation.g4trackfastsim = mk_path "simulation/g4simulation/g4trackfastsim" {
     buildInputs = [ gsl offline.database.pdbcal.base offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.PHField offline.packages.PHGenFitPkg.PHGenFit offline.packages.PHGeometry offline.database.PHParameter offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4main ];
@@ -590,7 +591,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   reconstruction.eiczdcbase = mk_path_eicdetectors "reconstruction/eiczdcbase" {
     buildInputs = [ offline.framework.phool ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
   simulation.g4simulation.g4b0 = mk_path_eicdetectors "simulation/g4simulation/g4b0" {
     buildInputs = [ analysis.eicevaluator offline.database.pdbcal.base offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase offline.packages.trackbase_historic offline.packages.PHField offline.packages.PHGenFitPkg.PHGenFit offline.packages.PHGeometry simulation.g4simulation.g4detectors simulation.g4simulation.g4eval simulation.g4simulation.g4main ];
@@ -603,7 +604,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   simulation.g4simulation.g4bwd = mk_path_eicdetectors "simulation/g4simulation/g4bwd" {
     buildInputs = [ offline.database.pdbcal.base offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
   simulation.g4simulation.g4drcalo = mk_path_eicdetectors "simulation/g4simulation/g4drcalo" {
     buildInputs = [ extra_deps.acts boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase_historic simulation.g4simulation.g4main simulation.g4simulation.g4detectors ];
@@ -619,19 +620,19 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   simulation.g4simulation.g4eiccalos = mk_path_eicdetectors "simulation/g4simulation/g4eiccalos" {
     buildInputs = [ gsl extra_deps.acts offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4gdml simulation.g4simulation.g4main ];
-    CXXFLAGS =
-      lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") [ "-Wno-error=array-parameter" ];
+    env.CXXFLAGS =
+      lib.optionalString (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "15") "-Wno-error=array-parameter";
   };
   simulation.g4simulation.g4eicdirc = mk_path_eicdetectors "simulation/g4simulation/g4eicdirc" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=overloaded-virtual" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=overloaded-virtual";
   };
   simulation.g4simulation.g4etof = mk_path_eicdetectors "simulation/g4simulation/g4etof" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4lblvtx = mk_path_eicdetectors "simulation/g4simulation/g4lblvtx" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
   simulation.g4simulation.g4lumi = mk_path_eicdetectors "simulation/g4simulation/g4lumi" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
@@ -645,18 +646,18 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   simulation.g4simulation.g4rp = mk_path_eicdetectors "simulation/g4simulation/g4rp" {
     buildInputs = [ analysis.eicevaluator offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4detectors simulation.g4simulation.g4eval simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
   simulation.g4simulation.g4trd = mk_path_eicdetectors "simulation/g4simulation/g4trd" {
     buildInputs = [ extra_deps.acts boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4ttl = mk_path_eicdetectors "simulation/g4simulation/g4ttl" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
   simulation.g4simulation.g4zdc = mk_path_eicdetectors "simulation/g4simulation/g4zdc" {
     buildInputs = [ offline.database.PHParameter offline.framework.phool offline.framework.fun4all reconstruction.eiczdcbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
-    NIX_CFLAGS_COMPILE = lib.optionals stdenv.cc.isClang [ "-Wno-error=unused-private-field" ];
+    env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=unused-private-field";
   };
 
   FastPID = mk_path_ecce-detectors "FastPID" {

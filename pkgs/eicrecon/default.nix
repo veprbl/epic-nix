@@ -74,8 +74,8 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=20"
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" ];
-  LDFLAGS = lib.optionals stdenv.isDarwin [ "-Wl,-undefined,dynamic_lookup" ];
+  env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
+  env.LDFLAGS = lib.optionalString stdenv.isDarwin "-Wl,-undefined,dynamic_lookup";
 
   doInstallCheck = true;
   installCheckTarget = "test";
