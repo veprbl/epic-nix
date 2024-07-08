@@ -46,14 +46,14 @@ stdenv.mkDerivation rec {
     root
   ];
 
-  ROOT_LIBRARY_PATH="${dd4hep}/lib";
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
     "-DGAUDI_INSTALL_PYTHONDIR=${python3.sitePackages}"
   ];
 
-  NIX_CFLAGS_COMPILE = [ "-isystem ${eigen}/include/eigen3" "-Wno-narrowing" ];
+  env.ROOT_LIBRARY_PATH = "${dd4hep}/lib";
+  env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3 -Wno-narrowing";
 
   setupHook = ./setup-hook.sh;
 
