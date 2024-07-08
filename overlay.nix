@@ -139,7 +139,7 @@ final: prev: with final; {
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
       "-Dpythia6=ON" # for fun4all
-      "-Dunuran=ON" # for sartre
+      "-Dunuran=ON" "-Dmathmore=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
     ] ++ final.lib.optionals final.stdenv.isDarwin [
       # https://github.com/AIDASoft/podio/issues/367

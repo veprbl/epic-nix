@@ -22,6 +22,10 @@ stdenv.mkDerivation rec {
       substituteInPlace $file \
         --replace "set(CMAKE_CXX_STANDARD 11)" "set(CMAKE_CXX_STANDARD 17)"
     done
+
+    substituteInPlace cmake/modules/FindROOT.cmake \
+      --replace 'MATH(EXPR req_vers ' 'MATH(EXPR req_vers "1") #' \
+      --replace 'MATH(EXPR found_vers ' 'MATH(EXPR found_vers "1") #'
   '';
 
   nativeBuildInputs = [

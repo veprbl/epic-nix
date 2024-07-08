@@ -17,6 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-PhjrmifYyyoy2JJt9FpRk7cz3o+cS5Bd+ezhmciQPzs=";
   };
 
+  postPatch = ''
+    substituteInPlace cmake/FindROOT.cmake \
+      --replace 'MATH(EXPR ROOT_found_version' 'set(ROOT_found_version "${builtins.replaceStrings ["."] [""] root.version}") #' \
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
