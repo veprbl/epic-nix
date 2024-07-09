@@ -9,7 +9,7 @@
 , autoreconfHook
 , boost
 , clhep
-, cgal, gmp, mpfr
+, cgal_4, gmp, mpfr
 , cmake
 , e2fsprogs # provides libuuid on macOS
 , eigen
@@ -284,7 +284,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=restrict";
   };
   generators.PHPythia6 = mk_path "generators/PHPythia6" {
-    buildInputs = [ cgal fastjet generators.phhepmc offline.framework.fun4all offline.framework.phool ];
+    buildInputs = [ cgal_4 fastjet generators.phhepmc offline.framework.fun4all offline.framework.phool ];
   };
   generators.PHPythia8 = mk_path "generators/PHPythia8" {
     buildInputs = [ boost fastjet pythia generators.phhepmc offline.framework.fun4all offline.framework.phool ];
@@ -305,7 +305,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   };
   offline.framework.ffaobjects = mk_path "offline/framework/ffaobjects" {
     buildInputs = [ offline.framework.phool ];
-    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=deprecated-copy";
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=deprecated-copy -Wno-error=overloaded-virtual";
   };
   offline.framework.frog = mk_path "offline/framework/frog" {
     buildInputs = [ boost libodbcxx offline.framework.phool ];
@@ -352,7 +352,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=maybe-uninitialized";
   };
   offline.packages.jetbackground = mk_path "offline/packages/jetbackground" {
-    buildInputs = [ cgal fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
+    buildInputs = [ cgal_4 fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
   };
   offline.packages.KFParticle_sPHENIX = mk_path "offline/packages/KFParticle_sPHENIX" {
     propagatedBuildInputs = [ KFParticle ];
@@ -496,7 +496,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     buildInputs = [ geant4 pythia6 ];
   };
   simulation.g4simulation.g4detectors = mk_path "simulation/g4simulation/g4detectors" {
-    buildInputs = [ boost cgal gmp mpfr geant4 gsl offline.database.pdbcal.base offline.database.PHParameter offline.framework.phool offline.framework.fun4all simulation.g4simulation.g4main ];
+    buildInputs = [ boost cgal_4 gmp mpfr geant4 gsl offline.database.pdbcal.base offline.database.PHParameter offline.framework.phool offline.framework.fun4all simulation.g4simulation.g4main ];
     postPatch = ''
       substituteInPlace simulation/g4simulation/g4detectors/Makefile.am \
         --replace "-lphg4gdml" ""
@@ -534,7 +534,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.intt offline.packages.trackbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4jets = mk_path "simulation/g4simulation/g4jets" {
-    buildInputs = [ cgal fastjet fastjet-contrib generators.phhepmc offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4vertex simulation.g4simulation.g4main ];
+    buildInputs = [ cgal_4 fastjet fastjet-contrib generators.phhepmc offline.framework.fun4all offline.framework.phool offline.packages.CaloBase offline.packages.trackbase offline.packages.trackbase_historic simulation.g4simulation.g4vertex simulation.g4simulation.g4main ];
   };
   simulation.g4simulation.g4main = mk_path "simulation/g4simulation/g4main" {
     propagatedBuildInputs = [ clhep geant4 gsl ]; # offline.framework.fun4all
