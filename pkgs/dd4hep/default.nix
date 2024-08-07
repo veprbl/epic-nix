@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, fetchpatch
 , dd4hep-src
 , assimp
 , boost
@@ -22,6 +23,14 @@ stdenv.mkDerivation rec {
   version = "01-29.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
+
+  patches = [
+    # add support for CylindricalGridPhiZ
+    (fetchpatch {
+      url = "https://github.com/AIDASoft/DD4hep/pull/1294.diff";
+      hash = "sha256-NKiibvVdSuMlB3ELA5ll7xT+avzQ0+hRvkPxV8wJGbs=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs --host .
