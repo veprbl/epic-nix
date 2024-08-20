@@ -34,7 +34,7 @@
     flake = false;
   };
   inputs.eicrecon-src = {
-    url = "github:eic/EICrecon/v1.15.0";
+    url = "github:eic/EICrecon/v1.16.1";
     flake = false;
   };
   inputs.geant4-src = {
