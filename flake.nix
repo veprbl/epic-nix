@@ -30,7 +30,7 @@
     flake = false;
   };
   inputs.epic-src = {
-    url = "github:eic/epic/24.08.1";
+    url = "github:eic/epic/24.09.0";
     flake = false;
   };
   inputs.eicrecon-src = {
