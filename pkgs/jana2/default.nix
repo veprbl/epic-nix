@@ -11,13 +11,9 @@
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2.3.1.${jana2-src.shortRev or "dirty"}";
+  version = "2.3.2.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
-
-  postPatch = ''
-    echo 'target_link_libraries(jana2_shared_lib podio::podio podio::podioRootIO)' >> src/libraries/JANA/CMakeLists.txt
-  '';
 
   nativeBuildInputs = [
     cmake
