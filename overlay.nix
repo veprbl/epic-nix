@@ -212,6 +212,8 @@ final: prev: with final; {
     }
   );
 
+  osg-ca-certs = callPackage pkgs/osg-ca-certs {};
+
   podio = callPackage pkgs/podio { inherit podio-src; };
 
   pythia6 = callPackage pkgs/pythia6 {};
