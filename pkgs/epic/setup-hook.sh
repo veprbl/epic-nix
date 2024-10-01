@@ -1,5 +1,5 @@
-setup_ecce () {
-    source @out@/setup.sh
+setup_epic () {
+    source @out@/bin/thisepic.sh
 }
 
-postHooks+=(setup_ecce)
+postHooks+=(setup_epic)
