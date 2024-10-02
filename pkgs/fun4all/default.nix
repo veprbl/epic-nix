@@ -283,9 +283,6 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
     OFFLINE_MAIN = hepmc2;
     env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=restrict";
   };
-  generators.PHPythia6 = mk_path "generators/PHPythia6" {
-    buildInputs = [ cgal_4 fastjet generators.phhepmc offline.framework.fun4all offline.framework.phool ];
-  };
   generators.PHPythia8 = mk_path "generators/PHPythia8" {
     buildInputs = [ boost fastjet pythia generators.phhepmc offline.framework.fun4all offline.framework.phool ];
   };
