@@ -13,13 +13,13 @@
 
 stdenv.mkDerivation rec {
   pname = "npsim";
-  version = "1.4.1";
+  version = "1.4.2";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "npsim";
     rev = "v${version}";
-    hash = "sha256-Fd3h3stZydZhLkTClPvT3yimL0tioAPqvs8bzfrnTUY=";
+    hash = "sha256-wTyDlIG/YxySRV55BakvL0sgajEk8IdLZTt+TtSs+vU=";
   };
 
   postPatch = ''
