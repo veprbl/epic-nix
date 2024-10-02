@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (self: with self; {
   pname = "acts";
-  version = "31.2.0.${acts-src.shortRev or "dirty"}";
+  version = "33.1.0.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
 
