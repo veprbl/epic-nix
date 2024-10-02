@@ -3,16 +3,16 @@
     "acts-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1701965410,
-        "narHash": "sha256-x1B9YLekTu88p3/skFyHnEY+W6uHCjWrBLJZdTpJ+mU=",
+        "lastModified": 1711448338,
+        "narHash": "sha256-U6wKUCxgwMJBBAsNnHVgmhH3KV5/jwZ2bWzfj2rt0pI=",
         "owner": "acts-project",
         "repo": "acts",
-        "rev": "1d2e90f534ff2c9bf1c40914980b426f4b5d3096",
+        "rev": "00591a593a648430820e980b031301d25c18f1c7",
         "type": "github"
       },
       "original": {
         "owner": "acts-project",
-        "ref": "v31.2.0",
+        "ref": "v33.1.0",
         "repo": "acts",
         "type": "github"
       }
