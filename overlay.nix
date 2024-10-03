@@ -138,7 +138,6 @@ final: prev: with final; {
       "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
-      "-Dpythia6=ON" # for fun4all
       "-Dunuran=ON" "-Dmathmore=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
     ] ++ final.lib.optionals final.stdenv.isDarwin [
