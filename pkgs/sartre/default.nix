@@ -3,6 +3,7 @@
 , fetchurl
 , cmake
 , gsl
+, pkg-config
 , root
 }:
 
@@ -30,6 +31,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
+    pkg-config
   ];
   buildInputs = [
     gsl
