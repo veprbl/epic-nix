@@ -40,6 +40,9 @@ stdenv.mkDerivation rec {
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
     substituteInPlace src/algorithms/tracking/IterativeVertexFinder.cc \
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
+  '' + lib.optionalString stdenv.isDarwin ''
+    # loading plugins several times does not work on macOS
+    : > src/tests/omnifactory_test/CMakeLists.txt
   '';
 
   nativeBuildInputs = [
@@ -66,16 +69,20 @@ stdenv.mkDerivation rec {
     spdlog
     xercesc
   ];
-  checkInputs = [
-    catch2_3
-  ];
-
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
   ];
 
   env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
   env.LDFLAGS = lib.optionalString stdenv.isDarwin "-Wl,-undefined,dynamic_lookup";
+
+  # For testing
+  env.Catch2_DIR = "${catch2_3}/lib/cmake/Catch2";
+  env.JANA_PLUGIN_PATH = "${placeholder "out"}/lib/EICrecon/plugins:${jana2}/plugins";
+
+  checkInputs = [
+    catch2_3
+  ];
 
   doInstallCheck = true;
   installCheckTarget = "test";
