@@ -75,6 +75,7 @@ final: prev: with final; {
 
   geant4 = (prev.geant4.override {
     enableQt = true;
+    enableOpenGLX11 = !stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/346021
   }).overrideAttrs (prev: rec {
     version = "11.1.3";
     src = geant4-src;
