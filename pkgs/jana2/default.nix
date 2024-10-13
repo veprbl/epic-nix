@@ -15,6 +15,13 @@ stdenv.mkDerivation rec {
 
   src = jana2-src;
 
+  postPatch = ''
+    substituteInPlace src/libraries/JANA/CLI/JSignalHandler.cc \
+      --replace "ss << g_app->GetComponentSummary() << std::endl;" ""
+    substituteInPlace src/libraries/JANA/JApplication.cc \
+      --replace "LOG_INFO(m_logger) << GetComponentSummary() << LOG_END;" ""
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
