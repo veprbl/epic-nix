@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substituteInPlace src/libraries/JANA/CLI/JSignalHandler.cc \
-      --replace "ss << g_app->GetComponentSummary() << std::endl;" ""
+      --replace-warn "ss << g_app->GetComponentSummary() << std::endl;" ""
     substituteInPlace src/libraries/JANA/JApplication.cc \
-      --replace "LOG_INFO(m_logger) << GetComponentSummary() << LOG_END;" ""
+      --replace-warn "LOG_INFO(m_logger) << GetComponentSummary() << LOG_END;" ""
   '';
 
   nativeBuildInputs = [
