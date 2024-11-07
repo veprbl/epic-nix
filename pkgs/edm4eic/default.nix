@@ -10,14 +10,9 @@
 
 stdenv.mkDerivation rec {
   pname = "EDM4eic";
-  version = "7.0.0.${edm4eic-src.shortRev or "dirty"}";
+  version = "8.0.0.${edm4eic-src.shortRev or "dirty"}";
 
   src = edm4eic-src;
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "find_package(podio 0.15 REQUIRED)" "find_package(podio REQUIRED)"
-  '';
 
   nativeBuildInputs = [
     cmake
