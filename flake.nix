@@ -38,7 +38,7 @@
     flake = false;
   };
   inputs.geant4-src = {
-    url = "https://cern.ch/geant4-data/releases/geant4-v11.1.3.tar.gz";
+    url = "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz";
     flake = false;
   };
   inputs.jana2-src = {
