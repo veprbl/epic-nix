@@ -9,7 +9,7 @@
 , edm4hep
 , geant4
 , hepmc3
-, lzma
+, xz
 , zlib
 , gnugrep
 , python3
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     edm4hep
     geant4
     hepmc3
-    lzma
+    xz
     zlib
   ];
   propagatedBuildInputs = [

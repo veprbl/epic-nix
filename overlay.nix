@@ -46,12 +46,6 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
-  fastjet = prev.fastjet.overrideAttrs (prev: {
-    configureFlags = prev.configureFlags ++ [
-      "--enable-auto-ptr=no"
-    ];
-  });
-
   # Required by a recent EICrecon
   fmt = if final.lib.versionOlder prev.fmt.version "9" then fmt_9 else prev.fmt;
   # Also update an input hardcoded in nixpkgs' spdlog (it switched to fmt
@@ -145,7 +139,8 @@ final: prev: with final; {
       # https://github.com/AIDASoft/podio/issues/367
       "-Dimt=OFF"
     ];
-    NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
+    env.NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
+    env.CXXFLAGS = lib.optionalString stdenv.isDarwin "-faligned-allocation";
     preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
@@ -200,15 +195,13 @@ final: prev: with final; {
   });
 
   opencascade-occt = prev.opencascade-occt.overrideAttrs (old:
-    final.lib.optionalAttrs (final.lib.versionOlder prev.opencascade-occt.version "7.7.2") rec {
-      version = "7.7.2";
-      commit = "V${builtins.replaceStrings ["."] ["_"] version}";
-
-      src = fetchurl {
-        name = "occt-${commit}.tar.gz";
-        url = "https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=${commit};sf=tgz";
-        hash = "sha256-M0G/pJuxsJu5gRk0rIgC173/XxI1ERpmCtWjgr/0dyY=";
-      };
+    final.lib.optionalAttrs ((final.lib.versionOlder prev.opencascade-occt.version "7.8.2") && (prev.opencascade-occt.patches or [] == [])) rec {
+      patches = [
+        (final.fetchpatch {
+          url = "https://github.com/Open-Cascade-SAS/OCCT/commit/7236e83dcc1e7284e66dc61e612154617ef715d6.diff";
+          hash = "sha256-NoC2mE3DG78Y0c9UWonx1vmXoU4g5XxFUT3eVXqLU60=";
+        })
+      ];
     }
   );
 
