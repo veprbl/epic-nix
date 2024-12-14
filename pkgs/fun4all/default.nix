@@ -449,9 +449,10 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       # resolve include for g4main (possibly others)
       export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/simulation/g4simulation"
 
-      #      # resolve include for intt (possibly others)
-      #      export ROOT_INCLUDE_PATH=$ROOT_INCLUDE_PATH:$PWD/offline/packages
-      #      export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE -isystem $PWD/offline/packages"
+      substituteInPlace offline/packages/trackreco/PHMicromegasTpcTrackMatching.cc \
+        --replace "!isfinite" "!std::isfinite"
+      substituteInPlace offline/packages/trackreco/PHTpcTrackSeedCircleFit.cc \
+        --replace "!isfinite" "!std::isfinite"
 
       substituteInPlace offline/packages/trackreco/ActsEvaluator.cc \
         --replace "trackKeyMap = m_actsTrackKeyMap->find(trackKey)->second;" \
@@ -623,6 +624,10 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   simulation.g4simulation.g4eicdirc = mk_path_eicdetectors "simulation/g4simulation/g4eicdirc" {
     buildInputs = [ offline.database.PHParameter offline.framework.fun4all offline.framework.phool simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=overloaded-virtual";
+    postPatch = ''
+      substituteInPlace simulation/g4simulation/g4eicdirc/G4EicDircSteppingAction.cc \
+        --replace "!isfinite" "!std::isfinite"
+    '';
   };
   simulation.g4simulation.g4etof = mk_path_eicdetectors "simulation/g4simulation/g4etof" {
     buildInputs = [ boost offline.database.PHParameter offline.framework.fun4all offline.framework.phool offline.packages.trackbase_historic simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
@@ -659,6 +664,12 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
 
   FastPID = mk_path_ecce-detectors "FastPID" {
     buildInputs = [ offline.framework.fun4all offline.framework.phool offline.packages.trackbase offline.packages.trackbase_historic offline.packages.trackreco reconstruction.eicpidbase simulation.g4simulation.g4detectors simulation.g4simulation.g4main ];
+    postPatch = ''
+      substituteInPlace FastPID/ECCEhpDIRCFastPIDMap.cc \
+        --replace "(isnan" "(std::isnan"
+      substituteInPlace FastPID/ECCEmRICHFastPIDMap.cc \
+        --replace "(isnan" "(std::isnan"
+    '';
   };
 
   combined = symlinkJoin {
