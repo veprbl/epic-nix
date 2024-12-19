@@ -6,6 +6,8 @@
 , geant4
 , opencascade-occt
 , spdlog
+, tcl
+, tk
 , fontconfig
 , libX11
 , libGL
@@ -34,6 +36,8 @@ stdenv.mkDerivation rec {
     dd4hep
     opencascade-occt
     spdlog
+    tcl # needed for opencascade-occt on linux
+    tk # needed for opencascade-occt on linux
   ] ++ lib.optional stdenv.isLinux [
     (lib.getLib fontconfig)
     libX11
