@@ -16,6 +16,7 @@
 , libuuid
 , makeWrapper
 , microsoft_gsl
+, nlohmann_json
 , pkg-config
 , python3
 , range-v3
@@ -60,6 +61,7 @@ stdenv.mkDerivation rec {
     jemalloc
     libuuid
     microsoft_gsl
+    nlohmann_json
     range-v3
     tbb
     xercesc
