@@ -113,8 +113,6 @@ final: prev: with final; {
 
   k4FWCore = callPackage pkgs/k4FWCore {};
 
-  npdet = callPackage pkgs/npdet {};
-
   npsim = callPackage pkgs/npsim {};
 
   llvm_13 = prev.llvm_13.overrideAttrs (prev: {
