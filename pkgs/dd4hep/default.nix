@@ -24,6 +24,13 @@ stdenv.mkDerivation rec {
 
   src = dd4hep-src;
 
+  patches = [
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1365.diff";
+      hash = "sha256-K/3W9J5JWbnyDmegPCQkxWZ7YjfzlQ2MFuKwrmto4Yc=";
+    })
+  ];
+
   postPatch = ''
     patchShebangs --host .
 
