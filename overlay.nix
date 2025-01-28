@@ -81,6 +81,7 @@ final: prev: with final; {
       "-DCMAKE_CXX_STANDARD=20"
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
+    meta.broken = false;
   });
 
   genfit = callPackage pkgs/genfit {};
