@@ -10,14 +10,14 @@
 
 stdenv.mkDerivation rec {
   pname = "vecgeom";
-  version = "1.2.1";
+  version = "1.2.10";
 
   src = fetchFromGitLab {
     domain = "gitlab.cern.ch";
     owner = "VecGeom";
     repo = "VecGeom";
-    rev = "v${version}";
-    hash = "sha256-T5H4e66H64VOKqcz30tsezFME3x4lgrmbPAkOSfLJ8U=";
+    rev = "refs/tags/v${version}";
+    hash = "sha256-sQ6PE4PENjLuwYOn+ZHr2RtmA/+WN9ZETnq+kRr1TRQ=";
   };
 
   nativeBuildInputs = [
