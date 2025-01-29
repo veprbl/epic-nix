@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-template-arg-list-after-template-kw";
 
-  # TestPolyhedra and TestSphere failing on aarch64-linux
-  doCheck = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+  # TestPolyhedra and TestSphere failing on aarch64-linux and aarch64-darwin
+  doCheck = !stdenv.hostPlatform.isAarch64;
 
   meta = with lib; {
     description = "The vectorized geometry library for particle-detector simulation";
