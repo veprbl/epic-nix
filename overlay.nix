@@ -22,8 +22,6 @@ final: prev: with final; {
 
   aida = callPackage pkgs/aida {};
 
-  athena = callPackage pkgs/athena {};
-
   # geant4 requires at least version 2.4.6.0
   clhep = prev.clhep.overrideAttrs (old:
     final.lib.optionalAttrs (final.lib.versionOlder prev.clhep.version "2.4.7.1") rec {

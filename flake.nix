@@ -65,7 +65,7 @@
         overlays = [ self.overlays.default ];
         # Will assume that the flake user agrees to use non-free EIC software
         config.allowUnfreePredicate = pkg:
-          (builtins.elem pkg.pname [ "afterburner" "athena" "BeastMagneticField" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" "pythia6" ])
+          (builtins.elem pkg.pname [ "afterburner" "BeastMagneticField" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" "pythia6" ])
           || lib.hasPrefix "ecce-detectors" pkg.pname
           || lib.hasPrefix "fun4all_coresoftware" pkg.pname
           || lib.hasPrefix "fun4all_eicdetectors" pkg.pname
@@ -99,7 +99,7 @@
         let
           pkgs = pkgsFor system;
           includePredicate = attr: pkg:
-             !(builtins.elem attr [ "athena" "BeastMagneticField" "fun4all" "genfit" "pythia6" "rave" "veccore" "vecgeom" ]);
+             !(builtins.elem attr [ "BeastMagneticField" "fun4all" "genfit" "pythia6" "rave" "veccore" "vecgeom" ]);
         in
           {
             default = pkgs.mkShell rec {
