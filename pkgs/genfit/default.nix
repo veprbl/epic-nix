@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
   RAVEPATH=rave;
 
   meta = with lib; {
+    inherit (rave.meta) broken;
     description = "An experiment-independent framework for track reconstruction in particle and nuclear physics";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/GenFit/GenFit";
