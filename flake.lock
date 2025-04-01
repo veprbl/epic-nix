@@ -169,18 +169,18 @@
       "flake": false,
       "locked": {
         "host": "eicweb.phy.anl.gov",
-        "lastModified": 1742664882,
-        "narHash": "sha256-ItkA6mhpzegTPE5OzoTON7Ah4rfYeh2cYohWkiL8ZEc=",
+        "lastModified": 1742682270,
+        "narHash": "sha256-ZLK74LKd0tHsFqGwcbqi2f46YJEuioRui1Je7amSK5I=",
         "owner": "EIC",
         "repo": "juggler",
-        "rev": "61d6770f47daa2ce838aaba469ee1e1bddd28e3b",
+        "rev": "8a75093d7ea82bb182e20b4bbcf9b6693fbf8e51",
         "type": "gitlab"
       },
       "original": {
         "host": "eicweb.phy.anl.gov",
         "owner": "EIC",
-        "ref": "v15.0.0",
         "repo": "juggler",
+        "rev": "8a75093d7ea82bb182e20b4bbcf9b6693fbf8e51",
         "type": "gitlab"
       }
     },
