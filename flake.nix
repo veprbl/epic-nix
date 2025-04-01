@@ -26,7 +26,7 @@
     flake = false;
   };
   inputs.edm4hep-src = {
-    url = "github:key4hep/EDM4hep/v00-10-05";
+    url = "github:key4hep/EDM4hep/v00-99-01";
     flake = false;
   };
   inputs.epic-src = {
@@ -34,7 +34,7 @@
     flake = false;
   };
   inputs.eicrecon-src = {
-    url = "github:eic/EICrecon/v1.23.1";
+    url = "github:eic/EICrecon/bfc673f302e982b856e4ca92b8243d8a86546837";
     flake = false;
   };
   inputs.geant4-src = {
@@ -46,7 +46,7 @@
     flake = false;
   };
   inputs.juggler-src = {
-    url = "gitlab:EIC/juggler/v15.0.0?host=eicweb.phy.anl.gov";
+    url = "gitlab:EIC/juggler/8a75093d7ea82bb182e20b4bbcf9b6693fbf8e51?host=eicweb.phy.anl.gov";
     flake = false;
   };
   inputs.podio-src = {

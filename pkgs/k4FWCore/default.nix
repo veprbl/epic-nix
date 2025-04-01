@@ -12,27 +12,17 @@
 
 stdenv.mkDerivation rec {
   pname = "k4FWCore";
-  version = "v01-00pre19";
+  version = "v01-01";
 
   src = fetchFromGitHub {
     owner = "key4hep";
     repo = pname;
-    rev = "v01-00pre19";
-    hash = "sha256-vKYLSQbLquMjw3FayBBGqi3fCl1DmZiftvk4Zm+UQwU=";
+    rev = "v01-01";
+    hash = "sha256-wUJJpYEYRr/mJ5L5+YG+h5RuD0fyZhtwvtAyLSVlxDI=";
   };
-
-  patches = [
-    # https://github.com/key4hep/k4FWCore/pull/188
-    ./macos_fix_issue187.patch
-  ];
 
   postPatch = ''
     patchShebangs .
-
-    substituteInPlace k4FWCore/CMakeLists.txt \
-      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
-    substituteInPlace k4FWCore/components/PodioOutput.cpp \
-      --replace '#include "rootUtils.h"' ""
   '';
 
   nativeBuildInputs = [

@@ -71,16 +71,16 @@
     "edm4hep-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1707322440,
-        "narHash": "sha256-X0csukA44sbHTwBJVWqVvEDFFM+sFXjduqpbVZgiczc=",
+        "lastModified": 1726838746,
+        "narHash": "sha256-Ln91q5C+2WpvU89v9KSqzU7AOBTkT35YvwI3YBOhqxo=",
         "owner": "key4hep",
         "repo": "EDM4hep",
-        "rev": "7e1efbeec9f59ca08d57a875c01df36ee2877d31",
+        "rev": "338cec947a4b87d477f57f53858864f8f0e136f1",
         "type": "github"
       },
       "original": {
         "owner": "key4hep",
-        "ref": "v00-10-05",
+        "ref": "v00-99-01",
         "repo": "EDM4hep",
         "type": "github"
       }
@@ -88,17 +88,17 @@
     "eicrecon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1742091063,
-        "narHash": "sha256-7TOYCz2N0DLru+zMEtyBZxI3uS0kwH1V1KUxu3pvN6Q=",
+        "lastModified": 1743405757,
+        "narHash": "sha256-igRC/TI/ZuO74snEnlzrs+4Wd8Y4Nkp+vgueZ4OpPmE=",
         "owner": "eic",
         "repo": "EICrecon",
-        "rev": "a80a8ea79427101bf607d2ba42517d714e191eb1",
+        "rev": "bfc673f302e982b856e4ca92b8243d8a86546837",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.23.1",
         "repo": "EICrecon",
+        "rev": "bfc673f302e982b856e4ca92b8243d8a86546837",
         "type": "github"
       }
     },
@@ -169,18 +169,18 @@
       "flake": false,
       "locked": {
         "host": "eicweb.phy.anl.gov",
-        "lastModified": 1742664882,
-        "narHash": "sha256-ItkA6mhpzegTPE5OzoTON7Ah4rfYeh2cYohWkiL8ZEc=",
+        "lastModified": 1742682270,
+        "narHash": "sha256-ZLK74LKd0tHsFqGwcbqi2f46YJEuioRui1Je7amSK5I=",
         "owner": "EIC",
         "repo": "juggler",
-        "rev": "61d6770f47daa2ce838aaba469ee1e1bddd28e3b",
+        "rev": "8a75093d7ea82bb182e20b4bbcf9b6693fbf8e51",
         "type": "gitlab"
       },
       "original": {
         "host": "eicweb.phy.anl.gov",
         "owner": "EIC",
-        "ref": "v15.0.0",
         "repo": "juggler",
+        "rev": "8a75093d7ea82bb182e20b4bbcf9b6693fbf8e51",
         "type": "gitlab"
       }
     },

@@ -1,7 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitLab
-, fetchFromGitHub
+, fetchurl
 , fetchpatch
 , aida
 , bash
@@ -35,14 +35,19 @@ in
 
 stdenv.mkDerivation rec {
   pname = "Gaudi";
-  version = "36r16";
+  version = "39r4";
 
   src = fetchFromGitLab {
     domain = "gitlab.cern.ch";
     owner = "gaudi";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-qMIZESS9hDdgVnZ8qR/KhUQVO8xBCAmqq/XoQc5fT+w=";
+    hash = "sha256-rCYeEt1wvzyrI+95lVgi1XQlhJODP5VxbomHVAqPchA=";
+  };
+
+  findtbb_cmake = fetchurl {
+    url = "https://gitlab.cern.ch/gaudi/Gaudi/-/raw/a8e9986cb6f0eb3d8e4b44589d53b4531a5c2041/cmake/modules/FindTBB.cmake";
+    hash = "sha256-iiUonNq8GjxGfbPDXwTqo2I7Gm8NIKIPy1ezRloVEqk=";
   };
 
   nativeBuildInputs = [
@@ -80,6 +85,9 @@ stdenv.mkDerivation rec {
     patchShebangs --build GaudiKernel/scripts/
     substituteInPlace cmake/GaudiToolbox.cmake \
       --replace '/bin/sh' '${bash}/bin/sh'
+    substituteInPlace cmake/GaudiDependencies.cmake \
+      --replace-fail 'find_package(TBB 2019.0.11007.2 CONFIG ' 'find_package(TBB 2019.0.11007.2 '
+    cp "$findtbb_cmake" cmake/modules/FindTBB.cmake
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \
       --replace "typename ALLOCATOR::size_type" std::size_t \

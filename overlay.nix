@@ -216,4 +216,14 @@ final: prev: with final; {
 
   vecgeom = callPackage pkgs/vecgeom {};
 
+  # Fix "Could not load a local code page transcoder"
+  xercesc = prev.xercesc.overrideAttrs (old: {
+    buildInputs = [
+      icu
+    ];
+    configureFlags = old.configureFlags ++ [
+      "--enable-transcoder-icu"
+    ];
+  });
+
 }
