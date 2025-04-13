@@ -26,7 +26,7 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "unstable-${eicrecon-src.shortRev or "dirty"}";
+  version = "1.24.0-${eicrecon-src.shortRev or "dirty"}";
 
   src = eicrecon-src;
 
