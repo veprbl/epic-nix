@@ -18,7 +18,7 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "unstable-${juggler-src.shortRev or "dirty"}";
+  version = "15.0.2-${juggler-src.shortRev or "dirty"}";
 
   src = juggler-src;
 
