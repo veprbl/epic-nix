@@ -151,16 +151,16 @@
     "hepmcmerger-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1718647590,
-        "narHash": "sha256-u+7H8I/t+ZbvP94KCYYsTS6aqokm6FXCfGSwfcbmuHQ=",
+        "lastModified": 1738093558,
+        "narHash": "sha256-BQ8nwYqnoug7TcjkYAKYAcMZfYzTrDqtrk+s9T7PkVU=",
         "owner": "eic",
         "repo": "HEPMC_Merger",
-        "rev": "f8aae88724b0a047e2c9eb43189ed4683282a718",
+        "rev": "ddcb3c58bf5fa729d4e2bd449a28ea838877a2f7",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.0.4",
+        "ref": "v1.0.5",
         "repo": "HEPMC_Merger",
         "type": "github"
       }

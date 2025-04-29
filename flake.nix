@@ -42,7 +42,7 @@
     flake = false;
   };
   inputs.hepmcmerger-src = {
-    url = "github:eic/HEPMC_Merger/v1.0.4";
+    url = "github:eic/HEPMC_Merger/v1.0.5";
     flake = false;
   };
   inputs.jana2-src = {
