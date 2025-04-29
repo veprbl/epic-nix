@@ -6,6 +6,7 @@
 , epic-src
 , eicrecon-src
 , geant4-src
+, hepmcmerger-src
 , jana2-src
 , juggler-src
 , podio-src
@@ -102,7 +103,9 @@ final: prev: with final; {
       dontPatchELF = true;
     });
 
-  hepmcmerger = callPackage pkgs/hepmcmerger {};
+  hepmcmerger = callPackage pkgs/hepmcmerger {
+    inherit hepmcmerger-src;
+  };
 
   irt = callPackage pkgs/irt {};
 

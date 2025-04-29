@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, hepmcmerger-src
 , cmake
 , hepmc3
 , root
@@ -8,14 +8,9 @@
 
 stdenv.mkDerivation rec {
   pname = "hepmcmerger";
-  version = "1.0.4";
+  version = "1.0.4-${hepmcmerger-src.shortRev or "dirty"}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = "HEPMC_Merger";
-    rev = "v${version}";
-    hash = "sha256-u+7H8I/t+ZbvP94KCYYsTS6aqokm6FXCfGSwfcbmuHQ=";
-  };
+  src = hepmcmerger-src;
 
   nativeBuildInputs = [
     cmake

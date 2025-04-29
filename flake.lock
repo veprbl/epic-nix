@@ -148,6 +148,23 @@
         "url": "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz"
       }
     },
+    "hepmcmerger-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1718647590,
+        "narHash": "sha256-u+7H8I/t+ZbvP94KCYYsTS6aqokm6FXCfGSwfcbmuHQ=",
+        "owner": "eic",
+        "repo": "HEPMC_Merger",
+        "rev": "f8aae88724b0a047e2c9eb43189ed4683282a718",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v1.0.4",
+        "repo": "HEPMC_Merger",
+        "type": "github"
+      }
+    },
     "jana2-src": {
       "flake": false,
       "locked": {
@@ -226,6 +243,7 @@
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",
         "geant4-src": "geant4-src",
+        "hepmcmerger-src": "hepmcmerger-src",
         "jana2-src": "jana2-src",
         "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",
