@@ -41,6 +41,10 @@
     url = "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz";
     flake = false;
   };
+  inputs.hepmcmerger-src = {
+    url = "github:eic/HEPMC_Merger/v1.0.5";
+    flake = false;
+  };
   inputs.jana2-src = {
     url = "github:JeffersonLab/JANA2/v2.3.2";
     flake = false;
