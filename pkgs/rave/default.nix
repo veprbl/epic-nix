@@ -45,6 +45,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    # Undefined symbols for architecture arm64
+    broken = stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isAarch64;
     description = "Reconstruction in an Abstract, Versatile Environment";
     license = licenses.gpl2Only;
     homepage = "https://rave.hepforge.org/";

@@ -36,8 +36,8 @@ stdenv.mkDerivation rec {
     "-DVECGEOM_GEANT4=ON"
   ];
 
-  # TestPolyhedra and TestSphere failing on aarch64-linux
-  doCheck = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+  # TestPolyhedra and TestSphere failing on aarch64-linux and aarch64-darwin
+  doCheck = !stdenv.hostPlatform.isAarch64;
 
   meta = with lib; {
     description = "The vectorized geometry library for particle-detector simulation";

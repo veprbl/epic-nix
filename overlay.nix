@@ -128,24 +128,25 @@ final: prev: with final; {
     ];
   });
 
-  root = prev.root.overrideAttrs (prev: {
+  root = (prev.root.override { tbb = null; }).overrideAttrs (prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
       "-Dbuiltin_unuran=ON"
       "-Dunuran=ON" "-Dmathmore=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
+      "-Dbuiltin_glew=ON"
     ] ++ final.lib.optionals final.stdenv.isDarwin [
       # https://github.com/AIDASoft/podio/issues/367
       "-Dimt=OFF"
     ];
     env.NIX_LDFLAGS = lib.optionalString (!stdenv.isDarwin) "--version-script,${./pkgs/root/version.map}";
     env.CXXFLAGS = lib.optionalString stdenv.isDarwin "-faligned-allocation";
-    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
+    preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" "for path in builtins/*; do" ] [ "" "for path in ; do" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
-    ] ++ final.lib.optionals final.stdenv.isDarwin [
+    ] ++ final.lib.optionals (stdenv.system == "x86_64-darwin") [
       memorymappingHook # for roofit/xroofit/src/xRooNLLVar.cxx
     ];
   });
