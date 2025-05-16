@@ -12,6 +12,7 @@
 , xz
 , zlib
 , gnugrep
+, nlohmann_json
 , python3
 , root
 , AGL
@@ -55,6 +56,7 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [
     boost
+    nlohmann_json
     python3
     root
   ] ++ lib.optionals (stdenv.isDarwin && geant4.enableQt) [
