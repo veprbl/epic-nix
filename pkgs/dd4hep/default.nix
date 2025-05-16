@@ -12,6 +12,7 @@
 , xz
 , zlib
 , gnugrep
+, nlohmann_json
 , python3
 , root
 , AGL
@@ -20,16 +21,9 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-30.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-32.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
-
-  patches = [
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1365.diff";
-      hash = "sha256-K/3W9J5JWbnyDmegPCQkxWZ7YjfzlQ2MFuKwrmto4Yc=";
-    })
-  ];
 
   postPatch = ''
     patchShebangs --host .
@@ -62,6 +56,7 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [
     boost
+    nlohmann_json
     python3
     root
   ] ++ lib.optionals (stdenv.isDarwin && geant4.enableQt) [
