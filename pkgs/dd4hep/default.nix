@@ -12,6 +12,8 @@
 , xz
 , zlib
 , gnugrep
+, gnused
+, nlohmann_json
 , python3
 , root
 , AGL
@@ -20,24 +22,16 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-30.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-32.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
-
-  patches = [
-    (fetchpatch {
-      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1365.diff";
-      hash = "sha256-K/3W9J5JWbnyDmegPCQkxWZ7YjfzlQ2MFuKwrmto4Yc=";
-    })
-  ];
 
   postPatch = ''
     patchShebangs --host .
 
-    substituteInPlace CMakeLists.txt \
-      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
     substituteInPlace cmake/thisdd4hep.sh \
-      --replace "grep" "${gnugrep}/bin/grep"
+      --replace 'grep -v "^''${path_prefix}$"' '(${gnugrep}/bin/grep -v "^''${path_prefix}$" || true)' \
+      --replace " sed " " ${gnused}/bin/sed "
 
     substituteInPlace DDG4/python/DDSim/DD4hepSimulation.py \
       --replace "if not os.path.exists(fileName):" "if False:"
@@ -62,6 +56,7 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs = [
     boost
+    nlohmann_json
     python3
     root
   ] ++ lib.optionals (stdenv.isDarwin && geant4.enableQt) [
