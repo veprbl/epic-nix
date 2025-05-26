@@ -146,8 +146,6 @@ final: prev: with final; {
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
-    ] ++ final.lib.optionals final.stdenv.isDarwin [
-      memorymappingHook # for roofit/xroofit/src/xRooNLLVar.cxx
     ];
   });
 
