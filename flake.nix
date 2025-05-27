@@ -62,7 +62,7 @@
     let
 
       inherit (nixpkgs) lib;
-      supportedSystems = [ "aarch64-linux" "x86_64-linux" "x86_64-darwin" ];
+      supportedSystems = [ "aarch64-linux" "x86_64-linux" "aarch64-darwin" "x86_64-darwin" ];
 
       pkgsFor = system: import nixpkgs {
         inherit system;
@@ -137,7 +137,7 @@
               '';
             };
 
-          } // lib.optionalAttrs (system != "aarch64-linux") {
+          } // lib.optionalAttrs (!pkgs.stdenv.hostPlatform.isAarch64) {
             fun4all-env = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 fun4all
