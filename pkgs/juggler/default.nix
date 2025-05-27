@@ -9,7 +9,6 @@
 , eigen
 , dd4hep
 , gaudi
-, genfit
 , k4FWCore
 , podio
 , python3
@@ -40,7 +39,6 @@ stdenv.mkDerivation rec {
     edm4hep
     eigen
     dd4hep
-    genfit
     k4FWCore
     podio
     root
