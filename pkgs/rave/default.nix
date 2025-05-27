@@ -45,6 +45,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    # Linker errors for typeinfo's, vtables
+    broken = stdenv.hostPlatform.isDarwin;
     description = "Reconstruction in an Abstract, Versatile Environment";
     license = licenses.gpl2Only;
     homepage = "https://rave.hepforge.org/";

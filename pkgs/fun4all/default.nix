@@ -695,8 +695,8 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
       substituteAll "$setupHook" "$out/nix-support/setup-hook"
     '';
 
-    # hide from the package set as Vc is not supported on aarch64-linux
-    meta.broken = (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
+    # hide from the package set as Vc is not supported on aarch64
+    meta.broken = stdenv.hostPlatform.isAarch64 || (rave.meta.broken or false);
   };
 });
 
