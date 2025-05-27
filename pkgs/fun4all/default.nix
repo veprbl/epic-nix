@@ -187,7 +187,7 @@ let
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
       ];
 
-      env.NIX_CFLAGS_COMPILE = "-std=c++17";
+      env.NIX_CFLAGS_COMPILE = "-std=c++17 -DBOOST_TIMER_ENABLE_DEPRECATED";
     });
 
     BeastMagneticField = stdenv.mkDerivation rec {
@@ -223,7 +223,7 @@ let
         hash = "sha256-7Nrb+EaAevi6oHHzgQT7DcwkhHyEdc2DlzAuKu+o9m8=";
       };
 
-      postPatch = (builtins.replaceStrings ["substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake"] ["echo"] prev.postPatch or "") + ''
+      postPatch = (builtins.replaceStrings [ "substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake" ] [ "echo" ] prev.postPatch or "") + ''
         substituteInPlace cmake/Modules/FindXQuartzGL.cmake \
           --replace "NO_DEFAULT_PATH" ""
 
@@ -233,6 +233,8 @@ let
         substituteInPlace source/persistency/ascii/src/G4tgrEvaluator.cc \
           --replace fsqrt _fsqrt
       '';
+
+      postFixup = builtins.replaceStrings [ "--replace-fail" ] [ "--replace-warn" ] prev.postFixup or "";
 
       cmakeFlags = prev.cmakeFlags ++ [
         "-DGEANT4_USE_G3TOG4=OFF"
@@ -346,7 +348,7 @@ sphenix_packages = with extra_deps; let geant4 = extra_deps.geant4_10_6_2; in en
   offline.packages.HelixHough = mk_path "offline/packages/HelixHough" {
     buildInputs = [ eigen offline.packages.trackbase ];
     env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
-    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=maybe-uninitialized";
+    env.CXXFLAGS = lib.optionalString stdenv.cc.isGNU "-Wno-error=maybe-uninitialized -Wno-error=template-id-cdtor";
   };
   offline.packages.jetbackground = mk_path "offline/packages/jetbackground" {
     buildInputs = [ cgal_4 fastjet fastjet-contrib offline.framework.fun4all offline.framework.phool offline.packages.CaloBase simulation.g4simulation.g4jets simulation.g4simulation.g4main ];
