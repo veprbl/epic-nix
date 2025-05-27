@@ -49,13 +49,13 @@ stdenv.mkDerivation rec {
     assimp
     bzip2
     edm4hep
-    geant4
     hepmc3
     xz
     zlib
   ];
   propagatedBuildInputs = [
     boost
+    geant4
     nlohmann_json
     python3
     root
