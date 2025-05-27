@@ -35,6 +35,8 @@ final: prev: with final; {
     }
   );
 
+  cgal_4 = callPackage pkgs/cgal/4.nix {};
+
   epic = callPackage pkgs/epic { inherit epic-src; };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
