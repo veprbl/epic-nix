@@ -137,7 +137,7 @@
               '';
             };
 
-          } // lib.optionalAttrs (system != "aarch64-linux") {
+          } // lib.optionalAttrs (system == "x86_64-linux") {
             fun4all-env = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 fun4all
