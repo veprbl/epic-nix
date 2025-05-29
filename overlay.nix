@@ -75,7 +75,7 @@ final: prev: with final; {
     src = geant4-src;
     postPatch = ''
       substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake \
-        --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
+        --replace-warn '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
     '';
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
