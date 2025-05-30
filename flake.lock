@@ -138,14 +138,14 @@
     "geant4-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1718974644,
-        "narHash": "sha256-ETGekxRZa1uPxJvcKPdC+FlhYZKyORoNbuF5cN/ZtWc=",
+        "lastModified": 1745840412,
+        "narHash": "sha256-rzxks1cNTxMn81/S1Fz/rjZGz3oVysBmvvaZHSAWMUI=",
         "type": "tarball",
-        "url": "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz"
+        "url": "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz"
+        "url": "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz"
       }
     },
     "hepmcmerger-src": {
@@ -203,11 +203,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1734116861,
-        "narHash": "sha256-ghEaFhNwzWWkx78DKpde2vIgPCwy0xfyfLpv+sdOpfA=",
+        "lastModified": 1748285711,
+        "narHash": "sha256-WoAi8MOvvt1YmxCJxKFHqBnlavg+gsuDl85LzndDZYc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6715eaac131d48d9bba4a6def3dfa9174f6b51e5",
+        "rev": "05f6c66b2f1f86f1e822988b69c89c766a4dea3b",
         "type": "github"
       },
       "original": {

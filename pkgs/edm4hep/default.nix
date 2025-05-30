@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , edm4hep-src
+, fetchpatch
 , hepmc3
 , catch2_3
 , cmake
@@ -26,6 +27,13 @@ stdenv.mkDerivation rec {
   version = "00-99-01.${edm4hep-src.shortRev or "dirty"}";
 
   src = edm4hep-src;
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/key4hep/EDM4hep/commit/18799dacfdaf5d746134c957de48607aa2665d75.diff";
+      hash = "sha256-Ab9xGicIKRkU1QcvCzsToUCEYhC6b3L8lsD5S7GO/po=";
+    })
+  ];
 
   postPatch = ''
     patchShebangs .

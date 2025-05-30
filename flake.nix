@@ -38,7 +38,7 @@
     flake = false;
   };
   inputs.geant4-src = {
-    url = "https://cern.ch/geant4-data/releases/geant4-v11.2.2.tar.gz";
+    url = "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz";
     flake = false;
   };
   inputs.hepmcmerger-src = {
@@ -137,7 +137,7 @@
               '';
             };
 
-          } // lib.optionalAttrs (system != "aarch64-linux") {
+          } // lib.optionalAttrs (system == "x86_64-linux") {
             fun4all-env = pkgs.mkShell rec {
               buildInputs = with self.packages.${system}; [
                 fun4all

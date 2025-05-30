@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "veccore";
-  version = "0.8.0";
+  version = "0.8.2";
 
   src = fetchFromGitHub {
     owner = "root-project";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-DxOeLaW8msWznI/6tC8joNtBEIyWkcP1MGqqfotBYuo=";
+    hash = "sha256-FXUdn+BP1BccnYZEG+l6ZTaBYQaaxBH1w+zK7gblayM=";
   };
 
   # Workaround an issue with the Apple SDK

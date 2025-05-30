@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "eic-smear";
-  version = "1.1.12";
+  version = "1.1.13";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = version;
-    hash = "sha256-qYJyMUcTuWQXAnddXGTgqe2MKZLe//3InEUpCxjW9lo=";
+    hash = "sha256-Jk7Rh6bqjgxtdQZ7EK49gQ6hF70L1CtFTfrkUHD0H+4=";
   };
 
   nativeBuildInputs = [

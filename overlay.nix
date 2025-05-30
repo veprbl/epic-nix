@@ -35,6 +35,8 @@ final: prev: with final; {
     }
   );
 
+  cgal_4 = callPackage pkgs/cgal/4.nix {};
+
   epic = callPackage pkgs/epic { inherit epic-src; };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
@@ -68,13 +70,12 @@ final: prev: with final; {
 
   geant4 = (prev.geant4.override {
     enableQt = true;
-    enableOpenGLX11 = !stdenv.isDarwin; # https://github.com/NixOS/nixpkgs/pull/346021
   }).overrideAttrs (prev: rec {
-    version = "11.1.3";
+    version = "11.3.2";
     src = geant4-src;
     postPatch = ''
       substituteInPlace source/externals/ptl/cmake/Modules/PTLPackageConfigHelpers.cmake \
-        --replace '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
+        --replace-warn '${"$"}{prefix}/${"$"}{PTL_INSTALL_' '${"$"}{PTL_INSTALL_'
     '';
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
@@ -145,8 +146,6 @@ final: prev: with final; {
     buildInputs  = prev.buildInputs ++ [
       openssl
       pythia6
-    ] ++ final.lib.optionals final.stdenv.isDarwin [
-      memorymappingHook # for roofit/xroofit/src/xRooNLLVar.cxx
     ];
   });
 
