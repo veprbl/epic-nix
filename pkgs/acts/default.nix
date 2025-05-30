@@ -56,6 +56,8 @@ stdenv.mkDerivation (self: with self; {
     "-DPython_FIND_FRAMEWORK=NEVER" # fix for missing sandboxing on GitHub actions
   ];
 
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-template-arg-list-after-template-kw";
+
   meta = with lib; {
     description = "Experiment-independent toolkit for (charged) particle track reconstruction in (high energy) physics experiments implemented in modern C++";
     license = licenses.mpl20;

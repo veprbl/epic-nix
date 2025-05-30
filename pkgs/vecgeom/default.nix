@@ -36,6 +36,8 @@ stdenv.mkDerivation rec {
     "-DVECGEOM_GEANT4=ON"
   ];
 
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-template-arg-list-after-template-kw";
+
   # TestPolyhedra and TestSphere failing on aarch64-linux
   doCheck = !(stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64);
 
