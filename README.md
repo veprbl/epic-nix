@@ -4,7 +4,8 @@ Supported architectures:
 
   - `aarch64-linux`
   - `x86_64-linux` (Linux and possibly WSL2 on Windows)
-  - `x86_64-darwin` (macOS)
+  - `aarch64-darwin` (macOS on Apple Silicon)
+  - `x86_64-darwin` (macOS on Intel)
 
 Usage
 =====
