@@ -31,6 +31,8 @@ stdenv.mkDerivation rec {
   src = eicrecon-src;
 
   postPatch = ''
+    echo 'plugin_add_algorithms(''${PLUGIN_NAME})' >> src/algorithms/digi/CMakeLists.txt
+    echo '#include <JANA/JApplication.h>' >> src/services/geometry/dd4hep/DD4hep_service.h
     substituteInPlace cmake/jana_plugin.cmake \
       --replace 'target_link_libraries(''${_name}_plugin ''${_name}_library>)' 'target_link_libraries(''${_name}_plugin ''${_name}_library)' \
       --replace '*.cc *.cpp *.c' '*.cc *.cpp'
