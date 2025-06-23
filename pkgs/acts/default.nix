@@ -7,6 +7,7 @@
 , dd4hep
 , eigen
 , nlohmann_json
+, python3
 , tbb
 }:
 
@@ -18,6 +19,14 @@ stdenv.mkDerivation (self: with self; {
 
   postPatch = ''
     sed -i Core/include/Acts/Seeding/SeedFinderConfig.hpp -e '1i#include <vector>'
+
+    if [ -f cmake/ActsCodegen.cmake ]; then
+      substituteInPlace cmake/ActsCodegen.cmake \
+        --replace-warn 'if(uv_exe STREQUAL "uv_exe-NOTFOUND")' 'if(FALSE)' \
+        --replace-warn 'env -i ''${uv_exe} run --quiet --python ''${ARGS_PYTHON_VERSION}' '${python3.interpreter}' \
+        --replace-warn '--no-project ''${_arg_isolated} ''${_with_args}' ""
+      export PYTHONPATH="$PWD/codegen/src:$PYTHONPATH"
+    fi
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace Core/include/Acts/Propagator/ConstrainedStep.hpp \
       --replace "constexpr" ""
@@ -35,6 +44,10 @@ stdenv.mkDerivation (self: with self; {
     boost
     dd4hep
     nlohmann_json
+    python3
+    python3.pkgs.numpy
+    python3.pkgs.particle
+    python3.pkgs.sympy
     tbb
   ];
 
