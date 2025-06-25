@@ -2,7 +2,6 @@
 , stdenv
 , epic-src
 , cmake
-, acts
 , dd4hep
 , fmt
 , python3
@@ -25,7 +24,6 @@ stdenv.mkDerivation rec {
     python3.pkgs.pyyaml
   ];
   buildInputs = [
-    acts
     dd4hep
     fmt
   ];
