@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hepmcmerger";
-  version = "1.0.5-${hepmcmerger-src.shortRev or "dirty"}";
+  version = "2.0.0-${hepmcmerger-src.shortRev or "dirty"}";
 
   src = hepmcmerger-src;
 
