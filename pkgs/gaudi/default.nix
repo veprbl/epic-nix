@@ -24,7 +24,6 @@
 , tbb
 , xercesc
 , zlib
-, Foundation
 }:
 
 let
@@ -55,9 +54,11 @@ stdenv.mkDerivation rec {
     makeWrapper
     python3.pkgs.six
   ];
+
   propagatedNativeBuildInputs = [
     pkg-config
   ];
+
   propagatedBuildInputs = [
     aida
     _boost
@@ -71,7 +72,8 @@ stdenv.mkDerivation rec {
     tbb
     xercesc
     zlib
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  ];
+
   buildInputs = [
     _boost
     clhep

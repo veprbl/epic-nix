@@ -64,9 +64,7 @@ final: prev: with final; {
 
   fun4all = callPackage pkgs/fun4all {};
 
-  gaudi = callPackage pkgs/gaudi {
-    inherit (darwin.apple_sdk.frameworks) Foundation;
-  };
+  gaudi = callPackage pkgs/gaudi {};
 
   geant4 = (prev.geant4.override {
     enableQt = true;
