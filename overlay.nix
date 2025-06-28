@@ -151,7 +151,6 @@ final: prev: with final; {
 
   dd4hep = callPackage pkgs/dd4hep {
     inherit dd4hep-src;
-    inherit (darwin.apple_sdk.frameworks) AGL OpenGL;
   };
 
   onnxruntime = prev.onnxruntime.overrideAttrs (old: let
