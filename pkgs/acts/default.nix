@@ -13,13 +13,11 @@
 
 stdenv.mkDerivation (self: with self; {
   pname = "acts";
-  version = "36.3.2.${acts-src.shortRev or "dirty"}";
+  version = "39.2.1.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
 
   postPatch = ''
-    sed -i Core/include/Acts/Seeding/SeedFinderConfig.hpp -e '1i#include <vector>'
-
     if [ -f cmake/ActsCodegen.cmake ]; then
       substituteInPlace cmake/ActsCodegen.cmake \
         --replace-warn 'if(uv_exe STREQUAL "uv_exe-NOTFOUND")' 'if(FALSE)' \
@@ -27,11 +25,6 @@ stdenv.mkDerivation (self: with self; {
         --replace-warn '--no-project ''${_arg_isolated} ''${_with_args}' ""
       export PYTHONPATH="$PWD/codegen/src:$PYTHONPATH"
     fi
-  '' + lib.optionalString stdenv.isDarwin ''
-    substituteInPlace Core/include/Acts/Propagator/ConstrainedStep.hpp \
-      --replace "constexpr" ""
-    substituteInPlace Fatras/include/ActsFatras/EventData/Particle.hpp \
-      --replace "constexpr" ""
   '';
 
   nativeBuildInputs = [
