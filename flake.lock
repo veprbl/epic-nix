@@ -4,7 +4,7 @@
       "flake": false,
       "locked": {
         "lastModified": 1750943890,
-        "narHash": "sha256-kV13EY73No+u2pMDRMWRLjGyz+Ki79vvCHfO8IOHrt4=",
+        "narHash": "sha256-KpRLR92NWkoR6ZLs/2ZuuIHlzphDzVuwG97bo+lgzRk=",
         "owner": "acts-project",
         "repo": "acts",
         "rev": "1ee022bc1b2f14bdb2221906fd0a46cea87e073b",
