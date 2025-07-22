@@ -40,6 +40,7 @@ stdenv.mkDerivation (self: with self; {
     python3
     python3.pkgs.numpy
     python3.pkgs.particle
+    python3.pkgs.pybind11
     python3.pkgs.sympy
     tbb
   ];
@@ -55,12 +56,20 @@ stdenv.mkDerivation (self: with self; {
     "-DACTS_BUILD_EXAMPLES=ON"
     "-DACTS_BUILD_PLUGIN_DD4HEP=ON"
     "-DACTS_BUILD_PLUGIN_JSON=ON"
+    "-DACTS_BUILD_EXAMPLES_DD4HEP=ON"
+    "-DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=ON"
     "-DACTS_USE_SYSTEM_BOOST=ON"
     "-DACTS_USE_SYSTEM_EIGEN3=ON"
     "-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON"
+    "-DACTS_USE_SYSTEM_PYBIND11=ON"
     "-DFETCHCONTENT_SOURCE_DIR_DFELIBS=${dfelibs}"
     "-DPython_FIND_FRAMEWORK=NEVER" # fix for missing sandboxing on GitHub actions
   ];
+
+  postInstall = ''
+    mkdir -p "$(dirname "$out/${python3.sitePackages}")"
+    ln -s "$out/python" "$out/${python3.sitePackages}"
+  '';
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=missing-template-arg-list-after-template-kw";
 

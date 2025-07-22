@@ -185,7 +185,12 @@ let
 
       cmakeFlags = prev.cmakeFlags ++ [
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
+        "-DACTS_BUILD_EXAMPLES_DD4HEP=OFF"
+        "-DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=OFF"
       ];
+
+      # overrides postInstall of the acts_orig
+      postInstall = ":";
 
       env.NIX_CFLAGS_COMPILE = "-std=c++17 -DBOOST_TIMER_ENABLE_DEPRECATED";
     });
