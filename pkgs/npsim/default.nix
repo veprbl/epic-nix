@@ -15,19 +15,14 @@
 
 stdenv.mkDerivation rec {
   pname = "npsim";
-  version = "1.4.2";
+  version = "1.4.6";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = "npsim";
     rev = "v${version}";
-    hash = "sha256-wTyDlIG/YxySRV55BakvL0sgajEk8IdLZTt+TtSs+vU=";
+    hash = "sha256-Wlu4/GNVeJPtHzXrUDGQWqy/GpDqYBQp8qtC00of1W0=";
   };
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "FetchContent_MakeAvailable(Catch2)" ""
-  '';
 
   nativeBuildInputs = [
     cmake
