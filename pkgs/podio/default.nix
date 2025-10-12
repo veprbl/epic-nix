@@ -4,6 +4,7 @@
 , podio-src
 , catch2_3
 , cmake
+, fmt
 , python3
 , root
 , makeWrapper
@@ -19,7 +20,7 @@ in
 
 stdenv.mkDerivation rec {
   pname = "podio";
-  version = "01-01.${podio-src.shortRev or "dirty"}";
+  version = "01-02.${podio-src.shortRev or "dirty"}";
 
   src = podio-src;
 
@@ -28,6 +29,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
   buildInputs = [
+    fmt
     catch2_3
     python
     python3.pkgs.graphviz
@@ -40,7 +42,7 @@ stdenv.mkDerivation rec {
       --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
 
     patchShebangs --host tools/ python/
-    patchShebangs --build tests/scripts/
+    patchShebangs --build tests/
 
     # Calls via shebang are not advertised/used by upstream, but let's cover that
     # case as well
