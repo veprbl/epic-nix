@@ -5,6 +5,8 @@
 , boost
 , cmake
 , dd4hep
+, fmt
+, hepmc3
 , eigen
 , nlohmann_json
 , python3
@@ -21,7 +23,9 @@ stdenv.mkDerivation (self: with self; {
     if [ -f cmake/ActsCodegen.cmake ]; then
       substituteInPlace cmake/ActsCodegen.cmake \
         --replace-warn 'if(uv_exe STREQUAL "uv_exe-NOTFOUND")' 'if(FALSE)' \
-        --replace-warn 'env -i ''${uv_exe} run --quiet --python ''${ARGS_PYTHON_VERSION}' '${python3.interpreter}' \
+        --replace-warn '${"$"}{ARGS_PYTHON_VERSION}' '${python3.interpreter}' \
+        --replace-warn 'env -i ''${uv_exe} run --quiet --python' "" \
+        --replace-warn 'env -i UV_NO_CACHE=1 ''${uv_exe} run --quiet --python' "" \
         --replace-warn '--no-project ''${_arg_isolated} ''${_with_args}' ""
       export PYTHONPATH="$PWD/codegen/src:$PYTHONPATH"
     fi
@@ -36,6 +40,8 @@ stdenv.mkDerivation (self: with self; {
   buildInputs = [
     boost
     dd4hep
+    fmt
+    hepmc3
     nlohmann_json
     python3
     python3.pkgs.numpy
