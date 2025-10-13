@@ -68,6 +68,7 @@ stdenv.mkDerivation (self: with self; {
     "-DACTS_USE_SYSTEM_EIGEN3=ON"
     "-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON"
     "-DACTS_USE_SYSTEM_PYBIND11=ON"
+    "-DACTS_USE_SYSTEM_LIBS=ON"
     "-DFETCHCONTENT_SOURCE_DIR_DFELIBS=${dfelibs}"
     "-DPython_FIND_FRAMEWORK=NEVER" # fix for missing sandboxing on GitHub actions
   ];
