@@ -186,6 +186,7 @@ let
       cmakeFlags = prev.cmakeFlags ++ [
         "-DACTS_BUILD_PLUGIN_DD4HEP=OFF"
         "-DACTS_BUILD_EXAMPLES_DD4HEP=OFF"
+        "-DACTS_BUILD_EXAMPLES_GEANT4=OFF"
         "-DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=OFF"
       ];
 
