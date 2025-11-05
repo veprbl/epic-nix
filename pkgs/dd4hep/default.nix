@@ -16,11 +16,12 @@
 , nlohmann_json
 , python3
 , root
+, ctestCheckHook
 }:
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-32.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-33.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
 
@@ -81,7 +82,16 @@ stdenv.mkDerivation rec {
     "-DDD4HEP_USE_HEPMC3=ON"
     "-DDD4HEP_USE_GEANT4=ON"
     "-DBUILD_TESTING=ON"
+    "-DCMAKE_INSTALL_LIBDIR=lib" # cmake's setupHook passes a full path
   ];
+
+  ctestFlags = [
+    # file unreadable, possibly needs a newer PODIO version
+    "--exclude-regex"
+    "(ddsimEDM4hepPlugins|test_EventReaders)"
+  ];
+  dontUseCTestCheck = true;
+  installCheckPhase = "ctestCheckHook";
 
   doInstallCheck = true;
   installCheckTarget = "test";
@@ -91,6 +101,7 @@ stdenv.mkDerivation rec {
     geant4.data.G4PARTICLEXS
     geant4.data.G4PhotonEvaporation
     python3.pkgs.pytest
+    ctestCheckHook
   ];
 
   setupHook = ./setup-hook.sh;
