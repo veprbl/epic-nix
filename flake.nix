@@ -45,6 +45,10 @@
     url = "github:eic/HEPMC_Merger/v2.0.0";
     flake = false;
   };
+  inputs.irt-src = {
+    url = "github:eic/irt/v1.0.6";
+    flake = false;
+  };
   inputs.jana2-src = {
     url = "github:JeffersonLab/JANA2/v2.4.2";
     flake = false;

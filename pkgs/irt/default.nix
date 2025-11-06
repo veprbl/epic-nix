@@ -1,20 +1,15 @@
 { lib
 , stdenv
-, fetchFromGitHub
+, irt-src
 , cmake
 , root
 }:
 
 stdenv.mkDerivation rec {
   pname = "irt";
-  version = "1.0.6";
+  version = "1.0.6.${irt-src.shortRev or "dirty"}";
 
-  src = fetchFromGitHub {
-    owner = "eic";
-    repo = pname;
-    rev = "v${version}";
-    hash = "sha256-f6oHbFEsCPi23h6lxO2dRQEDeXVTZX9/ueqQiwvze0g=";
-  };
+  src = irt-src;
 
   nativeBuildInputs = [
     cmake
