@@ -26,7 +26,7 @@
     flake = false;
   };
   inputs.edm4hep-src = {
-    url = "github:key4hep/EDM4hep/v00-99-01";
+    url = "github:key4hep/EDM4hep/v00-99-02";
     flake = false;
   };
   inputs.epic-src = {
@@ -58,7 +58,7 @@
     flake = false;
   };
   inputs.podio-src = {
-    url = "github:AIDASoft/podio/v01-02";
+    url = "github:AIDASoft/podio/v01-03";
     flake = false;
   };
 
