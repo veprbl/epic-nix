@@ -120,6 +120,11 @@
                   geant4.data.G4PARTICLEXS
                   geant4.data.G4PhotonEvaporation
                 ]);
+              shellHook = ''
+                # Setup few libraries for using with ROOT
+                addToSearchPath ROOT_INCLUDE_PATH ${pkgs.eigen}/include/eigen3
+                addToSearchPath DYLD_LIBRARY_PATH ${self.packages.${system}.acts}/lib
+              '';
             };
 
             eicrecon-env = pkgs.mkShell rec {
