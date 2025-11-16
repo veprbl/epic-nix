@@ -10,7 +10,7 @@
 
   # define source repositories as flake inputs to enable overrides from CLI
   inputs.acts-src = {
-    url = "github:acts-project/acts/v39.2.1";
+    url = "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz";
     flake = false;
   };
   inputs.algorithms-src = {
