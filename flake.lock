@@ -5,16 +5,12 @@
       "locked": {
         "lastModified": 1750943890,
         "narHash": "sha256-kV13EY73No+u2pMDRMWRLjGyz+Ki79vvCHfO8IOHrt4=",
-        "owner": "acts-project",
-        "repo": "acts",
-        "rev": "1ee022bc1b2f14bdb2221906fd0a46cea87e073b",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
       },
       "original": {
-        "owner": "acts-project",
-        "ref": "v39.2.1",
-        "repo": "acts",
-        "type": "github"
+        "type": "tarball",
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
       }
     },
     "algorithms-src": {
