@@ -1,7 +1,7 @@
 { lib
 , stdenv
+, fetchurl
 , edm4hep-src
-, fetchpatch
 , hepmc3
 , catch2_3
 , cmake
@@ -24,16 +24,9 @@ in
 
 stdenv.mkDerivation rec {
   pname = "EDM4hep";
-  version = "00-99-01.${edm4hep-src.shortRev or "dirty"}";
+  version = "00-99-02.${edm4hep-src.shortRev or "dirty"}";
 
   src = edm4hep-src;
-
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/key4hep/EDM4hep/commit/18799dacfdaf5d746134c957de48607aa2665d75.diff";
-      hash = "sha256-Ab9xGicIKRkU1QcvCzsToUCEYhC6b3L8lsD5S7GO/po=";
-    })
-  ];
 
   postPatch = ''
     patchShebangs .
@@ -62,6 +55,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=20"
     "-DCMAKE_INSTALL_INCLUDEDIR=include"
   ];
+
+  preConfigure = ''
+    ${import ./test_input_files.nix { inherit fetchurl; }}
+  '';
 
   doInstallCheck = true;
   installCheckTarget = "test";

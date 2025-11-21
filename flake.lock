@@ -67,16 +67,16 @@
     "edm4hep-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1726838746,
-        "narHash": "sha256-Ln91q5C+2WpvU89v9KSqzU7AOBTkT35YvwI3YBOhqxo=",
+        "lastModified": 1747389727,
+        "narHash": "sha256-vb642yPa9BXL3pznLOBlSg8p/55ePq5XgnNSrcOnPPk=",
         "owner": "key4hep",
         "repo": "EDM4hep",
-        "rev": "338cec947a4b87d477f57f53858864f8f0e136f1",
+        "rev": "292ccb837e1e8507bd101e6cb0425a927b983202",
         "type": "github"
       },
       "original": {
         "owner": "key4hep",
-        "ref": "v00-99-01",
+        "ref": "v00-99-02",
         "repo": "EDM4hep",
         "type": "github"
       }
@@ -231,16 +231,16 @@
     "podio-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1734523124,
-        "narHash": "sha256-f11HWpeZpNZUIy+FKq3JAzgdngoYfOora9V68l8tq7Y=",
+        "lastModified": 1747314332,
+        "narHash": "sha256-nbdN70Vjd++Gnxr7rHP+qFBKNgcu5V+DZ/0X9eFBsUo=",
         "owner": "AIDASoft",
         "repo": "podio",
-        "rev": "d3f03813d7bf50f87c3aa4f32e619cebeb060113",
+        "rev": "a029ef826cc1f7666e18b578c46fc526ac21664a",
         "type": "github"
       },
       "original": {
         "owner": "AIDASoft",
-        "ref": "v01-02",
+        "ref": "v01-03",
         "repo": "podio",
         "type": "github"
       }
