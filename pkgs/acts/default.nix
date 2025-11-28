@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchFromGitHub
+, fetchpatch2
 , acts-src
 , boost
 , cmake
@@ -18,6 +19,25 @@ stdenv.mkDerivation (self: with self; {
   version = "39.2.1.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
+
+  patches = [
+    (fetchpatch2 {
+      url = "https://github.com/acts-project/acts/pull/4456.patch?full_index=1";
+      hash = "sha256-VT02Z9ywkCAgCofFy7btQf+J27LIvs+gsRvoeJaqyUg=";
+    })
+    (fetchpatch2 {
+      url = "https://github.com/acts-project/acts/pull/4496.diff?full_index=1";
+      hash = "sha256-r65LzB3bb3kL7oIjaD2fZ5l+gmmttUXHqXJnHh3+Ccs=";
+    })
+    (fetchpatch2 {
+      url = "https://github.com/acts-project/acts/pull/4502.diff?full_index=1";
+      hash = "sha256-EMllmNTkhJgG0JLjCc+Dcibs3s7LlMvEOY1XPPD7SNk=";
+    })
+    (fetchpatch2 {
+      url = "https://raw.githubusercontent.com/eic/eic-spack/refs/heads/develop/packages/acts/pr4620.patch";
+      hash = "sha256-mPAJ7BMpX8WzjGw4fELLcC6CRP/J24PrYclab26XKn4=";
+    })
+  ];
 
   postPatch = ''
     if [ -f cmake/ActsCodegen.cmake ]; then

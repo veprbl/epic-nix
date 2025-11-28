@@ -171,6 +171,8 @@ let
         hash = "sha256-8TYw6XZfSmJ1v1WlMI2eY8t/fO5+exPwM999qziPa6Q=";
       };
 
+      patches = [];
+
       # overrides postPatch of the acts_orig
       postPatch = ''
         find . -type f -name "*.hpp" -exec sed -i {} -e 's/std::binary_function<T, T, bool>/std::function<bool(T, T)>/g' \;
