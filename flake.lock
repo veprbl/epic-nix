@@ -134,14 +134,18 @@
     "geant4-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745840412,
-        "narHash": "sha256-rzxks1cNTxMn81/S1Fz/rjZGz3oVysBmvvaZHSAWMUI=",
-        "type": "tarball",
-        "url": "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz"
+        "lastModified": 1745840986,
+        "narHash": "sha256-/lNiMHAmVp06LW0poUfHEZll0nDt2OK7Kr5ryNgtSsQ=",
+        "owner": "Geant4",
+        "repo": "geant4",
+        "rev": "62f62ecae238a7c304c52af4affbe70795475590",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz"
+        "owner": "Geant4",
+        "ref": "v11.3.2",
+        "repo": "geant4",
+        "type": "github"
       }
     },
     "hepmcmerger-src": {
