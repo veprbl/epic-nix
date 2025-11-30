@@ -14,7 +14,7 @@
 , fastjet-contrib
 , irt
 , jana2
-, microsoft_gsl
+, microsoft-gsl
 , nlohmann_json
 , onnxruntime
 , podio
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     eigen
     irt
     jana2
-    microsoft_gsl
+    microsoft-gsl
     nlohmann_json
     onnxruntime
     podio

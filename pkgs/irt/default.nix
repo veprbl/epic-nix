@@ -19,6 +19,7 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.10"
     "-DCMAKE_CXX_STANDARD=20"
     "-DIRT_ROOT_IO=OFF" # not needed for reconstruction
   ];

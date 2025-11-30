@@ -6,7 +6,7 @@
 , edm4eic
 , edm4hep
 , fmt
-, microsoft_gsl
+, microsoft-gsl
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     edm4eic
     edm4hep
     fmt
-    microsoft_gsl
+    microsoft-gsl
   ];
 
   cmakeFlags = [

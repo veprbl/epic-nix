@@ -6,7 +6,7 @@
 , clhep
 , gsl
 , hepmc3
-, libyamlcpp
+, yaml-cpp
 , root
 }:
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     clhep
     gsl
     hepmc3
-    libyamlcpp
+    yaml-cpp
     root
   ];
 
