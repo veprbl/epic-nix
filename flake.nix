@@ -38,7 +38,7 @@
     flake = false;
   };
   inputs.geant4-src = {
-    url = "https://cern.ch/geant4-data/releases/geant4-v11.3.2.tar.gz";
+    url = "github:Geant4/geant4/v11.3.2";
     flake = false;
   };
   inputs.hepmcmerger-src = {
