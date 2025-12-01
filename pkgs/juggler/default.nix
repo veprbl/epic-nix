@@ -56,6 +56,7 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
+    inherit (gaudi.meta) broken;
     description = "Concurrent Event Processor for EIC Experiments Based on the Gaudi Framework";
     license = licenses.lgpl3Only;
     homepage = "https://github.com/eic/juggler";

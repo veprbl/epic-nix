@@ -119,6 +119,7 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
+    broken = stdenv.hostPlatform.isDarwin;
     description = "A reconstruction framework";
     longDescription = ''
       The Gaudi project is an open project for providing the necessary
