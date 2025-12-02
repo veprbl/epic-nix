@@ -48,23 +48,6 @@ final: prev: with final; {
 
   eic-smear = callPackage pkgs/eic-smear {};
 
-  # Required by a recent EICrecon
-  fmt = if final.lib.versionOlder prev.fmt.version "9" then fmt_9 else prev.fmt;
-  # Also update an input hardcoded in nixpkgs' spdlog (it switched to fmt
-  # later, so we'd like to stay forward-compatible)
-  fmt_8 = prev.fmt_9;
-
-  ftgl = prev.ftgl.overrideAttrs (_: lib.optionalAttrs stdenv.isDarwin {
-    # Fix build on GitHub Actions
-    # https://github.com/NixOS/nixpkgs/pull/191577
-    postPatch = ''
-      substituteInPlace m4/gl.m4 \
-        --replace ' -dylib_file $GL_DYLIB: $GL_DYLIB' ""
-    '';
-  });
-
-  fun4all = callPackage pkgs/fun4all {};
-
   gaudi = callPackage pkgs/gaudi {};
 
   geant4 = (prev.geant4.override {
@@ -83,16 +66,7 @@ final: prev: with final; {
     meta.broken = false;
   });
 
-  genfit = callPackage pkgs/genfit {};
-
-  hepmc3 = prev.hepmc3.overrideAttrs (old:
-    (final.lib.optionalAttrs (final.lib.versionOlder prev.hepmc3.version "3.2.6") rec {
-      version = "3.2.6";
-      src = final.fetchurl {
-        url = "http://hepmc.web.cern.ch/hepmc/releases/HepMC3-${version}.tar.gz";
-        hash = "sha256-JI87WzbddzhEy+c9UfYIkUWDNLmGsll1TFnb9Lvx1SU=";
-      };
-    }) // {
+  hepmc3 = prev.hepmc3.overrideAttrs (old: {
       postPatch = old.postPatch or "" + ''
         substituteInPlace CMakeLists.txt \
           --replace 'SET(CMAKE_INSTALL_RPATH "''${CMAKE_INSTALL_PREFIX}/''${CMAKE_INSTALL_LIBDIR}")' \
@@ -132,8 +106,6 @@ final: prev: with final; {
     cmakeFlags = prev.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
-      "-Dbuiltin_unuran=ON"
-      "-Dunuran=ON" "-Dmathmore=ON" # for sartre
       "-Droot7=ON" "-Dwebgui=ON" "-Dbuiltin_openui5=ON" # ROOT::ROOTGeomViewer for dd4hep
     ] ++ final.lib.optionals final.stdenv.isDarwin [
       # https://github.com/AIDASoft/podio/issues/367
@@ -144,7 +116,6 @@ final: prev: with final; {
     preConfigure = builtins.replaceStrings [ "rm -rf builtins/*" ] [ "" ] prev.preConfigure;
     buildInputs  = prev.buildInputs ++ [
       openssl
-      pythia6
     ];
   });
 
@@ -205,12 +176,6 @@ final: prev: with final; {
   osg-ca-certs = callPackage pkgs/osg-ca-certs {};
 
   podio = callPackage pkgs/podio { inherit podio-src; };
-
-  pythia6 = callPackage pkgs/pythia6 {};
-
-  rave = callPackage pkgs/rave {};
-
-  sartre = callPackage pkgs/sartre {};
 
   veccore = callPackage pkgs/veccore {};
 

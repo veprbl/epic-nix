@@ -73,11 +73,7 @@
         overlays = [ self.overlays.default ];
         # Will assume that the flake user agrees to use non-free EIC software
         config.allowUnfreePredicate = pkg:
-          (builtins.elem pkg.pname [ "afterburner" "BeastMagneticField" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" "pythia6" ])
-          || lib.hasPrefix "ecce-detectors" pkg.pname
-          || lib.hasPrefix "fun4all_coresoftware" pkg.pname
-          || lib.hasPrefix "fun4all_eicdetectors" pkg.pname
-          ;
+          (builtins.elem pkg.pname [ "afterburner" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" ]);
       };
 
     in
@@ -107,7 +103,7 @@
         let
           pkgs = pkgsFor system;
           includePredicate = attr: pkg:
-             !(builtins.elem attr [ "BeastMagneticField" "fun4all" "genfit" "pythia6" "rave" "veccore" "vecgeom" ]);
+             !(builtins.elem attr [ "veccore" "vecgeom" ]);
         in
           {
             default = pkgs.mkShell rec {
@@ -146,19 +142,6 @@
               '';
             };
 
-          } // lib.optionalAttrs (system == "x86_64-linux") {
-            fun4all-env = pkgs.mkShell rec {
-              buildInputs = with self.packages.${system}; [
-                fun4all
-                root
-                sartre
-                geant4.data.G4EMLOW
-                geant4.data.G4ENSDFSTATE
-                geant4.data.G4ENSDFSTATE
-                geant4.data.G4PARTICLEXS
-                geant4.data.G4PhotonEvaporation
-              ];
-            };
           });
 
     };
