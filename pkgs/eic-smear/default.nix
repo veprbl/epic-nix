@@ -18,6 +18,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-Jk7Rh6bqjgxtdQZ7EK49gQ6hF70L1CtFTfrkUHD0H+4=";
   };
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-fail 'target_link_libraries(eicsmear ' \
+                     'target_link_libraries(eicsmear PUBLIC '
+  '';
+
   nativeBuildInputs = [
     cmake
   ];
@@ -25,6 +31,10 @@ stdenv.mkDerivation rec {
     hepmc3
     root
     zlib
+  ];
+
+  cmakeFlags = [
+    "-DCMAKE_CXX_STANDARD=20"
   ];
 
   meta = with lib; {

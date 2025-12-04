@@ -44,6 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
+    inherit (gaudi.meta) broken;
     description = "Core Components for the Gaudi-based Key4hep Framework";
     license = licenses.asl20;
     homepage = "https://github.com/key4hep/k4FWCore/";

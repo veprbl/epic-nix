@@ -11,7 +11,7 @@
 , eigen
 , nlohmann_json
 , python3
-, tbb
+, onetbb
 }:
 
 stdenv.mkDerivation (self: with self; {
@@ -68,7 +68,7 @@ stdenv.mkDerivation (self: with self; {
     python3.pkgs.particle
     python3.pkgs.pybind11
     python3.pkgs.sympy
-    tbb
+    onetbb
   ];
 
   dfelibs = fetchFromGitHub {

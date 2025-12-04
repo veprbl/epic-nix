@@ -13,15 +13,16 @@
 , fmt
 , gperftools
 , jemalloc
+, libunwind
 , libuuid
 , makeWrapper
-, microsoft_gsl
+, microsoft-gsl
 , nlohmann_json
 , pkg-config
 , python3
 , range-v3
 , root
-, tbb
+, onetbb
 , xercesc
 , zlib
 }:
@@ -65,11 +66,12 @@ stdenv.mkDerivation rec {
     fmt
     gperftools
     jemalloc
+    libunwind
     libuuid
-    microsoft_gsl
+    microsoft-gsl
     nlohmann_json
     range-v3
-    tbb
+    onetbb
     xercesc
     zlib
   ];
@@ -119,6 +121,7 @@ stdenv.mkDerivation rec {
   setupHook = ./setup-hook.sh;
 
   meta = with lib; {
+    broken = stdenv.hostPlatform.isDarwin;
     description = "A reconstruction framework";
     longDescription = ''
       The Gaudi project is an open project for providing the necessary

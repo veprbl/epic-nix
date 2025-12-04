@@ -46,6 +46,10 @@ stdenv.mkDerivation rec {
   ];
   nativeBuildInputs = [ cmake ];
 
+  cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.10"
+  ];
+
   doCheck = false;
 
   meta = with lib; {
