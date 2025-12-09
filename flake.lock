@@ -3,14 +3,14 @@
     "acts-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1750943890,
-        "narHash": "sha256-kV13EY73No+u2pMDRMWRLjGyz+Ki79vvCHfO8IOHrt4=",
+        "lastModified": 1764955643,
+        "narHash": "sha256-f2IKZDQmX2fxCRhCgS6eTEO4+SXNk5QopcL5Q27f4Ig=",
         "type": "tarball",
-        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v44.4.0.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v44.4.0.tar.gz"
       }
     },
     "algorithms-src": {
