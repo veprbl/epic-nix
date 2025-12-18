@@ -26,7 +26,7 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.31.0-${eicrecon-src.shortRev or "dirty"}";
+  version = "1.32.0-${eicrecon-src.shortRev or "dirty"}";
 
   src = eicrecon-src;
 
@@ -42,6 +42,9 @@ stdenv.mkDerivation rec {
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
     substituteInPlace src/algorithms/tracking/IterativeVertexFinder.cc \
       --replace 'std::dynamic_pointer_cast' 'std::static_pointer_cast'
+    substituteInPlace src/algorithms/reco/Helix.h \
+      --replace '!::finite' '!std::isfinite' \
+      --replace '::fabs(' 'std::abs('
   '' + lib.optionalString stdenv.isDarwin ''
     # loading plugins several times does not work on macOS
     : > src/tests/omnifactory_test/CMakeLists.txt
