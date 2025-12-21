@@ -3,14 +3,14 @@
     "acts-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1750943890,
-        "narHash": "sha256-kV13EY73No+u2pMDRMWRLjGyz+Ki79vvCHfO8IOHrt4=",
+        "lastModified": 1764955643,
+        "narHash": "sha256-f2IKZDQmX2fxCRhCgS6eTEO4+SXNk5QopcL5Q27f4Ig=",
         "type": "tarball",
-        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v44.4.0.tar.gz"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz"
+        "url": "https://github.com/acts-project/acts/archive/refs/tags/v44.4.0.tar.gz"
       }
     },
     "algorithms-src": {
@@ -203,17 +203,17 @@
       "flake": false,
       "locked": {
         "host": "eicweb.phy.anl.gov",
-        "lastModified": 1764371171,
-        "narHash": "sha256-YnbXQr8JRKaz6liW8Mb1hgWr/R59nzZ1Jg366SuK5MQ=",
+        "lastModified": 1764910583,
+        "narHash": "sha256-NsSGf/1ta89P+AYXXN0WIXkLdeS87mvS/EBS/karEqc=",
         "owner": "EIC",
         "repo": "juggler",
-        "rev": "5cf6866f10fe92254bd8f496559bd1ee45689d9f",
+        "rev": "94639d223e85e63876fd2ce7e06a64b8c1136158",
         "type": "gitlab"
       },
       "original": {
         "host": "eicweb.phy.anl.gov",
         "owner": "EIC",
-        "ref": "v15.0.3",
+        "ref": "v15.0.5",
         "repo": "juggler",
         "type": "gitlab"
       }
