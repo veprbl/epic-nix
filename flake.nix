@@ -10,7 +10,7 @@
 
   # define source repositories as flake inputs to enable overrides from CLI
   inputs.acts-src = {
-    url = "https://github.com/acts-project/acts/archive/refs/tags/v39.2.1.tar.gz";
+    url = "https://github.com/acts-project/acts/archive/refs/tags/v44.4.0.tar.gz";
     flake = false;
   };
   inputs.algorithms-src = {
@@ -54,7 +54,7 @@
     flake = false;
   };
   inputs.juggler-src = {
-    url = "gitlab:EIC/juggler/v15.0.3?host=eicweb.phy.anl.gov";
+    url = "gitlab:EIC/juggler/v15.0.5?host=eicweb.phy.anl.gov";
     flake = false;
   };
   inputs.podio-src = {

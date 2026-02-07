@@ -17,18 +17,9 @@
 
 stdenv.mkDerivation rec {
   pname = "juggler";
-  version = "15.0.3-${juggler-src.shortRev or "dirty"}";
+  version = "15.0.5-${juggler-src.shortRev or "dirty"}";
 
   src = juggler-src;
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace "find_package(podio 0.16.3 REQUIRED)" "find_package(podio REQUIRED)"
-
-    # https://eicweb.phy.anl.gov/EIC/juggler/-/merge_requests/563
-    sed -i JugReco/src/components/CalorimeterIslandCluster.cpp -e '1i#include <fmt/ranges.h>'
-    sed -i JugReco/src/components/ImagingPixelDataCombiner.cpp -e '1i#include <fmt/ranges.h>'
-  '';
 
   nativeBuildInputs = [
     cmake
