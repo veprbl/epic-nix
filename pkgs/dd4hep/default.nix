@@ -21,7 +21,7 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-33.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-34.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
 
