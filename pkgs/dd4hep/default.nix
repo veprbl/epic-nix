@@ -21,7 +21,7 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-34.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-35.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
 
@@ -54,13 +54,13 @@ stdenv.mkDerivation rec {
   buildInputs = [
     assimp
     bzip2
-    edm4hep
     hepmc3
     xz
     zlib
   ];
   propagatedBuildInputs = [
     boost
+    edm4hep
     geant4
     nlohmann_json
     python3
