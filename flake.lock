@@ -185,16 +185,16 @@
     "jana2-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1749220889,
-        "narHash": "sha256-uCHibRiYU8sxd7EJWKQc9U6ifSGlHs8/65WTEIT8QkA=",
+        "lastModified": 1767902986,
+        "narHash": "sha256-aJaHYz7XVzUfIny2kXMasydN3q5+gNoXBFaU3cYPUPA=",
         "owner": "JeffersonLab",
         "repo": "JANA2",
-        "rev": "9b89ca33c2db56926b2dedfc7af5a1c0cef6b1ba",
+        "rev": "4e7efafcae028da83f7bc34471ee87c3ded78dfd",
         "type": "github"
       },
       "original": {
         "owner": "JeffersonLab",
-        "ref": "v2.4.2",
+        "ref": "v2026.01.01",
         "repo": "JANA2",
         "type": "github"
       }
