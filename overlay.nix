@@ -108,6 +108,8 @@ final: prev: with final; {
 
   podio = callPackage pkgs/podio { inherit podio-src; };
 
+  sio = callPackage pkgs/sio {};
+
   veccore = callPackage pkgs/veccore {};
 
   vecgeom = callPackage pkgs/vecgeom {};

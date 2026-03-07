@@ -8,7 +8,7 @@ OUTPUT_FILE=pkgs/podio/test_input_files.nix
 
 echo "{ fetchurl }:" >"$OUTPUT_FILE" 
 echo "''" >>"$OUTPUT_FILE"
-for f in "$PODIO_SRC"/tests/input_files/*.root.md5; do
+for f in "$PODIO_SRC"/tests/input_files/*.md5; do
 	FILENAME="$(basename "${f%%.md5}")"
 	HASH=$(cat "$f")
 	PREFETCH_HASH="$(nix store prefetch-file --json "$URL_PREFIX$HASH" | jq -r .hash)"
