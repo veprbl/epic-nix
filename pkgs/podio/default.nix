@@ -7,6 +7,7 @@
 , fmt
 , python3
 , root
+, sio
 , makeWrapper
 }:
 
@@ -34,6 +35,9 @@ stdenv.mkDerivation rec {
     python
     python3.pkgs.graphviz
     root
+  ];
+  propagatedBuildInputs = [
+    sio
   ];
 
   # See comment above
@@ -64,6 +68,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
     "-DUSE_EXTERNAL_CATCH2=ON"
+    "-DENABLE_SIO=ON"
   ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DBUILD_TESTING=ON"
   ];
