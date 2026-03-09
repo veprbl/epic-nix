@@ -13,6 +13,7 @@
 , fastjet
 , fastjet-contrib
 , irt
+, irt2
 , jana2
 , microsoft-gsl
 , nlohmann_json
@@ -67,6 +68,7 @@ stdenv.mkDerivation rec {
     fastjet-contrib
     eigen
     irt
+    irt2
     jana2
     microsoft-gsl
     nlohmann_json

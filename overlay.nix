@@ -8,6 +8,7 @@
 , geant4-src
 , hepmcmerger-src
 , irt-src
+, irt2-src
 , jana2-src
 , juggler-src
 , podio-src
@@ -65,6 +66,8 @@ final: prev: with final; {
   };
 
   irt = callPackage pkgs/irt { inherit irt-src; };
+
+  irt2 = callPackage pkgs/irt2 { inherit irt2-src; };
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 

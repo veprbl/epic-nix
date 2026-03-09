@@ -182,6 +182,23 @@
         "type": "github"
       }
     },
+    "irt2-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771904025,
+        "narHash": "sha256-EKw0Gh5lrvxhGNWjlYcu8a1cCi9re7VPw9agfIL/q4w=",
+        "owner": "eic",
+        "repo": "irt",
+        "rev": "2aef40f81b0323f05e567d85796b43720946fe11",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v2.1.3",
+        "repo": "irt",
+        "type": "github"
+      }
+    },
     "jana2-src": {
       "flake": false,
       "locked": {
@@ -262,6 +279,7 @@
         "geant4-src": "geant4-src",
         "hepmcmerger-src": "hepmcmerger-src",
         "irt-src": "irt-src",
+        "irt2-src": "irt2-src",
         "jana2-src": "jana2-src",
         "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",
