@@ -49,6 +49,10 @@
     url = "github:eic/irt/v1.0.6";
     flake = false;
   };
+  inputs.irt2-src = {
+    url = "github:eic/irt/v2.1.3";
+    flake = false;
+  };
   inputs.jana2-src = {
     url = "github:JeffersonLab/JANA2/v2.4.2";
     flake = false;
