@@ -62,7 +62,7 @@
     flake = false;
   };
   inputs.podio-src = {
-    url = "github:AIDASoft/podio/v01-03";
+    url = "github:AIDASoft/podio/v01-04";
     flake = false;
   };
 
