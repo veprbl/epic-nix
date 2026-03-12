@@ -252,16 +252,16 @@
     "podio-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1755163202,
-        "narHash": "sha256-AGcieRxRvtqH+jnjR2DTn8rVGX1ma99Q63aThw8ypD0=",
+        "lastModified": 1759934717,
+        "narHash": "sha256-ahZHnE3olcufRmTTxdaCkUqbsZoAQrCq+8hkA9xoLXY=",
         "owner": "AIDASoft",
         "repo": "podio",
-        "rev": "b5e0688aaae9f489a2238fb4d9fb3afa2ab404a7",
+        "rev": "1f2ca7f371b76a9b03976163e1f044bf4bd38d65",
         "type": "github"
       },
       "original": {
         "owner": "AIDASoft",
-        "ref": "v01-04",
+        "ref": "v01-05",
         "repo": "podio",
         "type": "github"
       }
