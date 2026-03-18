@@ -10,6 +10,7 @@
 , eigen
 , nlohmann_json
 , python3
+, root
 , onetbb
 }:
 
@@ -48,6 +49,7 @@ stdenv.mkDerivation (self: with self; {
     python3.pkgs.particle
     python3.pkgs.pybind11
     python3.pkgs.sympy
+    root
     onetbb
   ];
 
@@ -66,6 +68,7 @@ stdenv.mkDerivation (self: with self; {
     "-DACTS_BUILD_EXAMPLES_DD4HEP=ON"
     "-DACTS_BUILD_EXAMPLES_GEANT4=ON"
     "-DACTS_BUILD_EXAMPLES_PYTHON_BINDINGS=ON"
+    "-DACTS_BUILD_EXAMPLES_ROOT=ON"
     "-DACTS_USE_SYSTEM_BOOST=ON"
     "-DACTS_USE_SYSTEM_EIGEN3=ON"
     "-DACTS_USE_SYSTEM_NLOHMANN_JSON=ON"
