@@ -124,6 +124,8 @@
                 # Setup few libraries for using with ROOT
                 addToSearchPath ROOT_INCLUDE_PATH ${pkgs.eigen}/include/eigen3
                 addToSearchPath ${lib.optionalString pkgs.stdenv.isDarwin "DY"}LD_LIBRARY_PATH ${self.packages.${system}.acts}/lib
+                # Included from include/podio/detail/Pythonizations.h
+                addToSearchPath ROOT_INCLUDE_PATH ${pkgs.python3}/include/python${pkgs.python3.pythonVersion}
               '';
             };
 
