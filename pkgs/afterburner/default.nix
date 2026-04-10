@@ -12,24 +12,14 @@
 
 stdenv.mkDerivation rec {
   pname = "afterburner";
-  version = "0.1.2";
+  version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-H5JzjgSRO4O+32BzP0w+bomTRmuuAZgwUHVesZ0Lbrs=";
+    hash = "sha256-33lHINAue+8Tr1vowdk5xF6LD+e7ooIyKjV7FBCO44Y=";
   };
-
-  patches = [
-    ./macos_fixes.patch
-
-    # catch2 is broken with recent glibc
-    (fetchpatch {
-      url = "https://github.com/eic/afterburner/commit/44b80f05ec8993c559d3e35b6526ebac46a0f8ff.diff";
-      hash = "sha256-EugILCMF8sxQszlfQZXwLNQPq9ii+AJHlqeoenbShPw=";
-    })
-  ];
 
   nativeBuildInputs = [
     cmake
