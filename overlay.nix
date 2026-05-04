@@ -11,6 +11,7 @@
 , irt2-src
 , jana2-src
 , juggler-src
+, osg-ca-certs-src
 , podio-src
 , ...
 }:
@@ -107,7 +108,9 @@ final: prev: with final; {
     inherit dd4hep-src;
   };
 
-  osg-ca-certs = callPackage pkgs/osg-ca-certs {};
+  osg-ca-certs = callPackage pkgs/osg-ca-certs {
+    inherit osg-ca-certs-src;
+  };
 
   podio = callPackage pkgs/podio { inherit podio-src; };
 

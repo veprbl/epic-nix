@@ -1,17 +1,14 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  osg-ca-certs-src,
 }:
 
 stdenv.mkDerivation rec {
+  name = "osg-ca-certs";
   pname = "osg-ca-certs";
-  version = "1.130";
 
-  src = fetchurl {
-    url = "https://repo.opensciencegrid.org/cadist/${version}NEW/osg-certificates-${version}NEW.tar.gz";
-    hash = "sha256-R0+OpHOXzWoFvrihTFqVFRCjnlICzF/edXhyf3pduVc=";
-  };
+  src = osg-ca-certs-src;
 
   dontConfigure = true;
   dontBuild = true;

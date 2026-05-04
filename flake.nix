@@ -61,6 +61,10 @@
     url = "gitlab:EIC/juggler/v15.0.5?host=eicweb.phy.anl.gov";
     flake = false;
   };
+  inputs.osg-ca-certs-src = {
+    url = "https://repo.opensciencegrid.org/cadist/1.140NEW/osg-certificates-1.140NEW.tar.gz";
+    flake = false;
+  };
   inputs.podio-src = {
     url = "github:AIDASoft/podio/v01-05";
     flake = false;
