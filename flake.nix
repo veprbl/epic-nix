@@ -70,7 +70,7 @@
     flake = false;
   };
   inputs.podio-src = {
-    url = "github:AIDASoft/podio/v01-06";
+    url = "github:AIDASoft/podio/v01-07";
     flake = false;
   };
   inputs.npsim-src = {
