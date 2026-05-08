@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "afterburner";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "eic";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-33lHINAue+8Tr1vowdk5xF6LD+e7ooIyKjV7FBCO44Y=";
+    hash = "sha256-TEvC+mjC9Wun1Ol7TJhl2FNm9iToBepNntpQxQbBvuY=";
   };
 
   nativeBuildInputs = [
