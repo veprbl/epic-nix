@@ -38,7 +38,7 @@
     flake = false;
   };
   inputs.geant4-src = {
-    url = "github:Geant4/geant4/v11.3.2";
+    url = "github:Geant4/geant4/v11.4.1";
     flake = false;
   };
   inputs.hepmcmerger-src = {
