@@ -134,16 +134,16 @@
     "geant4-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1745840986,
-        "narHash": "sha256-/lNiMHAmVp06LW0poUfHEZll0nDt2OK7Kr5ryNgtSsQ=",
+        "lastModified": 1773935359,
+        "narHash": "sha256-vlq9OG1VsZVkbvBiDwzBMbkM+9/CK51UUl+fPrJThQk=",
         "owner": "Geant4",
         "repo": "geant4",
-        "rev": "62f62ecae238a7c304c52af4affbe70795475590",
+        "rev": "fea0b19d064da3d85e1e7529445fa5af531f2962",
         "type": "github"
       },
       "original": {
         "owner": "Geant4",
-        "ref": "v11.3.2",
+        "ref": "v11.4.1",
         "repo": "geant4",
         "type": "github"
       }
