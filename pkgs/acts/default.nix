@@ -30,6 +30,8 @@ stdenv.mkDerivation (self: with self; {
         --replace-warn '--no-project ''${_arg_isolated} ''${_with_args}' ""
       export PYTHONPATH="$PWD/codegen/src:$PYTHONPATH"
     fi
+    sed -i Plugins/DD4hep/include/ActsPlugins/DD4hep/DD4hepFieldAdapter.hpp \
+      -e '1i#include <DD4hep/Fields.h>'
   '';
 
   nativeBuildInputs = [
