@@ -21,6 +21,11 @@ stdenv.mkDerivation rec {
   patches = [
     ./cgal_path.patch
 
+    # Fix missing boost::mpl::if_c include with Boost >= 1.87
+    # Older Boost versions transitively included boost/mpl/if.hpp,
+    # but 1.87 cleaned up transitive includes.
+    ./boost-1.87-missing-mpl-include.patch
+
     # Pull upstream fix for c++17 (gcc-12):
     #  https://github.com/CGAL/cgal/pull/6109
     (fetchpatch {
@@ -36,6 +41,12 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-8kxJDT47jXI9kQNFI/ARWl9JBNS4AfU57/D0tYlgW0M=";
     })
   ];
+
+  postPatch = ''
+    substituteInPlace cmake/modules/CGAL_SetupCGAL_CoreDependencies.cmake \
+      --replace-fail "find_package( Boost 1.48 REQUIRED COMPONENTS thread system )" \
+                     "find_package( Boost 1.48 REQUIRED COMPONENTS thread )"
+  '';
 
   # note: optional component libCGAL_ImageIO would need zlib and opengl;
   #   there are also libCGAL_Qt{3,4} omitted ATM

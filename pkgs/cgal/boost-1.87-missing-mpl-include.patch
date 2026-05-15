@@ -1,0 +1,11 @@
+--- a/include/CGAL/number_utils.h
++++ b/include/CGAL/number_utils.h
+@@ -29,6 +29,8 @@
+ #include <CGAL/number_type_config.h>
+ #include <CGAL/Algebraic_structure_traits.h>
+ #include <CGAL/Real_embeddable_traits.h>
++#include <boost/mpl/if.hpp>
++#include <boost/type_traits/is_same.hpp>
+ 
+ namespace CGAL {
+ CGAL_NTS_BEGIN_NAMESPACE
