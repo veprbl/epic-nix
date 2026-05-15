@@ -4,7 +4,7 @@
 , cmake
 , dd4hep
 , fmt
-, irt
+, irt2
 , python3
 }:
 
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     dd4hep
     fmt
-    irt
+    irt2
   ];
 
   cmakeFlags = [
