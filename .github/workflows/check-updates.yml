@@ -5,6 +5,7 @@ on:
     # Run weekly on Monday at 06:00 UTC
     - cron: '0 6 * * 1'
   workflow_dispatch: # Allow manual triggering
+  push:
 
 permissions:
   contents: write
