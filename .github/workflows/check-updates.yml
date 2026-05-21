@@ -20,6 +20,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
       - name: Configure Git identity
         run: |
           git config user.name "github-actions[bot]"

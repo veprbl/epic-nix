@@ -13,7 +13,7 @@ cd "$REPO_ROOT"
 
 # -- Package definitions -------------------------------------------------------
 # Each entry: "input_name|github_owner_repo|tag_prefix|pkg_dir"
-#   input_name      : flake input name (without the -src suffix)
+#   input_name       : flake input name (without the -src suffix)
 #   github_owner_repo: owner/repo on GitHub
 #   tag_prefix       : prefix used in git tags ("v" or "")
 #   pkg_dir          : directory under pkgs/
@@ -72,7 +72,7 @@ for entry in "${PACKAGES[@]}"; do
 
   # -- Apply changes -----------------------------------------------------------
 
-  # 1) Update the flake input URL  (url line: url = "github:<owner>/<repo>/<tag>";)
+  # 1) Update the flake input URL
   sed -i "s|url = \"github:${github_owner_repo}/${current_tag}\"|url = \"github:${github_owner_repo}/${latest_tag}\"|" flake.nix
 
   # 2) Update version string in pkgs/<pkg_dir>/default.nix
@@ -81,9 +81,13 @@ for entry in "${PACKAGES[@]}"; do
     sed -i "s|version = \"${current_version}|version = \"${latest_version}|" "$pkg_nix"
   fi
 
+  # 3) Build the package to update flake.lock and verify the build succeeds
+  echo "  Building $pkg_dir to update flake.lock and verify..."
+  nix build ".#$pkg_dir" --no-link
+
   # -- Commit, push, and open a PR ---------------------------------------------
   git checkout -b "$branch_name"
-  git add flake.nix "$pkg_nix"
+  git add flake.nix flake.lock "$pkg_nix"
   git commit -m "$pkg_dir: $current_version -> $latest_version"
   git push origin "$branch_name"
 
