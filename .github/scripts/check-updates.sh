@@ -87,13 +87,15 @@ for entry in "${PACKAGES[@]}"; do
   git commit -m "$pkg_dir: $current_version -> $latest_version"
   git push origin "$branch_name"
 
+  pr_body="Automated update of **$github_owner_repo** from $current_tag to $latest_tag.
+
+This PR was created automatically by the check-updates workflow.
+
+Release: https://github.com/$github_owner_repo/releases/tag/$latest_tag"
+
   gh pr create \
     --title "$pkg_dir: update $current_version -> $latest_version" \
-    --body "Automated update of **$github_owner_repo** from \\`$current_tag\\` to \\`$latest_tag\\`.
-
-This PR was created automatically by the \\`check-updates\\` workflow.
-
-Release: https://github.com/$github_owner_repo/releases/tag/$latest_tag" \
+    --body "$pr_body" \
     --base master \
     --head "$branch_name"
 
