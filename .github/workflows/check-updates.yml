@@ -1,0 +1,40 @@
+name: Check for package updates
+
+on:
+  schedule:
+    # Run weekly on Monday at 06:00 UTC
+    - cron: '0 6 * * 1'
+  workflow_dispatch: # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  check-updates:
+    name: Check for updates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 0
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-22.05-darwin
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - uses: cachix/cachix-action@v17
+        with:
+          name: epic-eic
+          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+
+      - name: Configure Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run update checker
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: .github/scripts/check-updates.sh
