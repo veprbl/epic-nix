@@ -84,16 +84,16 @@
     "eicrecon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1775673232,
-        "narHash": "sha256-d0S4v0pNXi0yPY8XfxKEgZZGMLcnaAd6gNdtUA164V4=",
+        "lastModified": 1778201960,
+        "narHash": "sha256-O8qi9PRtlNFKhNLnmQtghtzsZ+wnI6SFJg0XyL4mpL0=",
         "owner": "eic",
         "repo": "EICrecon",
-        "rev": "c43a642abdfea7fd84ea2c4ad92f93ce8f989e79",
+        "rev": "2f8de6248c05420f8be18b37c5f460b6e6ce3d64",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.36.1",
+        "ref": "v1.37.1",
         "repo": "EICrecon",
         "type": "github"
       }
@@ -101,16 +101,16 @@
     "epic-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1775489462,
-        "narHash": "sha256-F0qffgDYiYe0CCcsnF8aCOv1gNxvFNz82GadTq9bR/w=",
+        "lastModified": 1778197960,
+        "narHash": "sha256-6ZK3zZ/wu9nDrv5iehgvyJ7vrBtcYR1CFXfaL3zbnPY=",
         "owner": "eic",
         "repo": "epic",
-        "rev": "a3ea8461206b892453ecee7c69ed37ad8b49147b",
+        "rev": "781f99c81783f3836045fdacfed0950d086983f0",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "26.04.1",
+        "ref": "26.05.0",
         "repo": "epic",
         "type": "github"
       }
