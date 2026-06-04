@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
+          token: ${{ secrets.PR_SUBMIT_TOKEN }}
 
       - uses: cachix/install-nix-action@v31
         with:
@@ -36,5 +37,5 @@ jobs:
 
       - name: Run update checker
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PR_SUBMIT_TOKEN }}
         run: .github/scripts/check-updates.sh
