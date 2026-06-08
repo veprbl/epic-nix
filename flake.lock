@@ -101,16 +101,16 @@
     "epic-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1778197960,
-        "narHash": "sha256-6ZK3zZ/wu9nDrv5iehgvyJ7vrBtcYR1CFXfaL3zbnPY=",
+        "lastModified": 1780610430,
+        "narHash": "sha256-qvGK9rtwclxD4LY16JDvz2ej7C0QnL/s2Zc5VQYB124=",
         "owner": "eic",
         "repo": "epic",
-        "rev": "781f99c81783f3836045fdacfed0950d086983f0",
+        "rev": "1e22605a589cc38c13c35060453bb8de0cafbe8a",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "26.05.0",
+        "ref": "26.06.0",
         "repo": "epic",
         "type": "github"
       }
