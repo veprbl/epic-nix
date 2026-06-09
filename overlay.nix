@@ -11,6 +11,7 @@
 , irt2-src
 , jana2-src
 , juggler-src
+, npsim-src
 , osg-ca-certs-src
 , podio-src
 , ...
@@ -77,7 +78,7 @@ final: prev: with final; {
 
   k4FWCore = callPackage pkgs/k4FWCore {};
 
-  npsim = callPackage pkgs/npsim {};
+  npsim = callPackage pkgs/npsim { inherit npsim-src; };
 
   #llvm_20 = null;
   llvm_20 = prev.llvm_20.overrideAttrs (prev: {

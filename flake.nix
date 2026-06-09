@@ -69,6 +69,10 @@
     url = "github:AIDASoft/podio/v01-06";
     flake = false;
   };
+  inputs.npsim-src = {
+    url = "github:eic/npsim/v1.4.6";
+    flake = false;
+  };
 
   outputs = { self, nixpkgs, site-overlay, ... }@inputs:
     let
