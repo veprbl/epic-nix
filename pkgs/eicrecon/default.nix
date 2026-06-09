@@ -6,6 +6,7 @@
 , boost
 , catch2_3
 , cmake
+, cppzmq
 , dd4hep
 , edm4eic
 , edm4hep
@@ -61,6 +62,7 @@ stdenv.mkDerivation rec {
     acts
     algorithms
     boost
+    cppzmq
     dd4hep
     edm4eic
     edm4hep
