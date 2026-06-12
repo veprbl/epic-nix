@@ -43,7 +43,6 @@ final: prev: with final; {
 
   geant4 = (prev.geant4.override {
     enableQt = true;
-    qt5 = prev.qt6;
   }).overrideAttrs (prev: rec {
     version = "11.4.1";
     src = geant4-src;

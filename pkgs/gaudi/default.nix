@@ -91,6 +91,12 @@ stdenv.mkDerivation rec {
       --replace '/bin/sh' '${bash}/bin/sh'
     substituteInPlace cmake/GaudiDependencies.cmake \
       --replace-fail 'find_package(TBB 2019.0.11007.2 CONFIG ' 'find_package(TBB 2019.0.11007.2 '
+    substituteInPlace cmake/GaudiDependencies.cmake \
+      --replace-warn "CONFIG REQUIRED system" "CONFIG REQUIRED"
+    for file in GaudiCommonSvc/CMakeLists.txt GaudiCoreSvc/CMakeLists.txt GaudiHive/CMakeLists.txt GaudiKernel/CMakeLists.txt; do
+      substituteInPlace "$file" \
+        --replace-warn "Boost::system" ""
+    done
     cp "$findtbb_cmake" cmake/modules/FindTBB.cmake
   '' + lib.optionalString stdenv.isDarwin ''
     substituteInPlace GaudiKernel/include/GaudiKernel/VectorMap.h \

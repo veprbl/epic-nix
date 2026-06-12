@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , jana2-src
+, fetchpatch2
 , cmake
 , podio
 , python3
@@ -14,6 +15,13 @@ stdenv.mkDerivation rec {
   version = "2026.02.00.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
+
+  patches = [
+    (fetchpatch2 {
+      url = "https://github.com/JeffersonLab/JANA2/pull/498.diff";
+      hash = "sha256-EKeAytRDcUW2BXSruz0MDZCuFG8F3TrzhLDcklpzHlk=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace src/libraries/JANA/CLI/JSignalHandler.cc \
