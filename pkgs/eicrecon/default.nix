@@ -23,6 +23,7 @@
 , root
 , spdlog
 , xercesc
+, zeromq
 , makeWrapper
 }:
 
@@ -79,6 +80,7 @@ stdenv.mkDerivation rec {
     root
     spdlog
     xercesc
+    zeromq
   ];
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
