@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "k4FWCore";
-  version = "v01-01";
+  version = "v01-06";
 
   src = fetchFromGitHub {
     owner = "key4hep";
     repo = pname;
-    rev = "v01-01";
-    hash = "sha256-wUJJpYEYRr/mJ5L5+YG+h5RuD0fyZhtwvtAyLSVlxDI=";
+    rev = "v01-06";
+    hash = "sha256-j90Vg5LO/CUnxhWUaHWcR1bpqK0A+EK5qc7h5zK6wJ0=";
   };
 
   postPatch = ''
