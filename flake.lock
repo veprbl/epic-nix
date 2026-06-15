@@ -84,16 +84,16 @@
     "eicrecon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1778201960,
-        "narHash": "sha256-O8qi9PRtlNFKhNLnmQtghtzsZ+wnI6SFJg0XyL4mpL0=",
+        "lastModified": 1780757181,
+        "narHash": "sha256-oP8H4Rtj5QIP7TB564acW8LDL6g1il1qgmiNWLQ1Qho=",
         "owner": "eic",
         "repo": "EICrecon",
-        "rev": "2f8de6248c05420f8be18b37c5f460b6e6ce3d64",
+        "rev": "af0e8fbbbe5c0af9d3ac0fd4ffe8e8c5ec5a659c",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.37.1",
+        "ref": "v1.38.0",
         "repo": "EICrecon",
         "type": "github"
       }
@@ -247,6 +247,23 @@
         "type": "indirect"
       }
     },
+    "npsim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1753300761,
+        "narHash": "sha256-Wlu4/GNVeJPtHzXrUDGQWqy/GpDqYBQp8qtC00of1W0=",
+        "owner": "eic",
+        "repo": "npsim",
+        "rev": "4df0a2b8c9415b5c0c87f56e34b5e475d04fd5b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v1.4.6",
+        "repo": "npsim",
+        "type": "github"
+      }
+    },
     "osg-ca-certs-src": {
       "flake": false,
       "locked": {
@@ -294,6 +311,7 @@
         "jana2-src": "jana2-src",
         "juggler-src": "juggler-src",
         "nixpkgs": "nixpkgs",
+        "npsim-src": "npsim-src",
         "osg-ca-certs-src": "osg-ca-certs-src",
         "podio-src": "podio-src",
         "site-overlay": "site-overlay"
