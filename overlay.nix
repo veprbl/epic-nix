@@ -44,6 +44,8 @@ final: prev: with final; {
     inherit eic-rucio-policy-package-src;
   };
 
+  rucio-etc = callPackage pkgs/rucio-etc {};
+
   gaudi = callPackage pkgs/gaudi {};
 
   geant4 = (prev.geant4.override {
@@ -108,6 +110,12 @@ final: prev: with final; {
     buildInputs = self.buildInputs ++ [
       openssl
     ];
+  });
+
+  rucio = prev.rucio.overrideAttrs (old: {
+    postInstall = (old.postInstall or "") + ''
+      install -Dm755 -t $out/bin $src/bin/*
+    '';
   });
 
   dd4hep = callPackage pkgs/dd4hep {
