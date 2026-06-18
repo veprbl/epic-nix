@@ -81,6 +81,23 @@
         "type": "github"
       }
     },
+    "eic-rucio-policy-package-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767310994,
+        "narHash": "sha256-Bhf5akgYNDBr5Q2WqxhqBAIEr2L7UrOzn+fLFvYR/c8=",
+        "owner": "eic",
+        "repo": "eic_rucio_policy_package",
+        "rev": "5052f66284a7a908725f252112fcbd67beab35ae",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v0.1.2",
+        "repo": "eic_rucio_policy_package",
+        "type": "github"
+      }
+    },
     "eicrecon-src": {
       "flake": false,
       "locked": {
@@ -301,6 +318,7 @@
         "dd4hep-src": "dd4hep-src",
         "edm4eic-src": "edm4eic-src",
         "edm4hep-src": "edm4hep-src",
+        "eic-rucio-policy-package-src": "eic-rucio-policy-package-src",
         "eicrecon-src": "eicrecon-src",
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",

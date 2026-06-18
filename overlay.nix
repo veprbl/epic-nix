@@ -12,6 +12,7 @@
 , jana2-src
 , juggler-src
 , npsim-src
+, eic-rucio-policy-package-src
 , osg-ca-certs-src
 , podio-src
 , ...
@@ -38,6 +39,10 @@ final: prev: with final; {
   eicrecon = callPackage pkgs/eicrecon { inherit eicrecon-src; };
 
   eic-smear = callPackage pkgs/eic-smear {};
+
+  eic-rucio-policy-package = callPackage pkgs/eic-rucio-policy-package {
+    inherit eic-rucio-policy-package-src;
+  };
 
   gaudi = callPackage pkgs/gaudi {};
 

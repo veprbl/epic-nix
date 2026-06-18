@@ -33,6 +33,10 @@
     url = "github:eic/epic/26.06.0";
     flake = false;
   };
+  inputs.eic-rucio-policy-package-src = {
+    url = "github:eic/eic_rucio_policy_package/v0.1.2";
+    flake = false;
+  };
   inputs.eicrecon-src = {
     url = "github:eic/EICrecon/v1.38.0";
     flake = false;
