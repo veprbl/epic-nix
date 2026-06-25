@@ -98,6 +98,12 @@ final: prev: with final; {
   });
 
   root = prev.root.overrideAttrs (self: {
+    patches = [
+      (fetchpatch2 {
+        url = "https://github.com/root-project/root/pull/22457.patch";
+        hash = "sha256-X5TLNRG2Lu4lQCfm7gHZF4Iyjq6NzmmyfZDuAo5uvBs=";
+      })
+    ];
     cmakeFlags = self.cmakeFlags ++ [
       "-DCMAKE_CXX_STANDARD=20"
       "-Dssl=ON" # for Gaudi
