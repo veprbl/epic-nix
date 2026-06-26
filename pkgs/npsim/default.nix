@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     spdlog
     tcl # needed for opencascade-occt on linux
     tk # needed for opencascade-occt on linux
-  ] ++ lib.optional stdenv.isLinux [
+  ] ++ lib.optionals stdenv.isLinux [
     (lib.getLib fontconfig)
     libX11
     libGL
