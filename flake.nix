@@ -30,7 +30,7 @@
     flake = false;
   };
   inputs.epic-src = {
-    url = "github:eic/epic/26.06.0";
+    url = "github:eic/epic/26.07.0";
     flake = false;
   };
   inputs.eic-rucio-policy-package-src = {
