@@ -284,8 +284,8 @@
     "osg-ca-certs-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1782226294,
-        "narHash": "sha256-fmKJI0nAdXkdk6hqMlO7JxTL80tLoYSZXwKvE0WzWq8=",
+        "lastModified": 1783432913,
+        "narHash": "sha256-ddPxkpLvqsiF9ZRtongxx79r7T4Df/ShnRNB37rwIlc=",
         "type": "tarball",
         "url": "https://repo.opensciencegrid.org/cadist/1.143NEW/osg-certificates-1.143NEW.tar.gz"
       },
