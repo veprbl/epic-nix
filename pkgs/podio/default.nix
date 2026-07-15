@@ -69,6 +69,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=20"
     "-DUSE_EXTERNAL_CATCH2=ON"
     "-DENABLE_SIO=ON"
+    "-DENABLE_RNTUPLE=ON"
   ] ++ lib.optionals (!stdenv.isDarwin) [
     "-DBUILD_TESTING=ON"
   ];
