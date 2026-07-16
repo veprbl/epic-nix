@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation rec {
   pname = "hepmcmerger";
-  version = "2.0.0-${hepmcmerger-src.shortRev or "dirty"}";
+  version = "2.3.0-${hepmcmerger-src.shortRev or "dirty"}";
 
   src = hepmcmerger-src;
 
@@ -22,6 +22,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_RPATH=${root}/lib" # needed for linking to root
+    "-DHEPMC_MERGER_VERSION_FULL=${version}"
   ];
 
   meta = with lib; {
