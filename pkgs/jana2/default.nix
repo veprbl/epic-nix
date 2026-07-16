@@ -7,27 +7,33 @@
 , python3
 , root
 , xercesc
+, cppzmq
 , zeromq
 }:
 
 stdenv.mkDerivation rec {
   pname = "jana2";
-  version = "2026.02.00.${jana2-src.shortRev or "dirty"}";
+  version = "2026.03.00.${jana2-src.shortRev or "dirty"}";
 
   src = jana2-src;
-
-  patches = [
-    (fetchpatch2 {
-      url = "https://github.com/JeffersonLab/JANA2/pull/498.diff";
-      hash = "sha256-EKeAytRDcUW2BXSruz0MDZCuFG8F3TrzhLDcklpzHlk=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace src/libraries/JANA/CLI/JSignalHandler.cc \
       --replace-warn "ss << g_app->GetComponentSummary() << std::endl;" ""
     substituteInPlace src/libraries/JANA/JApplication.cc \
       --replace-warn "LOG_INFO(m_logger) << GetComponentSummary() << LOG_END;" ""
+
+    # JANA2 v2026.03.00 removed the bundled FindZeroMQ.cmake. The upstream
+    # ZeroMQConfig.cmake provided by zeromq defines the imported target `libzmq`
+    # but only sets ZeroMQ_LIBRARY (singular), not ZeroMQ_LIBRARIES. The
+    # janacontrol plugin still uses the plural variable, so the link line ends up
+    # empty and janacontrol.so is built with unresolved zmq_* symbols. Link
+    # directly against the `libzmq` target instead.
+    substituteInPlace src/plugins/janacontrol/CMakeLists.txt \
+      --replace-fail 'target_include_directories(janacontrol PUBLIC ''${ZeroMQ_INCLUDE_DIRS})' "" \
+      --replace-fail 'target_link_libraries(janacontrol PUBLIC ''${ZeroMQ_LIBRARIES})' 'target_link_libraries(janacontrol PUBLIC libzmq)' \
+      --replace-fail 'target_include_directories(janacontrol-tests PUBLIC ''${ZeroMQ_INCLUDE_DIRS})' "" \
+      --replace-fail 'target_link_libraries(janacontrol-tests PUBLIC ''${ZeroMQ_LIBRARIES})' 'target_link_libraries(janacontrol-tests PUBLIC libzmq)'
   '';
 
   nativeBuildInputs = [
@@ -41,6 +47,7 @@ stdenv.mkDerivation rec {
     xercesc
   ];
   propagatedBuildInputs = [
+    cppzmq
     zeromq
   ];
 

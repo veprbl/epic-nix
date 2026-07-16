@@ -58,7 +58,7 @@
     flake = false;
   };
   inputs.jana2-src = {
-    url = "github:JeffersonLab/JANA2/v2026.02.00";
+    url = "github:JeffersonLab/JANA2/v2026.03.00";
     flake = false;
   };
   inputs.juggler-src = {
