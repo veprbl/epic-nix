@@ -54,7 +54,7 @@
     flake = false;
   };
   inputs.irt2-src = {
-    url = "github:eic/irt/v2.1.3";
+    url = "github:eic/irt/v2.2.0";
     flake = false;
   };
   inputs.jana2-src = {

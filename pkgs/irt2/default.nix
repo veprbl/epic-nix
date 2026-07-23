@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation rec {
   pname = "irt2";
-  version = "2.1.3.${irt2-src.shortRev or "dirty"}";
+  version = "2.2.0.${irt2-src.shortRev or "dirty"}";
 
   src = irt2-src;
 
