@@ -84,6 +84,7 @@ stdenv.mkDerivation rec {
   ];
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20"
+    "-DEICRECON_VERSION_FULL=${version}"
   ];
 
   env.NIX_CFLAGS_COMPILE = "-isystem ${eigen}/include/eigen3";
