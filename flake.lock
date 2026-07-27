@@ -284,14 +284,18 @@
     "osg-ca-certs-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1784664781,
-        "narHash": "sha256-tODQERiVwx3qGONSJUKGN8H+Rd94kwTXyDLd/GPAwzg=",
-        "type": "tarball",
-        "url": "https://repo.opensciencegrid.org/cadist/1.144NEW/osg-certificates-1.144NEW.tar.gz"
+        "lastModified": 1784659874,
+        "narHash": "sha256-6XnBFhF0XsFNjyv77/uqOh/7wrAy0MxOQroGurmpEtE=",
+        "owner": "opensciencegrid",
+        "repo": "osg-certificates",
+        "rev": "0b3f52a64c467c2b9ea40609d8f940c616e923be",
+        "type": "github"
       },
       "original": {
-        "type": "tarball",
-        "url": "https://repo.opensciencegrid.org/cadist/1.144NEW/osg-certificates-1.144NEW.tar.gz"
+        "owner": "opensciencegrid",
+        "ref": "v1.144.igtf.1.144",
+        "repo": "osg-certificates",
+        "type": "github"
       }
     },
     "podio-src": {

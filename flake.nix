@@ -66,7 +66,7 @@
     flake = false;
   };
   inputs.osg-ca-certs-src = {
-    url = "https://repo.opensciencegrid.org/cadist/1.144NEW/osg-certificates-1.144NEW.tar.gz";
+    url = "github:opensciencegrid/osg-certificates/v1.144.igtf.1.144";
     flake = false;
   };
   inputs.podio-src = {
