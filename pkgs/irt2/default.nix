@@ -2,6 +2,7 @@
 , stdenv
 , irt2-src
 , cmake
+, nlohmann_json
 , root
 }:
 
@@ -16,12 +17,14 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     root
+    nlohmann_json
   ];
 
   cmakeFlags = [
     "-DCMAKE_POLICY_VERSION_MINIMUM=3.10"
     "-DCMAKE_CXX_STANDARD=20"
     "-DIRT_ROOT_IO=OFF" # not needed for reconstruction
+    "-DJSON_IMPORT_EXPORT=ON"
   ];
 
   meta = with lib; {
