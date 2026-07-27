@@ -32,6 +32,8 @@ stdenv.mkDerivation (self: with self; {
     fi
     sed -i Plugins/DD4hep/include/ActsPlugins/DD4hep/DD4hepFieldAdapter.hpp \
       -e '1i#include <DD4hep/Fields.h>'
+    substituteInPlace CMakeLists.txt \
+      --replace-warn '_acts_edm4hep_version 0.' '_acts_edm4hep_version 1.0) #'
   '';
 
   nativeBuildInputs = [
