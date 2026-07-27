@@ -32,6 +32,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = [
     "-DCMAKE_CXX_STANDARD=20" # match dd4hep
+    "-DEPIC_VERSION_FULL=${version}"
   ];
 
   setupHook = ./setup-hook.sh;
