@@ -267,16 +267,16 @@
     "npsim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1753300761,
-        "narHash": "sha256-Wlu4/GNVeJPtHzXrUDGQWqy/GpDqYBQp8qtC00of1W0=",
+        "lastModified": 1784922224,
+        "narHash": "sha256-Mkt0Q2D9DC7jdFsRPJkwOf7xTUaevrdpubfCS5/4Luc=",
         "owner": "eic",
         "repo": "npsim",
-        "rev": "4df0a2b8c9415b5c0c87f56e34b5e475d04fd5b2",
+        "rev": "404336db1e4393d016053d521ed83be2459e8c7f",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v1.4.6",
+        "ref": "v1.7.0",
         "repo": "npsim",
         "type": "github"
       }

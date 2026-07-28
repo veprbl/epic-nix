@@ -74,7 +74,7 @@
     flake = false;
   };
   inputs.npsim-src = {
-    url = "github:eic/npsim/v1.4.6";
+    url = "github:eic/npsim/v1.7.0";
     flake = false;
   };
 
