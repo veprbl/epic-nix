@@ -15,6 +15,11 @@ stdenv.mkDerivation rec {
 
   src = algorithms-src;
 
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-warn 'find_package(EDM4HEP 0.4.1 REQUIRED)' 'find_package(EDM4HEP 1.0 REQUIRED)'
+  '';
+
   nativeBuildInputs = [
     cmake
   ];

@@ -26,7 +26,7 @@
     flake = false;
   };
   inputs.edm4hep-src = {
-    url = "github:key4hep/EDM4hep/v00-99-04";
+    url = "github:key4hep/EDM4hep/v01-00";
     flake = false;
   };
   inputs.epic-src = {
@@ -62,7 +62,7 @@
     flake = false;
   };
   inputs.juggler-src = {
-    url = "github:eic/juggler/v15.0.5";
+    url = "github:eic/juggler/v15.2.0";
     flake = false;
   };
   inputs.osg-ca-certs-src = {
@@ -70,7 +70,7 @@
     flake = false;
   };
   inputs.podio-src = {
-    url = "github:AIDASoft/podio/v01-06";
+    url = "github:AIDASoft/podio/v01-07";
     flake = false;
   };
   inputs.npsim-src = {
