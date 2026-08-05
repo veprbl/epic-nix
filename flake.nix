@@ -62,7 +62,7 @@
     flake = false;
   };
   inputs.juggler-src = {
-    url = "github:eic/juggler/v15.0.5";
+    url = "github:eic/juggler/v15.2.0";
     flake = false;
   };
   inputs.osg-ca-certs-src = {

@@ -236,16 +236,16 @@
     "juggler-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1764910583,
-        "narHash": "sha256-NsSGf/1ta89P+AYXXN0WIXkLdeS87mvS/EBS/karEqc=",
+        "lastModified": 1778593168,
+        "narHash": "sha256-prtt3806mBOsHwXUu0HkxQZFBW4qLsJ1bmJt3VSMO2I=",
         "owner": "eic",
         "repo": "juggler",
-        "rev": "94639d223e85e63876fd2ce7e06a64b8c1136158",
+        "rev": "61b81b234ad9b769b498313a70ff86fad7914916",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v15.0.5",
+        "ref": "v15.2.0",
         "repo": "juggler",
         "type": "github"
       }
