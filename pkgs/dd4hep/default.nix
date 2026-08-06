@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchpatch
+, fetchpatch2
 , dd4hep-src
 , assimp
 , boost
@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
 
   src = dd4hep-src;
 
-  patch = [
-    (fetchpatch {
-      url = "https://github.com/AIDASoft/DD4hep/commit/67b5fb4dac3cd032da99be61dc262b165f79d402.diff";
-      hash = "sha256-B95DvKg/HfmLjWFBicaiCPiinAIOkf6Le9dx1tN2DnU=";
+  patches = [
+    (fetchpatch2 {
+      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1627.patch";
+      hash = "sha256-yUqMFl0Jc4fKlT+MACPZAIkwFAmojNxVMejtn0cesRk=";
     })
   ];
 
