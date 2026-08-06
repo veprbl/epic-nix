@@ -30,7 +30,18 @@ final: prev: with final; {
 
   cgal_4 = callPackage pkgs/cgal/4.nix {};
 
-  epic = callPackage pkgs/epic { inherit epic-src; };
+  epic = callPackage pkgs/epic {
+    inherit epic-src epic-calibrations-cache;
+  };
+
+  epic-calibrations-cache = import pkgs/epic/calibrations-cache.nix {
+    lib = final.lib;
+    stdenv = final.stdenv;
+    inherit epic-src;
+    curl = final.curl;
+    cacert = final.cacert;
+    python3 = final.python3;
+  };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
 

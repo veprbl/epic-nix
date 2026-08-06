@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , epic-src
+, epic-calibrations-cache
 , cmake
 , dd4hep
 , fmt
@@ -34,6 +35,11 @@ stdenv.mkDerivation rec {
     "-DCMAKE_CXX_STANDARD=20" # match dd4hep
     "-DEPIC_VERSION_FULL=${version}"
   ];
+
+  postInstall = ''
+    mkdir -p $out/share/epic
+    ln -s ${epic-calibrations-cache}/share/epic/calibrations-cache $out/share/epic/calibrations-cache
+  '';
 
   setupHook = ./setup-hook.sh;
 
