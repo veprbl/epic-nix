@@ -70,6 +70,8 @@ final: prev: with final; {
     ];
   });
 
+  geant4-data = prev.geant4.data;
+
   hepmc3 = prev.hepmc3.overrideAttrs (old: {
       postPatch = old.postPatch or "" + ''
         substituteInPlace CMakeLists.txt \
