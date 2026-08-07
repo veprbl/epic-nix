@@ -112,7 +112,15 @@
             lib.filterAttrs (name: lib.isDerivation)
             (select_unbroken (lib.getAttrs providedPackageList pkgs)));
 
-      checks = self.packages;
+      checks = lib.genAttrs supportedSystems
+        (system:
+          let
+            pkgs = pkgsFor system;
+          in
+            self.packages.${system} // {
+              "epic.tests.ddsim" = pkgs.epic.tests.ddsim;
+            }
+        );
 
       # Default "development" shell provides all available packages (accessed via "nix develop")
       devShells = lib.genAttrs supportedSystems (system:

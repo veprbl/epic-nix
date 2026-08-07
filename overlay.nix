@@ -30,7 +30,18 @@ final: prev: with final; {
 
   cgal_4 = callPackage pkgs/cgal/4.nix {};
 
-  epic = callPackage pkgs/epic { inherit epic-src; };
+  epic = callPackage pkgs/epic {
+    inherit epic-src epic-calibrations-cache;
+  };
+
+  epic-calibrations-cache = import pkgs/epic/calibrations-cache.nix {
+    lib = final.lib;
+    stdenv = final.stdenv;
+    inherit epic-src;
+    curl = final.curl;
+    cacert = final.cacert;
+    python3 = final.python3;
+  };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
 
@@ -58,6 +69,8 @@ final: prev: with final; {
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
   });
+
+  geant4-data = prev.geant4.data;
 
   hepmc3 = prev.hepmc3.overrideAttrs (old: {
       postPatch = old.postPatch or "" + ''

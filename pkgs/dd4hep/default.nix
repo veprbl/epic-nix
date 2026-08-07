@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
 
   src = dd4hep-src;
 
-  patch = [
+  patches = [
     (fetchpatch {
-      url = "https://github.com/AIDASoft/DD4hep/commit/67b5fb4dac3cd032da99be61dc262b165f79d402.diff";
-      hash = "sha256-B95DvKg/HfmLjWFBicaiCPiinAIOkf6Le9dx1tN2DnU=";
+      url = "https://github.com/AIDASoft/DD4hep/commit/6708549deaaead880ccf46add81d61b23737a8dc.diff";
+      hash = "sha256-ujTZAlwsDXH6L/DHQbX3arIF0qyxn05nUXYiXYYX2fQ=";
     })
   ];
 
