@@ -89,10 +89,10 @@ final: prev: with final; {
   #llvm_20 = null;
   llvm_20 = prev.llvm_20.overrideAttrs (prev: {
     patches = prev.patches ++ [
-      (fetchpatch {
+      (fetchpatch2 {
         url = "https://github.com/llvm/llvm-project/pull/169772.diff";
         stripLen = 1;
-        hash = "sha256-JV/8Ued2p9z4tNbrdgN0IXb0vDYXwtNKZfZZaBU5GHk=";
+        hash = "sha256-tR2gmdp0jcuLjBmoNZHJfrgkRWfZy/SuE350qUGiSyM=";
       })
     ];
   });
