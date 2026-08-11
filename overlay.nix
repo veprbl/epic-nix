@@ -30,7 +30,18 @@ final: prev: with final; {
 
   cgal_4 = callPackage pkgs/cgal/4.nix {};
 
-  epic = callPackage pkgs/epic { inherit epic-src; };
+  epic = callPackage pkgs/epic {
+    inherit epic-src epic-calibrations-cache;
+  };
+
+  epic-calibrations-cache = import pkgs/epic/calibrations-cache.nix {
+    lib = final.lib;
+    stdenv = final.stdenv;
+    inherit epic-src;
+    curl = final.curl;
+    cacert = final.cacert;
+    python3 = final.python3;
+  };
 
   edm4eic = callPackage pkgs/edm4eic { inherit edm4eic-src; };
 
@@ -58,6 +69,8 @@ final: prev: with final; {
       "-DGEANT4_BUILD_TLS_MODEL=global-dynamic"
     ];
   });
+
+  geant4-data = prev.geant4.data;
 
   hepmc3 = prev.hepmc3.overrideAttrs (old: {
       postPatch = old.postPatch or "" + ''
@@ -89,10 +102,10 @@ final: prev: with final; {
   #llvm_20 = null;
   llvm_20 = prev.llvm_20.overrideAttrs (prev: {
     patches = prev.patches ++ [
-      (fetchpatch {
+      (fetchpatch2 {
         url = "https://github.com/llvm/llvm-project/pull/169772.diff";
         stripLen = 1;
-        hash = "sha256-JV/8Ued2p9z4tNbrdgN0IXb0vDYXwtNKZfZZaBU5GHk=";
+        hash = "sha256-tR2gmdp0jcuLjBmoNZHJfrgkRWfZy/SuE350qUGiSyM=";
       })
     ];
   });
