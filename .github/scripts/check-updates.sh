@@ -81,13 +81,39 @@ for entry in "${PACKAGES[@]}"; do
     sed -i "s|version = \"${current_version}|version = \"${latest_version}|" "$pkg_nix"
   fi
 
+  # 2b) Special case: epic also needs the calibrations cache hash updated
+  if [ "$pkg_dir" = "epic" ]; then
+    cache_nix="pkgs/epic/calibrations-cache.nix"
+    fake_hash="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    sed -i "s|outputHash = \"sha256-[^\"]*\";|outputHash = \"${fake_hash}\";|" "$cache_nix"
+
+    echo "  Prefetching epic-calibrations-cache hash for new source..."
+    set +e
+    prefetch_output=$(nix build ".#epic-calibrations-cache" --no-link 2>&1)
+    set -e
+
+    new_cache_hash=$(echo "$prefetch_output" | grep -oP 'got:\s+\Ksha256-[A-Za-z0-9+/=]+')
+    if [ -z "$new_cache_hash" ]; then
+      echo "  ERROR: Could not determine new epic-calibrations-cache hash."
+      echo "$prefetch_output"
+      exit 1
+    fi
+
+    sed -i "s|outputHash = \"${fake_hash}\";|outputHash = \"${new_cache_hash}\";|" "$cache_nix"
+    echo "  Updated epic-calibrations-cache hash to ${new_cache_hash}"
+  fi
+
   # 3) Build the package to update flake.lock and verify the build succeeds
   echo "  Building $pkg_dir to update flake.lock and verify..."
   nix build ".#$pkg_dir" --no-link
 
   # -- Commit, push, and open a PR ---------------------------------------------
   git checkout -b "$branch_name"
-  git add flake.nix flake.lock "$pkg_nix"
+  if [ "$pkg_dir" = "epic" ]; then
+    git add flake.nix flake.lock "$pkg_nix" pkgs/epic/calibrations-cache.nix
+  else
+    git add flake.nix flake.lock "$pkg_nix"
+  fi
   git commit -m "$pkg_dir: $current_version -> $latest_version"
   git push origin "$branch_name"
 
