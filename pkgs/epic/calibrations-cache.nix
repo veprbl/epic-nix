@@ -34,7 +34,7 @@ stdenv.mkDerivation {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = "sha256-MZaCmG9/s77cFjMbOw6WJtMHPhym/8A+yaz2U+8w6Xs=";
+  outputHash = "sha256-ImJTsTqjj6op6cy4kc0H+nDR1B55QnfsSVo51V36g2c=";
 
   meta = with lib; {
     description = "Pre-downloaded calibration files for the EPIC detector";
