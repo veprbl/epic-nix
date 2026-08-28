@@ -43,7 +43,8 @@ stdenv.mkDerivation rec {
   # See comment above
   postPatch = ''
     substituteInPlace cmake/podioMacros.cmake \
-      --replace "\''${Python_EXECUTABLE}" "${python}/bin/python"
+      --replace "\''${Python_EXECUTABLE}" "${python}/bin/python" \
+      --replace "\''${Python3_EXECUTABLE}" "${python}/bin/python"
 
     patchShebangs --host tools/ python/
     patchShebangs --build tests/
