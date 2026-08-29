@@ -18,6 +18,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace-warn 'find_package(EDM4HEP 0.4.1 REQUIRED)' 'find_package(EDM4HEP 1.0 REQUIRED)'
+    substituteInPlace truth/src/ParticlesWithTruthPID.cpp \
+      --replace-warn 'rec_part.referencePoint()' 'rec_part.getReferencePoint()' \
+      --replace-warn 'rec_assoc.setRecID(rec_part.getObjectID().index)' 'rec_assoc.setRec(rec_part)' \
+      --replace-warn 'rec_assoc.setSimID(mc[best_match].getObjectID().index)' 'rec_assoc.setSim(mc[best_match])'
   '';
 
   nativeBuildInputs = [
