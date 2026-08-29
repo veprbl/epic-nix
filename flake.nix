@@ -49,6 +49,10 @@
     url = "github:eic/HEPMC_Merger/v2.3.0";
     flake = false;
   };
+  inputs.k4bench-src = {
+    url = "github:key4hep/k4Bench";
+    flake = false;
+  };
   inputs.irt-src = {
     url = "github:eic/irt/v1.0.6";
     flake = false;

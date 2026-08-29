@@ -250,6 +250,22 @@
         "type": "github"
       }
     },
+    "k4bench-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787953357,
+        "narHash": "sha256-tuqhm3Deg1N0/qwj4RtpOkHkGP9hiZ/gNaUSWvVcuD8=",
+        "owner": "key4hep",
+        "repo": "k4Bench",
+        "rev": "7e84c657e4a0f396313a4ce3cf2d11aaedef8c8a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "key4hep",
+        "repo": "k4Bench",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1780951318,
@@ -332,6 +348,7 @@
         "irt2-src": "irt2-src",
         "jana2-src": "jana2-src",
         "juggler-src": "juggler-src",
+        "k4bench-src": "k4bench-src",
         "nixpkgs": "nixpkgs",
         "npsim-src": "npsim-src",
         "osg-ca-certs-src": "osg-ca-certs-src",
