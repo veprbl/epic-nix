@@ -301,16 +301,16 @@
     "podio-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1768471533,
-        "narHash": "sha256-BD7PI6t0E5rM0RB6LQ2fLCR6pPgXhzrIkuDtWwDBAQU=",
+        "lastModified": 1787920190,
+        "narHash": "sha256-+yoQ7oPaZIsjGw4H+ZEyGxZEm8fAGknK7F3H5MO0rmQ=",
         "owner": "AIDASoft",
         "repo": "podio",
-        "rev": "ec083255b4f0a8bca8f6eff9e58559e2e6cb10bc",
+        "rev": "3084d492613576f8810d2ee14d81ea3de17d6b82",
         "type": "github"
       },
       "original": {
         "owner": "AIDASoft",
-        "ref": "v01-07",
+        "ref": "v01-08",
         "repo": "podio",
         "type": "github"
       }
