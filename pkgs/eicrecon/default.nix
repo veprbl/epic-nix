@@ -52,7 +52,9 @@ stdenv.mkDerivation rec {
     fi
   '' + lib.optionalString stdenv.isDarwin ''
     # loading plugins several times does not work on macOS
-    : > src/tests/omnifactory_test/CMakeLists.txt
+    if [ -e src/tests/omnifactory_test/CMakeLists.txt ]; then
+      : > src/tests/omnifactory_test/CMakeLists.txt
+    fi
   '';
 
   nativeBuildInputs = [
