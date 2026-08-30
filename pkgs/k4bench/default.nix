@@ -3,7 +3,9 @@
 , python3Packages
 , cmake
 , dd4hep
+, edm4hep
 , geant4
+, podio
 , root
 , time
 , makeWrapper
@@ -23,6 +25,7 @@ let
       eval "$(grep -E '^\s*export G4' "''$pkg/nix-support/setup-hook")"
     done
     source ${dd4hep}/bin/thisdd4hep.sh
+    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ dd4hep edm4hep podio ]}:''${LD_LIBRARY_PATH:-}"
   '';
 in
 
@@ -52,6 +55,8 @@ python3Packages.buildPythonApplication rec {
 
   buildInputs = [
     dd4hep
+    edm4hep
+    podio
   ] ++ geant4DataPackages;
 
   # Build the DD4hep timing plugins and install them into the path expected by
