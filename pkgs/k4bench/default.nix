@@ -26,6 +26,8 @@ python3Packages.buildPythonApplication rec {
       --replace 'executable="/bin/bash"' 'executable="${stdenv.shell}"'
   '';
 
+  patches = [ ./resolve-env-vars.patch ];
+
   build-system = with python3Packages; [ setuptools setuptools-scm ];
   dependencies = with python3Packages; [ pandas plotly requests ];
 
