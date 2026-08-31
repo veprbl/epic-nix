@@ -19,7 +19,9 @@ in
 
 python3Packages.buildPythonApplication rec {
   pname = "k4bench";
-  version = "0.0.0+g${k4bench-src.shortRev or "dirty"}";
+  version = "0.0.0.${k4bench-src.shortRev or "dirty"}";
+
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = "0.0.0+g${k4bench-src.shortRev or "dirty"}";
   pyproject = true;
 
   src = k4bench-src;
