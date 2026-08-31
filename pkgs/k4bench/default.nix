@@ -4,18 +4,11 @@
 , cmake
 , dd4hep
 , edm4hep
-, geant4
 , podio
 , time
 , makeWrapper
 , k4bench-src
 }:
-
-let
-  geant4DataPackages = lib.attrValues (
-    lib.filterAttrs (n: v: lib.isDerivation v) geant4.data
-  );
-in
 
 python3Packages.buildPythonApplication rec {
   pname = "k4bench";
@@ -47,7 +40,7 @@ python3Packages.buildPythonApplication rec {
     dd4hep
     edm4hep
     podio
-  ] ++ geant4DataPackages;
+  ];
 
   # Build the DD4hep timing plugins and install them into the path expected by
   # k4bench/plugin/runtime.py (plugin/install/lib or plugin/build).
