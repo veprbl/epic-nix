@@ -6,10 +6,8 @@
 , edm4hep
 , geant4
 , podio
-, root
 , time
 , makeWrapper
-, writeShellScript
 , k4bench-src
 }:
 
@@ -17,16 +15,6 @@ let
   geant4DataPackages = lib.attrValues (
     lib.filterAttrs (n: v: lib.isDerivation v) geant4.data
   );
-  geant4DataPathsStr = lib.concatStringsSep " " geant4DataPackages;
-  setupEnv = writeShellScript "k4bench-setup-env" ''
-    source ${root}/bin/thisroot.sh
-    source ${geant4}/bin/geant4.sh
-    for pkg in ${geant4DataPathsStr}; do
-      eval "$(grep -E '^\s*export G4' "''$pkg/nix-support/setup-hook")"
-    done
-    source ${dd4hep}/bin/thisdd4hep.sh
-    export LD_LIBRARY_PATH="${lib.makeLibraryPath [ dd4hep edm4hep podio ]}:''${LD_LIBRARY_PATH:-}"
-  '';
 in
 
 python3Packages.buildPythonApplication rec {
@@ -75,14 +63,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   postFixup = ''
-    # k4bench invokes ddsim, which expects the ROOT/Geant4/DD4hep environment
-    # that is normally set up by sourcing thisroot.sh, geant4.sh (with data
-    # environment variables) and thisdd4hep.sh. The Python wrapper created by
-    # buildPythonApplication already sets PYTHONPATH for k4bench; re-wrap it to
-    # source the setup scripts before launching.
-    mv $out/bin/k4bench $out/bin/.k4bench-wrapped-app
-    makeShellWrapper $out/bin/.k4bench-wrapped-app $out/bin/k4bench \
-      --run ". ${setupEnv}" \
+    wrapProgram $out/bin/k4bench \
       --prefix PATH : "${lib.makeBinPath [ time ]}"
   '';
 
