@@ -7,6 +7,7 @@
 , eicrecon-src
 , geant4-src
 , hepmcmerger-src
+, k4bench-src
 , irt-src
 , irt2-src
 , jana2-src
@@ -94,6 +95,8 @@ final: prev: with final; {
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
 
   juggler = callPackage pkgs/juggler { inherit juggler-src; };
+
+  k4bench = callPackage pkgs/k4bench { inherit k4bench-src; };
 
   k4FWCore = callPackage pkgs/k4FWCore {};
 
