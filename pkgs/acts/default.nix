@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation (self: with self; {
   pname = "acts";
-  version = "44.4.0.${acts-src.shortRev or "dirty"}";
+  version = "46.8.1.${acts-src.shortRev or "dirty"}";
 
   src = acts-src;
 
@@ -49,6 +49,7 @@ stdenv.mkDerivation (self: with self; {
     hepmc3
     nlohmann_json
     python3
+    python3.pkgs.hatchling
     python3.pkgs.numpy
     python3.pkgs.particle
     python3.pkgs.pybind11
