@@ -21,6 +21,19 @@ stdenv.mkDerivation (self: with self; {
   src = acts-src;
 
   postPatch = ''
+    if [ -f cmake/ActsCodegen.cmake ]; then
+      substituteInPlace cmake/ActsCodegen.cmake \
+        --replace-warn 'if(uv_exe STREQUAL "uv_exe-NOTFOUND")' 'if(FALSE)' \
+        --replace-warn '${"$"}{ARGS_PYTHON_VERSION}' '${python3.interpreter}' \
+        --replace-warn 'env -i ''${uv_exe} run --quiet --python' "" \
+        --replace-warn 'env -i UV_NO_CACHE=1 ''${uv_exe} run --quiet --python' "" \
+        --replace-warn '--no-project ''${_arg_isolated} ''${_with_args}' ""
+      export PYTHONPATH="$PWD/codegen/src:$PYTHONPATH"
+    fi
+    sed -i Plugins/DD4hep/include/ActsPlugins/DD4hep/DD4hepFieldAdapter.hpp \
+      -e '1i#include <DD4hep/Fields.h>'
+    substituteInPlace CMakeLists.txt \
+      --replace-warn '_acts_edm4hep_version 0.' '_acts_edm4hep_version 1.0) #'
   '';
 
   nativeBuildInputs = [
@@ -67,7 +80,7 @@ stdenv.mkDerivation (self: with self; {
     "-DACTS_USE_SYSTEM_PYBIND11=ON"
     "-DACTS_USE_SYSTEM_LIBS=ON"
     "-DFETCHCONTENT_SOURCE_DIR_DFELIBS=${dfelibs}"
-    "-DPython_FIND_FRAMEWORK=NEVER"
+    "-DPython_FIND_FRAMEWORK=NEVER" # fix for missing sandboxing on GitHub actions
   ];
 
   postInstall = ''
