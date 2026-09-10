@@ -29,6 +29,10 @@
     url = "github:key4hep/EDM4hep/v01-01";
     flake = false;
   };
+  inputs.epic-calibrations-cache-src = {
+    url = "github:eic/epic/26.08.0";
+    flake = false;
+  };
   inputs.epic-src = {
     url = "github:eic/epic/26.08.0";
     flake = false;

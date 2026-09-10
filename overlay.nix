@@ -4,6 +4,7 @@
 , edm4eic-src
 , edm4hep-src
 , epic-src
+, epic-calibrations-cache-src
 , eicrecon-src
 , geant4-src
 , hepmcmerger-src
@@ -37,7 +38,7 @@ final: prev: with final; {
   epic-calibrations-cache = import pkgs/epic/calibrations-cache.nix {
     lib = final.lib;
     stdenv = final.stdenv;
-    inherit epic-src;
+    inherit epic-calibrations-cache-src;
     curl = final.curl;
     cacert = final.cacert;
     python3 = final.python3;
