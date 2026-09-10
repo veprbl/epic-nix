@@ -115,6 +115,23 @@
         "type": "github"
       }
     },
+    "epic-calibrations-cache-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786397022,
+        "narHash": "sha256-FfxSlecLCh75HxDC7ujuoeczDQFegp3GNEQsKQ+uhj8=",
+        "owner": "eic",
+        "repo": "epic",
+        "rev": "27129b3f6d398fc97ffb9c6914ff5bf6def6ed21",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "26.08.0",
+        "repo": "epic",
+        "type": "github"
+      }
+    },
     "epic-src": {
       "flake": false,
       "locked": {
@@ -324,6 +341,7 @@
         "edm4hep-src": "edm4hep-src",
         "eic-rucio-policy-package-src": "eic-rucio-policy-package-src",
         "eicrecon-src": "eicrecon-src",
+        "epic-calibrations-cache-src": "epic-calibrations-cache-src",
         "epic-src": "epic-src",
         "flake-compat": "flake-compat",
         "geant4-src": "geant4-src",

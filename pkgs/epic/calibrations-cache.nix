@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, epic-src
+, epic-calibrations-cache-src
 , curl
 , cacert
 , python3
@@ -8,9 +8,9 @@
 
 stdenv.mkDerivation {
   pname = "epic-calibrations-cache";
-  version = epic-src.shortRev or "dirty";
+  version = epic-calibrations-cache-src.shortRev or "dirty";
 
-  src = epic-src;
+  src = epic-calibrations-cache-src;
 
   nativeBuildInputs = [
     curl
