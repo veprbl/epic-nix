@@ -27,8 +27,8 @@ stdenv.mkDerivation rec {
 
   patches = [
     (fetchpatch2 {
-      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1627.patch";
-      hash = "sha256-yUqMFl0Jc4fKlT+MACPZAIkwFAmojNxVMejtn0cesRk=";
+      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1627.diff";
+      hash = "sha256-M+MDd1F+IC4bvEnXIgXFKn9/qFvWulUu48Zi1Ybw8U8=";
     })
   ];
 
