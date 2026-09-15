@@ -15,7 +15,7 @@
 
 stdenv.mkDerivation rec {
   pname = "npsim";
-  version = "1.7.0";
+  version = "1.9.0";
 
   src = npsim-src;
 
