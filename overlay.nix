@@ -16,6 +16,7 @@
 , eic-rucio-policy-package-src
 , osg-ca-certs-src
 , podio-src
+, timeframebuilder-src
 , ...
 }:
 
@@ -99,6 +100,8 @@ final: prev: with final; {
   k4FWCore = callPackage pkgs/k4FWCore {};
 
   npsim = callPackage pkgs/npsim { inherit npsim-src; };
+
+  timeframebuilder = callPackage pkgs/timeframebuilder { inherit timeframebuilder-src; };
 
   #llvm_20 = null;
   llvm_20 = prev.llvm_20.overrideAttrs (prev: {

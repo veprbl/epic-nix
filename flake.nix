@@ -81,6 +81,10 @@
     url = "github:eic/npsim/v1.9.0";
     flake = false;
   };
+  inputs.timeframebuilder-src = {
+    url = "github:eic/TimeframeBuilder/v0.9.1";
+    flake = false;
+  };
 
   outputs = { self, nixpkgs, site-overlay, ... }@inputs:
     let
@@ -93,7 +97,7 @@
         overlays = [ self.overlays.default ];
         # Will assume that the flake user agrees to use non-free EIC software
         config.allowUnfreePredicate = pkg:
-          (builtins.elem pkg.pname [ "afterburner" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" ]);
+          (builtins.elem pkg.pname [ "afterburner" "eic-smear" "epic" "hepmcmerger" "npdet" "npsim" "osg-ca-certs" "timeframebuilder" ]);
       };
 
     in

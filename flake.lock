@@ -354,7 +354,8 @@
         "npsim-src": "npsim-src",
         "osg-ca-certs-src": "osg-ca-certs-src",
         "podio-src": "podio-src",
-        "site-overlay": "site-overlay"
+        "site-overlay": "site-overlay",
+        "timeframebuilder-src": "timeframebuilder-src"
       }
     },
     "site-overlay": {
@@ -369,6 +370,23 @@
       "original": {
         "owner": "veprbl",
         "repo": "empty-overlay-flake",
+        "type": "github"
+      }
+    },
+    "timeframebuilder-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1784747410,
+        "narHash": "sha256-OSVVCnysWFBm8x0OpULxoQH+KBUnMsTuBfN7jaDIORA=",
+        "owner": "eic",
+        "repo": "TimeframeBuilder",
+        "rev": "eb697d3f06b82d7a47a58ec43f64ac093f78606f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "eic",
+        "ref": "v0.9.1",
+        "repo": "TimeframeBuilder",
         "type": "github"
       }
     }
