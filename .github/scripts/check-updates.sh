@@ -34,7 +34,8 @@ get_current_flake_tag() {
   local input_name="$1"
   local github_owner_repo="$2"
   # The flake input URL is on its own line:  url = "github:<owner>/<repo>/<tag>";
-  sed -n 's|.*url = "github:'"${github_owner_repo}"'/\([^"]*\)";.*|\1|p' flake.nix
+  # e.g. eic/epic appears twice (epic-src and epic-calibrations-cache-src), keep the first match.
+  sed -n 's|.*url = "github:'"${github_owner_repo}"'/\([^"]*\)";.*|\1|p' flake.nix | head -n1
 }
 
 # -- Main loop -----------------------------------------------------------------
