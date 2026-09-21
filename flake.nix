@@ -30,11 +30,11 @@
     flake = false;
   };
   inputs.epic-calibrations-cache-src = {
-    url = "github:eic/epic/26.08.0";
+    url = "github:eic/epic/26.09.0";
     flake = false;
   };
   inputs.epic-src = {
-    url = "github:eic/epic/26.08.0";
+    url = "github:eic/epic/26.09.0";
     flake = false;
   };
   inputs.eic-rucio-policy-package-src = {
