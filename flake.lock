@@ -118,16 +118,16 @@
     "epic-calibrations-cache-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1789767623,
-        "narHash": "sha256-dCHNQe57FvWzdZMsCMXmea1gtJU6Tvt2BgqXiM7nJvw=",
+        "lastModified": 1790266968,
+        "narHash": "sha256-j3Y99rNwCKM/AMSSJkhZN6XrfcPwXAnOnSe/ZlvVU3k=",
         "owner": "eic",
         "repo": "epic",
-        "rev": "ec61a2b62cafe5e2bef315a591fe0a60aa062f2f",
+        "rev": "f9617538a4c1ca2a90d896f33e25092bd185ff2b",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "26.09.0",
+        "ref": "26.10.0",
         "repo": "epic",
         "type": "github"
       }
@@ -135,16 +135,16 @@
     "epic-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1789767623,
-        "narHash": "sha256-dCHNQe57FvWzdZMsCMXmea1gtJU6Tvt2BgqXiM7nJvw=",
+        "lastModified": 1790266968,
+        "narHash": "sha256-j3Y99rNwCKM/AMSSJkhZN6XrfcPwXAnOnSe/ZlvVU3k=",
         "owner": "eic",
         "repo": "epic",
-        "rev": "ec61a2b62cafe5e2bef315a591fe0a60aa062f2f",
+        "rev": "f9617538a4c1ca2a90d896f33e25092bd185ff2b",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "26.09.0",
+        "ref": "26.10.0",
         "repo": "epic",
         "type": "github"
       }
