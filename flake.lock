@@ -219,16 +219,16 @@
     "irt2-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1784221069,
-        "narHash": "sha256-ZkeUzDhfR9ixUKlWAle7BqSq6wz2/YB1F9vKJymbYwA=",
+        "lastModified": 1790978825,
+        "narHash": "sha256-hq5LqY1bEk0N84i+Fq6CjPOrTACBsEw+YApr4K4Cb8Y=",
         "owner": "eic",
         "repo": "irt",
-        "rev": "9dbd5c5d0885bbd1108cbfcf2e53f9f6dbc49878",
+        "rev": "1479e6079cbe79f02afcbaba3b70be358c1962e7",
         "type": "github"
       },
       "original": {
         "owner": "eic",
-        "ref": "v2.2.0",
+        "ref": "v2.2.3",
         "repo": "irt",
         "type": "github"
       }
