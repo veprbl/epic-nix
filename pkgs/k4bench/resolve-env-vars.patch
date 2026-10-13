@@ -1,0 +1,30 @@
+diff --git a/k4bench/geometry/references.py b/k4bench/geometry/references.py
+--- a/k4bench/geometry/references.py
++++ b/k4bench/geometry/references.py
+@@ -1,6 +1,7 @@
+ """Shared rules for DD4hep filesystem and document references."""
+ 
+ from __future__ import annotations
++import os
+ 
+ from pathlib import Path
+ from xml.dom import minidom
+@@ -13,10 +14,15 @@
+ def resolve_local_ref(ref: str, base: Path) -> Path | None:
+     """Return where a local filesystem ref points, or ``None`` if unresolved.
+ 
+-    An empty ref or one carrying ``$`` is deliberately left to ddsim. Checking
+-    the raw value makes indexing deterministic regardless of the environment.
++    Expand environment variables that are present in the surrounding shell,
++    then fall back to leaving unresolved refs for ddsim. This is needed for
++    geometries such as EPIC that use ``$DETECTOR_PATH`` and ``$DD4hepINSTALL``
++    includes.
+     """
+-    if not ref or "$" in ref:
++    if not ref:
++        return None
++    ref = os.path.expandvars(ref)
++    if "$" in ref:
+         return None
+     path = Path(ref)
+     return (path if path.is_absolute() else base / path).resolve()
