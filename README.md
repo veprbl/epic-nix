@@ -52,3 +52,19 @@ git clone https://github.com/veprbl/epic-nix.git
 cd epic-nix
 nix develop
 ```
+
+Agent skill
+-----------
+
+[`skills/epic-nix/SKILL.md`](skills/epic-nix/SKILL.md) is an [Agent
+Skill](https://agentskills.io) that teaches coding agents how to use this
+flake: overriding package sources with `--override-input` (local checkouts,
+branches, pull requests), estimating rebuild cost, and running an npsim +
+EICrecon chain. It is picked up automatically by agents that read
+`.agents/skills/` when working inside this repository. To use it elsewhere,
+link it into your user skill directory:
+
+```shell
+mkdir -p ~/.agents/skills
+ln -s "$PWD/skills/epic-nix" ~/.agents/skills/epic-nix  # or ~/.claude/skills/epic-nix
+```
