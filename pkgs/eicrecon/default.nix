@@ -29,11 +29,13 @@
 
 stdenv.mkDerivation rec {
   pname = "EICrecon";
-  version = "1.41.0-${eicrecon-src.shortRev or "dirty"}";
+  version = "1.42.0-${eicrecon-src.shortRev or "dirty"}";
 
   src = eicrecon-src;
 
   postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace-warn 'set(algorithms_VERSION_MIN 1.0.0)' 'set(algorithms_VERSION_MIN 2.0.0)'
     echo 'plugin_add_algorithms(''${PLUGIN_NAME})' >> src/algorithms/digi/CMakeLists.txt
     echo '#include <JANA/JApplication.h>' >> src/services/geometry/dd4hep/DD4hep_service.h
     substituteInPlace cmake/jana_plugin.cmake \

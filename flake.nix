@@ -14,7 +14,7 @@
     flake = false;
   };
   inputs.algorithms-src = {
-    url = "github:eic/algorithms/v1.0.0";
+    url = "github:eic/algorithms/v2.1.0";
     flake = false;
   };
   inputs.dd4hep-src = {
@@ -42,7 +42,7 @@
     flake = false;
   };
   inputs.eicrecon-src = {
-    url = "github:eic/EICrecon/v1.41.0";
+    url = "github:eic/EICrecon/v1.42.0";
     flake = false;
   };
   inputs.geant4-src = {
