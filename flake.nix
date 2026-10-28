@@ -65,10 +65,6 @@
     url = "github:JeffersonLab/JANA2/v2026.03.00";
     flake = false;
   };
-  inputs.juggler-src = {
-    url = "github:eic/juggler/v15.2.0";
-    flake = false;
-  };
   inputs.osg-ca-certs-src = {
     url = "github:opensciencegrid/osg-certificates/v1.144.igtf.1.144";
     flake = false;

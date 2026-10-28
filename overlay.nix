@@ -11,7 +11,6 @@
 , irt-src
 , irt2-src
 , jana2-src
-, juggler-src
 , npsim-src
 , eic-rucio-policy-package-src
 , osg-ca-certs-src
@@ -59,8 +58,6 @@ final: prev: with final; {
 
   rucio-etc = callPackage pkgs/rucio-etc {};
 
-  gaudi = callPackage pkgs/gaudi {};
-
   geant4 = (prev.geant4.override {
     enableQt = true;
   }).overrideAttrs (prev: rec {
@@ -94,10 +91,6 @@ final: prev: with final; {
   irt2 = callPackage pkgs/irt2 { inherit irt2-src; };
 
   jana2 = callPackage pkgs/jana2 { inherit jana2-src; };
-
-  juggler = callPackage pkgs/juggler { inherit juggler-src; };
-
-  k4FWCore = callPackage pkgs/k4FWCore {};
 
   npsim = callPackage pkgs/npsim { inherit npsim-src; };
 
