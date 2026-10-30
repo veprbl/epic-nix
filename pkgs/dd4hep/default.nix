@@ -1,6 +1,5 @@
 { lib
 , stdenv
-, fetchpatch2
 , dd4hep-src
 , assimp
 , boost
@@ -21,16 +20,9 @@
 
 stdenv.mkDerivation rec {
   pname = "DD4hep";
-  version = "01-36.${dd4hep-src.shortRev or "dirty"}";
+  version = "01-38.${dd4hep-src.shortRev or "dirty"}";
 
   src = dd4hep-src;
-
-  patches = [
-    (fetchpatch2 {
-      url = "https://patch-diff.githubusercontent.com/raw/AIDASoft/DD4hep/pull/1627.diff";
-      hash = "sha256-M+MDd1F+IC4bvEnXIgXFKn9/qFvWulUu48Zi1Ybw8U8=";
-    })
-  ];
 
   postPatch = ''
     patchShebangs --host .
