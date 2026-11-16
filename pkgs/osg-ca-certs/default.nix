@@ -2,28 +2,21 @@
   lib,
   stdenv,
   osg-ca-certs-src,
+  letsencrypt-certificates-src,
   fetchurl,
-  fetchFromGitHub,
   openssl,
   perl,
 }:
 
 let
   igtfSrc = fetchurl {
-    url = "https://dist.eugridpma.info/distribution/igtf/1.144/igtf-policy-installation-bundle-1.144.tar.gz";
-    sha256 = "19q4wcdcy2m0b634yqbajqii5k7yz93xnnp8pjvj4zklnc85cl4h";
-  };
-
-  cilogonSrc = fetchFromGitHub {
-    owner = "cilogon";
-    repo = "letsencrypt-certificates";
-    rev = "v0.6.0";
-    sha256 = "FHIVEUahlzyhrxZ4Dnhfq2A27appaNhP1lXHcrMJk6E=";
+    url = "https://dist.eugridpma.info/distribution/igtf/1.148/igtf-policy-installation-bundle-1.148.tar.gz";
+    sha256 = "0qm22gzdx9hi1g0a0jp28q4084j7bdhll3pplc84q47wihzgkpyd";
   };
 in
 stdenv.mkDerivation rec {
   pname = "osg-ca-certs";
-  version = "1.144";
+  version = "1.148";
 
   src = osg-ca-certs-src;
 
@@ -49,11 +42,12 @@ stdenv.mkDerivation rec {
     rm -rf letsencrypt-certificates
     mkdir letsencrypt-certificates
 
-    # Copy all PEMs from the GitHub source (includes new YE/YR certificates).
-    cp ${osg-ca-certs-src}/letsencrypt-certificates/*.pem letsencrypt-certificates/
+    # Copy all PEMs from the letsencrypt-certificates repo (upstream ships them
+    # as a git submodule since 1.146; the flake input pins the submodule rev).
+    cp ${letsencrypt-certificates-src}/*.pem letsencrypt-certificates/
 
     # Copy metadata files from cilogon for the certs it knows about.
-    cp ${cilogonSrc}/*.signing_policy ${cilogonSrc}/*.crl_url letsencrypt-certificates/ 2>/dev/null || true
+    cp ${letsencrypt-certificates-src}/*.signing_policy ${letsencrypt-certificates-src}/*.crl_url letsencrypt-certificates/ 2>/dev/null || true
 
     # Generate missing signing_policy and crl_url metadata for the remaining
     # Let's Encrypt certificates (E5-R14, ISRG Root X2) so the resulting
