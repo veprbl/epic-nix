@@ -14,6 +14,7 @@
 , npsim-src
 , eic-rucio-policy-package-src
 , osg-ca-certs-src
+, letsencrypt-certificates-src
 , podio-src
 , timeframebuilder-src
 , ...
@@ -135,7 +136,7 @@ final: prev: with final; {
   };
 
   osg-ca-certs = callPackage pkgs/osg-ca-certs {
-    inherit osg-ca-certs-src;
+    inherit osg-ca-certs-src letsencrypt-certificates-src;
   };
 
   podio = callPackage pkgs/podio { inherit podio-src; };

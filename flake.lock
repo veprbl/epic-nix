@@ -250,6 +250,23 @@
         "type": "github"
       }
     },
+    "letsencrypt-certificates-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1787250475,
+        "narHash": "sha256-lFZRNTx1Mz+noB/tCQ/axfuL2Y4f06G5BojPiWAulSg=",
+        "owner": "opensciencegrid",
+        "repo": "letsencrypt-certificates",
+        "rev": "0e93b0d850be4b88277ae7b561e3f61a2d5b3bec",
+        "type": "github"
+      },
+      "original": {
+        "owner": "opensciencegrid",
+        "repo": "letsencrypt-certificates",
+        "rev": "0e93b0d850be4b88277ae7b561e3f61a2d5b3bec",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1780951318,
@@ -284,16 +301,16 @@
     "osg-ca-certs-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1784659874,
-        "narHash": "sha256-6XnBFhF0XsFNjyv77/uqOh/7wrAy0MxOQroGurmpEtE=",
+        "lastModified": 1794610325,
+        "narHash": "sha256-Gk/lDRYcmKFKSHJP+AU3074r+woB/Liue/caSxADlKE=",
         "owner": "opensciencegrid",
         "repo": "osg-certificates",
-        "rev": "0b3f52a64c467c2b9ea40609d8f940c616e923be",
+        "rev": "ef93c02ace5b87230701ed74ae9ea56fe2e41ae6",
         "type": "github"
       },
       "original": {
         "owner": "opensciencegrid",
-        "ref": "v1.144.igtf.1.144",
+        "ref": "v1.148.igtf.1.148",
         "repo": "osg-certificates",
         "type": "github"
       }
@@ -332,6 +349,7 @@
         "irt-src": "irt-src",
         "irt2-src": "irt2-src",
         "jana2-src": "jana2-src",
+        "letsencrypt-certificates-src": "letsencrypt-certificates-src",
         "nixpkgs": "nixpkgs",
         "npsim-src": "npsim-src",
         "osg-ca-certs-src": "osg-ca-certs-src",

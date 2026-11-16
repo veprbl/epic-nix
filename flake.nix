@@ -66,7 +66,11 @@
     flake = false;
   };
   inputs.osg-ca-certs-src = {
-    url = "github:opensciencegrid/osg-certificates/v1.144.igtf.1.144";
+    url = "github:opensciencegrid/osg-certificates/v1.148.igtf.1.148";
+    flake = false;
+  };
+  inputs.letsencrypt-certificates-src = {
+    url = "github:opensciencegrid/letsencrypt-certificates/0e93b0d850be4b88277ae7b561e3f61a2d5b3bec";
     flake = false;
   };
   inputs.podio-src = {
